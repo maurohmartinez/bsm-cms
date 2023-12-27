@@ -53,6 +53,10 @@
         }
     },
     "config": {
+        "platform": {
+            "php": "8.1.0",
+            "ext-imagick": "3.7.0"
+        },
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
