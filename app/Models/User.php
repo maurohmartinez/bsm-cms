@@ -10,6 +10,7 @@ class User extends Authenticatable
     use \Illuminate\Notifications\Notifiable;
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
     use \Laravel\Sanctum\HasApiTokens;
+    use \Illuminate\Database\Eloquent\SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -19,6 +20,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
+        'phone',
         'password',
     ];
 
