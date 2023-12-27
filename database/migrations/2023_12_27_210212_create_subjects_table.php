@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('year');
             $table->integer('hours')->unsigned();
             $table->boolean('is_official');
+            $table->text('notes')->nullable();
+            $table->json('files')->nullable();
             $table->foreignId('teacher_id');
             $table->foreignId('category_id');
             $table->timestamps();

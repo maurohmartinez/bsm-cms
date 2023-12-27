@@ -27,7 +27,6 @@ class TeacherRequest extends FormRequest
             'email' => 'required|email|unique:teachers,email',
             'country' => 'required|in:'.implode(',', array_keys(CountriesService::getCountries())),
             'phone' => 'required|phone',
-            'image' => 'required|file',
             'language' => 'required|in:'.LanguagesEnum::toString(),
         ];
     }

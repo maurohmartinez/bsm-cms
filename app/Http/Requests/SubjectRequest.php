@@ -25,6 +25,8 @@ class SubjectRequest extends FormRequest
             'name' => 'required|string',
             'year' => 'required|in:'.SubjectYearEnum::toString(),
             'hours' => 'required|numeric',
+            'notes' => 'sometimes|nullable|max:2000',
+            'files.*' => 'required|file',
             'is_official' => 'required|boolean',
             'teacher_id' => 'required|exists:teachers,id',
         ];

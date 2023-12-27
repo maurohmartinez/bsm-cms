@@ -21,7 +21,6 @@ class Teacher extends Model
         'name',
         'email',
         'phone',
-        'image',
         'country',
         'language',
     ];

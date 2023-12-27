@@ -25,6 +25,8 @@ class SubjectFactory extends Factory
             'is_official' => $this->faker->boolean(),
             'teacher_id' => \App\Models\Teacher::factory(),
             'category_id' => \App\Models\SubjectCategory::factory(),
+            'notes' => $this->faker->paragraph(),
+            'files' => null,
         ];
     }
 }

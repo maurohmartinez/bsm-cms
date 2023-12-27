@@ -23,6 +23,8 @@ class Subject extends Model
         'year',
         'hours',
         'is_official',
+        'notes',
+        'files',
         'teacher_id',
         'category_id',
     ];
@@ -37,6 +39,7 @@ class Subject extends Model
         'is_official' => 'boolean',
         'teacher_id' => 'integer',
         'year' => SubjectYearEnum::class,
+        'files' => 'array',
     ];
 
     protected $appends = ['full_name'];
