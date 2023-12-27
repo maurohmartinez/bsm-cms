@@ -29,8 +29,8 @@ return new class extends Migration
                     'country' => 'LV',
                     'language' => LanguagesEnum::RUSSIAN->value,
                 ], [
-                    'name' => 'Mark Zdiverts',
-                    'email' => 'mark@gmail.com',
+                    'name' => 'Mārcis Zīverts',
+                    'email' => 'marcis@gmail.com',
                     'phone' => '+37127710615',
                     'image' => '/',
                     'country' => 'LV',

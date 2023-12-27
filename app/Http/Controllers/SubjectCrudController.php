@@ -17,7 +17,6 @@ class SubjectCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 
     /**
@@ -42,7 +41,8 @@ class SubjectCrudController extends CrudController
     protected function setupListOperation(): void
     {
         CRUD::column('name');
-        CRUD::column('year');
+        CRUD::column('year')->type('enum');
+        CRUD::column('teacher');
         CRUD::column('hours');
     }
 
@@ -58,7 +58,7 @@ class SubjectCrudController extends CrudController
         CRUD::setValidation(SubjectRequest::class);
 
         CRUD::field('name')->size(6);
-        CRUD::field('code')->size(6);
+        CRUD::field('year')->size(6)->type('enum');
         CRUD::field('hours')->size(6)->type('number');
         CRUD::field('teacher_id')->size(6)->type('relationship');
         CRUD::field('category_id')->size(6)->type('relationship')->attribute('full_name');

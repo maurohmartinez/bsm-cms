@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\SubjectYearEnum;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -35,6 +36,7 @@ class Subject extends Model
         'id' => 'integer',
         'is_official' => 'boolean',
         'teacher_id' => 'integer',
+        'year' => SubjectYearEnum::class,
     ];
 
     protected $appends = ['full_name'];

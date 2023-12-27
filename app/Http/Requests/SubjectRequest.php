@@ -2,14 +2,13 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\SubjectYearEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SubjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
     public function authorize(): bool
     {
@@ -19,14 +18,12 @@ class SubjectRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array
      */
     public function rules(): array
     {
         return [
             'name' => 'required|string',
-            'year' => 'required|string',
+            'year' => 'required|in:'.SubjectYearEnum::toString(),
             'hours' => 'required|numeric',
             'is_official' => 'required|boolean',
             'teacher_id' => 'required|exists:teachers,id',
@@ -35,8 +32,6 @@ class SubjectRequest extends FormRequest
 
     /**
      * Get the validation attributes that apply to the request.
-     *
-     * @return array
      */
     public function attributes(): array
     {
@@ -47,8 +42,6 @@ class SubjectRequest extends FormRequest
 
     /**
      * Get the validation messages that apply to the request.
-     *
-     * @return array
      */
     public function messages(): array
     {
