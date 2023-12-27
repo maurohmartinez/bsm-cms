@@ -3,9 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use App\Models\Subject;
-use App\Models\\App\Models\Teacher;
 
 class SubjectFactory extends Factory
 {
@@ -26,6 +24,7 @@ class SubjectFactory extends Factory
             'hours' => $this->faker->word(),
             'is_official' => $this->faker->boolean(),
             'teacher_id' => \App\Models\Teacher::factory(),
+            'category_id' => \App\Models\SubjectCategory::factory(),
         ];
     }
 }

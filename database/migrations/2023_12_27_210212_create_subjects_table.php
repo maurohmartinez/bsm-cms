@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('hours');
+            $table->string('year');
+            $table->integer('hours')->unsigned();
             $table->boolean('is_official');
             $table->foreignId('teacher_id');
+            $table->foreignId('category_id');
             $table->timestamps();
             $table->softDeletes();
         });

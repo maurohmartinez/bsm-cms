@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Enums\LanguagesEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use App\Models\Teacher;
 
 class TeacherFactory extends Factory

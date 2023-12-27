@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Requests\TeacherRequest;
+use App\Services\CountriesService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -41,7 +42,9 @@ class TeacherCrudController extends CrudController
      */
     protected function setupListOperation(): void
     {
-        CRUD::setFromDb(); // set columns from db columns.
+        CRUD::column('name');
+        CRUD::column('email');
+        CRUD::column('language')->type('enum');
 
         /**
          * Columns can be defined using the fluent syntax:
@@ -59,12 +62,17 @@ class TeacherCrudController extends CrudController
     protected function setupCreateOperation(): void
     {
         CRUD::setValidation(TeacherRequest::class);
-        CRUD::setFromDb(); // set fields from db columns.
 
-        /**
-         * Fields can be defined using the fluent syntax:
-         * - CRUD::field('price')->type('number');
-         */
+        CRUD::field('name')->size(6);
+        CRUD::field('email')->size(6);
+        CRUD::field('country')->size(6)
+            ->type('select2_from_array')
+            ->options(array_map(function (array $value) {
+                return $value['name'];
+            }, CountriesService::getCountries()));
+        CRUD::field('phone')->type('phone')->size(6);
+        CRUD::field('language')->type('enum')->size(6);
+        CRUD::field('image')->type('image')->size(6)->withFiles(true);
     }
 
     /**

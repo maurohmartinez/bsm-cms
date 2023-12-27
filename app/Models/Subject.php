@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -18,9 +19,11 @@ class Subject extends Model
      */
     protected $fillable = [
         'name',
+        'year',
         'hours',
         'is_official',
         'teacher_id',
+        'category_id',
     ];
 
     /**
@@ -34,8 +37,22 @@ class Subject extends Model
         'teacher_id' => 'integer',
     ];
 
+    protected $appends = ['full_name'];
+
     public function teacher(): BelongsTo
     {
         return $this->belongsTo(Teacher::class);
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(SubjectCategory::class, 'category_id');
+    }
+
+    protected function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->name . ' ' . $this->year,
+        );
     }
 }

@@ -2,16 +2,16 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\LanguagesEnum;
+use App\Services\CountriesService;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TeacherRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         // only allow updates if the user is logged in
         return backpack_auth()->check();
@@ -19,41 +19,16 @@ class TeacherRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => 'required|string',
-            'email' => 'required|email',
-            'phone' => 'required|string',
-            'image' => 'required|string',
-            'from' => 'required|string',
-        ];
-    }
-
-    /**
-     * Get the validation attributes that apply to the request.
-     *
-     * @return array
-     */
-    public function attributes()
-    {
-        return [
-            //
-        ];
-    }
-
-    /**
-     * Get the validation messages that apply to the request.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            //
+            'email' => 'required|email|unique:teachers,email',
+            'country' => 'required|in:'.implode(',', array_keys(CountriesService::getCountries())),
+            'phone' => 'required|phone',
+            'image' => 'required|file',
+            'language' => 'required|in:'.LanguagesEnum::toString(),
         ];
     }
 }

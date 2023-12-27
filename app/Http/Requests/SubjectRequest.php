@@ -11,7 +11,7 @@ class SubjectRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         // only allow updates if the user is logged in
         return backpack_auth()->check();
@@ -22,13 +22,14 @@ class SubjectRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => 'required|string',
-            'hours' => 'required|string',
-            'is_official' => 'required',
-            'teacher' => 'required|string',
+            'year' => 'required|string',
+            'hours' => 'required|numeric',
+            'is_official' => 'required|boolean',
+            'teacher_id' => 'required|exists:teachers,id',
         ];
     }
 
@@ -37,7 +38,7 @@ class SubjectRequest extends FormRequest
      *
      * @return array
      */
-    public function attributes()
+    public function attributes(): array
     {
         return [
             //
@@ -49,7 +50,7 @@ class SubjectRequest extends FormRequest
      *
      * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             //

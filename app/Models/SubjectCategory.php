@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class SubjectCategory extends Model
@@ -17,7 +18,10 @@ class SubjectCategory extends Model
      */
     protected $fillable = [
         'name',
+        'code',
     ];
+
+    protected $appends = ['full_name'];
 
     /**
      * The attributes that should be cast to native types.
@@ -27,4 +31,11 @@ class SubjectCategory extends Model
     protected $casts = [
         'id' => 'integer',
     ];
+
+    protected function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->name.' ('.$this->code.')',
+        );
+    }
 }
