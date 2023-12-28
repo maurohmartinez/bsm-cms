@@ -17,12 +17,12 @@ class YearObserver
 
     private function buildSemesters(Year $year): void
     {
-        $periodStarts = $year->first_period_starts;
-        $periodEnds = $year->first_period_ends;
+        $periodStarts = $year->first_period_starts_at;
+        $periodEnds = $year->first_period_ends_at;
         $this->buildSemester($periodStarts, $periodEnds, PeriodEnum::FIRST);
 
-        $periodStarts = $year->second_period_starts;
-        $periodEnds = $year->second_period_ends;
+        $periodStarts = $year->second_period_starts_at;
+        $periodEnds = $year->second_period_ends_at;
         $this->buildSemester($periodStarts, $periodEnds, PeriodEnum::SECOND);
     }
 
@@ -35,8 +35,8 @@ class YearObserver
                 foreach ($scheduleLessons as $lessons) {
                     Lesson::query()
                         ->create([
-                            'starts' => $periodStarts->format('Y-m-d') . ' ' . $lessons[0],
-                            'ends' => $periodStarts->format('Y-m-d') . ' ' . $lessons[1],
+                            'starts_at' => $periodStarts->format('Y-m-d') . ' ' . $lessons[0],
+                            'ends_at' => $periodStarts->format('Y-m-d') . ' ' . $lessons[1],
                             'year_id' => 1,
                             'period' => $period,
                             'status' => LessonStatusEnum::AVAILABLE,

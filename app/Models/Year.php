@@ -18,10 +18,10 @@ class Year extends Model
      */
     protected $fillable = [
         'name',
-        'first_period_starts',
-        'first_period_ends',
-        'second_period_starts',
-        'second_period_ends',
+        'first_period_starts_at',
+        'first_period_ends_at',
+        'second_period_starts_at',
+        'second_period_ends_at',
     ];
 
     /**
@@ -30,10 +30,10 @@ class Year extends Model
      * @var array
      */
     protected $casts = [
-        'first_period_starts' => 'datetime',
-        'first_period_ends' => 'datetime',
-        'second_period_starts' => 'datetime',
-        'second_period_ends' => 'datetime',
+        'first_period_starts_at' => 'datetime',
+        'first_period_ends_at' => 'datetime',
+        'second_period_starts_at' => 'datetime',
+        'second_period_ends_at' => 'datetime',
     ];
 
     public function lessons(): HasMany
@@ -51,10 +51,10 @@ class Year extends Model
         self::query()
             ->create([
                 'name' => '2024/2025',
-                'first_period_starts' => $firstPeriodStarts,
-                'first_period_ends' => $firstPeriodEnds,
-                'second_period_starts' => $secondPeriodStarts,
-                'second_period_ends' => $secondPeriodEnds,
+                'first_period_starts_at' => $firstPeriodStarts,
+                'first_period_ends_at' => $firstPeriodEnds,
+                'second_period_starts_at' => $secondPeriodStarts,
+                'second_period_ends_at' => $secondPeriodEnds,
             ]);
     }
 }

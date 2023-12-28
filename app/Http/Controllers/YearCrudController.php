@@ -39,10 +39,10 @@ class YearCrudController extends CrudController
     protected function setupListOperation(): void
     {
         CRUD::column('name');
-        CRUD::column('first_period_starts');
-        CRUD::column('first_period_ends');
-        CRUD::column('second_period_starts');
-        CRUD::column('second_period_ends');
+        CRUD::column('first_period_starts_at');
+        CRUD::column('first_period_ends_at');
+        CRUD::column('second_period_starts_at');
+        CRUD::column('second_period_ends_at');
     }
 
     /**
@@ -57,10 +57,10 @@ class YearCrudController extends CrudController
         CRUD::setValidation(\App\Http\Requests\YearRequest::class);
 
         CRUD::field('name');
-        CRUD::field('first_period_starts')->size(6)->type('date');
-        CRUD::field('first_period_ends')->size(6)->type('date');
-        CRUD::field('second_period_starts')->size(6)->type('date');
-        CRUD::field('second_period_ends')->size(6)->type('date');
+        CRUD::field('first_period_starts_at')->size(6)->type('date');
+        CRUD::field('first_period_ends_at')->size(6)->type('date');
+        CRUD::field('second_period_starts_at')->size(6)->type('date');
+        CRUD::field('second_period_ends_at')->size(6)->type('date');
     }
 
     /**

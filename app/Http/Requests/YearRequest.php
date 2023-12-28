@@ -22,10 +22,10 @@ class YearRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'first_period_starts' => 'required|date|before:first_period_ends',
-            'first_period_ends' => 'required|date|after:first_period_starts',
-            'second_period_starts' => 'required|date|after:first_period_ends',
-            'second_period_ends' => 'required|date|after:second_period_starts',
+            'first_period_starts_at' => 'required|date|before:first_period_ends_at',
+            'first_period_ends_at' => 'required|date|after:first_period_starts_at',
+            'second_period_starts_at' => 'required|date|after:first_period_ends_at',
+            'second_period_ends_at' => 'required|date|after:second_period_starts_at',
         ];
     }
 

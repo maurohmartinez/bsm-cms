@@ -51,8 +51,8 @@ class Lesson extends Model
      * @var array
      */
     protected $fillable = [
-        'starts',
-        'ends',
+        'starts_at',
+        'ends_at',
         'period',
         'year_id',
         'teacher_id',
@@ -69,8 +69,8 @@ class Lesson extends Model
      * @var array
      */
     protected $casts = [
-        'starts' => 'datetime',
-        'ends' => 'datetime',
+        'starts_at' => 'datetime',
+        'ends_at' => 'datetime',
         'extras' => 'array',
         'notify_teacher' => 'boolean',
         'period' => PeriodEnum::class,

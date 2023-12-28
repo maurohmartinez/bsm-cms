@@ -80,7 +80,7 @@ trait CalendarOperation
 
         return Lesson::whereDate('starts', '>', $start)
             ->with(['subject', 'teacher', 'interpreter'])
-            ->whereDate('ends', '<', $end)
+            ->whereDate('ends_at', '<', $end)
             ->get()
             ->map(function (Lesson $item) {
                 return [

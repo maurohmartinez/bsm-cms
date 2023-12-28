@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('years', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->date('first_period_starts');
-            $table->date('first_period_ends');
-            $table->date('second_period_starts');
-            $table->date('second_period_ends');
+            $table->date('first_period_starts_at');
+            $table->date('first_period_ends_at');
+            $table->date('second_period_starts_at');
+            $table->date('second_period_ends_at');
             $table->softDeletes();
             $table->timestamps();
         });
