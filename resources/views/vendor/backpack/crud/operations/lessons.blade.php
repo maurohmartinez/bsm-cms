@@ -23,12 +23,22 @@
             },
             businessHours: [
                 {
-                    daysOfWeek: [1, 2, 3, 4, 5],
+                    daysOfWeek: [1],
+                    startTime: '09:30',
+                    endTime: '14:00',
+                },
+                {
+                    daysOfWeek: [2, 3, 4],
                     startTime: '08:30',
                     endTime: '14:00',
                 },
                 {
-                    daysOfWeek: [1, 2, 3, 4, 5],
+                    daysOfWeek: [5],
+                    startTime: '08:30',
+                    endTime: '13:00',
+                },
+                {
+                    daysOfWeek: [1, 2, 3, 4],
                     startTime: '19:00',
                     endTime: '21:00',
                 },
