@@ -39,7 +39,9 @@ class YearObserver
                             'ends_at' => $periodStarts->format('Y-m-d') . ' ' . $lessons[1],
                             'year_id' => 1,
                             'period' => $period,
-                            'status' => LessonStatusEnum::AVAILABLE,
+                            'status' => $lessons === ['19:00', '21:00']
+                                ? LessonStatusEnum::AVAILABLE
+                                : LessonStatusEnum::SPECIAL_ACTIVITY,
                         ]);
                 }
             }
