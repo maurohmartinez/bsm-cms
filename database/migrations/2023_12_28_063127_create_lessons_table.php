@@ -22,8 +22,8 @@ return new class extends Migration
             $table->json('extras')->nullable();
             $table->enum('status', LessonStatusEnum::optionsKeys())->default(LessonStatusEnum::AVAILABLE);
             $table->boolean('notify_teacher')->default(false);
-            $table->date('starts');
-            $table->date('ends');
+            $table->timestamp('starts');
+            $table->timestamp('ends');
             $table->enum('period', PeriodEnum::optionsKeys());
             $table->softDeletes();
             $table->timestamps();

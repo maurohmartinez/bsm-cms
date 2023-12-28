@@ -17,6 +17,14 @@ Route::group([
     'namespace'  => 'App\Http\Controllers',
 ], function () { // custom admin routes
 
+    Route::get('dashboard', function () {
+        return \Illuminate\Support\Facades\Redirect::to(backpack_url('lessons'));
+    })->name('backpack.dashboard');
+    Route::get('/', function () {
+        return \Illuminate\Support\Facades\Redirect::to(backpack_url('lessons'));
+    })->name('backpack');
+
+    Route::crud('lessons', 'LessonCrudController');
     Route::crud('user', 'UserCrudController');
     Route::crud('teacher', 'TeacherCrudController');
     Route::crud('subject-category', 'SubjectCategoryCrudController');

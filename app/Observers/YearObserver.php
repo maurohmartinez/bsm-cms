@@ -35,8 +35,8 @@ class YearObserver
                 foreach ($scheduleLessons as $lessons) {
                     Lesson::query()
                         ->create([
-                            'starts' => $lessons[0],
-                            'ends' => $lessons[1],
+                            'starts' => $periodStarts->format('Y-m-d') . ' ' . $lessons[0],
+                            'ends' => $periodStarts->format('Y-m-d') . ' ' . $lessons[1],
                             'year_id' => 1,
                             'period' => $period,
                             'status' => LessonStatusEnum::AVAILABLE,
