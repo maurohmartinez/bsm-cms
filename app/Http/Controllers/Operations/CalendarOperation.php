@@ -78,7 +78,7 @@ trait CalendarOperation
         $start = request()->input('start');
         $end = request()->input('end');
 
-        return Lesson::whereDate('starts', '>', $start)
+        return Lesson::whereDate('starts_at', '>', $start)
             ->with(['subject', 'teacher', 'interpreter'])
             ->whereDate('ends_at', '<', $end)
             ->get()
