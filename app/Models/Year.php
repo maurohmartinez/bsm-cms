@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Year extends Model
 {
@@ -33,4 +34,9 @@ class Year extends Model
         'second_period_starts' => 'datetime',
         'second_period_ends' => 'datetime',
     ];
+
+    public function year(): HasMany
+    {
+        return $this->hasMany(Lesson::class);
+    }
 }

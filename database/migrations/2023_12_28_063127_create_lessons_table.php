@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\LessonStatusEnum;
+use App\Enums\PeriodEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('lessons', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('day_id');
             $table->foreignId('year_id');
             $table->foreignId('teacher_id')->nullable();
             $table->foreignId('subject_id')->nullable();
@@ -22,6 +22,9 @@ return new class extends Migration
             $table->json('extras')->nullable();
             $table->enum('status', LessonStatusEnum::optionsKeys())->default(LessonStatusEnum::AVAILABLE);
             $table->boolean('notify_teacher')->default(false);
+            $table->date('starts');
+            $table->date('ends');
+            $table->enum('period', PeriodEnum::optionsKeys());
             $table->softDeletes();
             $table->timestamps();
 

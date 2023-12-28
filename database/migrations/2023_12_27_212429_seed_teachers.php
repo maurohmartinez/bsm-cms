@@ -21,17 +21,35 @@ return new class extends Migration
                     'country' => 'AR',
                     'language' => LanguagesEnum::ENGLISH->value,
                 ], [
-                    'name' => 'Mihail Dmitruk',
-                    'email' => 'mihail@gmail.com',
-                    'phone' => '+37127710615',
-                    'country' => 'LV',
-                    'language' => LanguagesEnum::RUSSIAN->value,
-                ], [
-                    'name' => 'Mārcis Zīverts',
-                    'email' => 'marcis@gmail.com',
-                    'phone' => '+37127710615',
+                    'name' => 'Jūlija Martinesa',
+                    'email' => 'julija.martinesa@gmail.com',
+                    'phone' => '+37129752899',
                     'country' => 'LV',
                     'language' => LanguagesEnum::LATVIAN->value,
+                ], [
+                    'name' => 'Matias Pecile',
+                    'email' => 'maurohmartinez@gmail.com',
+                    'phone' => '+37123209525',
+                    'country' => 'AR',
+                    'language' => LanguagesEnum::ENGLISH->value,
+                ], [
+                    'name' => 'Doug Linser',
+                    'email' => 'sdougl1@hotmail.com',
+                    'phone' => '+18564051687',
+                    'country' => 'US',
+                    'language' => LanguagesEnum::ENGLISH->value,
+                ], [
+                    'name' => 'Mārcis Zīverts',
+                    'email' => 'marcis.ziverts@gmail.com',
+                    'phone' => '+37126445107',
+                    'country' => 'LV',
+                    'language' => LanguagesEnum::LATVIAN->value,
+                ], [
+                    'name' => 'Viktor Volchenko',
+                    'email' => 'vitjku@gmail.com',
+                    'phone' => '+37128630935',
+                    'country' => 'LV',
+                    'language' => LanguagesEnum::RUSSIAN->value,
                 ],
             ]);
     }

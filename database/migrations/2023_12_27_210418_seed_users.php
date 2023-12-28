@@ -18,6 +18,27 @@ return new class extends Migration
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        \App\Models\User::query()->insert([
+            'name' => 'Jūlija Martinesa',
+            'email' => 'julija.martinesa@gmail.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        \App\Models\User::query()->insert([
+            'name' => 'Matias Pecile',
+            'email' => 'matiasneuquino@yahoo.com.ar',
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        \App\Models\User::query()->insert([
+            'name' => 'Santa Pecile',
+            'email' => 'santa.pecile@gmail.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     /**
