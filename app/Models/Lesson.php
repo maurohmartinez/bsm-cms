@@ -18,6 +18,7 @@ class Lesson extends Model
         ['10:30', '11:20'],
         ['12:00', '12:50'],
         ['13:00', '13:50'],
+        ['19:00', '21:00'],
     ];
 
     public const REGULAR_SCHEDULE = [
@@ -26,6 +27,7 @@ class Lesson extends Model
         ['10:30', '11:20'],
         ['12:00', '12:50'],
         ['13:00', '13:50'],
+        ['19:00', '21:00'],
     ];
 
     public const FRIDAY_SCHEDULE = [

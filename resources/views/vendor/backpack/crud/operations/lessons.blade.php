@@ -21,12 +21,20 @@
                 end: 'dayGridMonth,timeGridWeek,timeGridDay',
                 center: 'title',
             },
-            businessHours: {
-                daysOfWeek: [1, 2, 3, 4, 5],
-                startTime: '08:30',
-                endTime: '21:00',
-            },
-            hiddenDays: [6, 0],
+            businessHours: [
+                {
+                    daysOfWeek: [1, 2, 3, 4, 5],
+                    startTime: '08:30',
+                    endTime: '14:00',
+                },
+                {
+                    daysOfWeek: [1, 2, 3, 4, 5],
+                    startTime: '19:00',
+                    endTime: '21:00',
+                },
+            ],
+            eventMinHeight: 40,
+            expandRows: true,
             select: function (info) {
                 Livewire.dispatch('new-event', { start: info.startStr });
             },
@@ -34,7 +42,8 @@
             nowIndicator: true,
             editable: false,
             initialView: 'timeGridWeek',
-            // slotDuration: '01:00',
+            slotMinTime: '08:30',
+            slotMaxTime: '20:00',
             eventSources: [
                 {
                     id: "all-lessons",
