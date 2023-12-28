@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SubjectRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -55,7 +54,7 @@ class SubjectCrudController extends CrudController
      */
     protected function setupCreateOperation(): void
     {
-        CRUD::setValidation(SubjectRequest::class);
+        CRUD::setValidation(\App\Http\Requests\SubjectRequest::class);
 
         CRUD::field('name')->size(6);
         CRUD::field('year_id')->size(6)->type('relationship');

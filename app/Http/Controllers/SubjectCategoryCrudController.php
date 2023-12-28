@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SubjectCategoryRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -53,7 +52,7 @@ class SubjectCategoryCrudController extends CrudController
      */
     protected function setupCreateOperation(): void
     {
-        CRUD::setValidation(SubjectCategoryRequest::class);
+        CRUD::setValidation(\App\Http\Requests\SubjectCategoryRequest::class);
 
         CRUD::field('name');
     }

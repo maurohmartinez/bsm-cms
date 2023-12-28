@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\CountriesService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class TeacherCrudController
+ * Class SubjectCrudController
  *
  * @property-read CrudPanel $crud
  */
-class TeacherCrudController extends CrudController
+class YearCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 
@@ -24,11 +22,11 @@ class TeacherCrudController extends CrudController
      *
      * @return void
      */
-    public function setup()
+    public function setup(): void
     {
-        CRUD::setModel(\App\Models\Teacher::class);
-        CRUD::setRoute(config('backpack.base.route_prefix').'/teacher');
-        CRUD::setEntityNameStrings('teacher', 'teachers');
+        CRUD::setModel(\App\Models\Year::class);
+        CRUD::setRoute(config('backpack.base.route_prefix').'/year');
+        CRUD::setEntityNameStrings('year', 'years');
     }
 
     /**
@@ -41,13 +39,10 @@ class TeacherCrudController extends CrudController
     protected function setupListOperation(): void
     {
         CRUD::column('name');
-        CRUD::column('email');
-        CRUD::column('language')->type('enum');
-
-        /**
-         * Columns can be defined using the fluent syntax:
-         * - CRUD::column('price')->type('number');
-         */
+        CRUD::column('first_period_starts');
+        CRUD::column('first_period_ends');
+        CRUD::column('second_period_starts');
+        CRUD::column('second_period_ends');
     }
 
     /**
@@ -59,17 +54,13 @@ class TeacherCrudController extends CrudController
      */
     protected function setupCreateOperation(): void
     {
-        CRUD::setValidation(\App\Http\Requests\TeacherRequest::class);
+        CRUD::setValidation(\App\Http\Requests\YearRequest::class);
 
-        CRUD::field('name')->size(6);
-        CRUD::field('email')->size(6);
-        CRUD::field('country')->size(6)
-            ->type('select2_from_array')
-            ->options(array_map(function (array $value) {
-                return $value['name'];
-            }, CountriesService::getCountries()));
-        CRUD::field('phone')->type('phone')->size(6);
-        CRUD::field('language')->type('enum')->size(6);
+        CRUD::field('name');
+        CRUD::field('first_period_starts')->size(6)->type('date');
+        CRUD::field('first_period_ends')->size(6)->type('date');
+        CRUD::field('second_period_starts')->size(6)->type('date');
+        CRUD::field('second_period_ends')->size(6)->type('date');
     }
 
     /**

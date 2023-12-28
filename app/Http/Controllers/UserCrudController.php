@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -58,7 +57,7 @@ class UserCrudController extends CrudController
      */
     protected function setupCreateOperation(): void
     {
-        CRUD::setValidation(UserRequest::class);
+        CRUD::setValidation(\App\Http\Requests\UserRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
 
         /**
