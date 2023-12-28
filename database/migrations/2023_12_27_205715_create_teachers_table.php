@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('image')->nullable();
             $table->string('country');
             $table->enum('language', LanguagesEnum::optionsKeys())->default(LanguagesEnum::ENGLISH);
+            $table->boolean('is_local');
             $table->timestamps();
             $table->softDeletes();
         });

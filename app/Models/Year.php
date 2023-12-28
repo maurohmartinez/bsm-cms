@@ -35,7 +35,7 @@ class Year extends Model
         'second_period_ends' => 'datetime',
     ];
 
-    public function year(): HasMany
+    public function lessons(): HasMany
     {
         return $this->hasMany(Lesson::class);
     }

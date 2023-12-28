@@ -22,6 +22,7 @@ class Teacher extends Model
         'phone',
         'country',
         'language',
+        'is_local',
     ];
 
     /**
@@ -32,5 +33,6 @@ class Teacher extends Model
     protected $casts = [
         'id' => 'integer',
         'language' => LanguagesEnum::class,
+        'is_local' => 'boolean',
     ];
 }

@@ -70,6 +70,7 @@ class TeacherCrudController extends CrudController
             }, CountriesService::getCountries()));
         CRUD::field('phone')->type('phone')->size(6);
         CRUD::field('language')->type('enum')->size(6);
+        CRUD::field('is_local')->type('switch')->wrapper(['class' => 'mt-2']);
     }
 
     /**

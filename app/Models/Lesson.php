@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\LessonStatusEnum;
 use App\Enums\PeriodEnum;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -92,5 +93,49 @@ class Lesson extends Model
     public function interpreter(): BelongsTo
     {
         return $this->belongsTo(Interpreter::class);
+    }
+
+    public function scopeAvailable(Builder $query): void
+    {
+        $query->where('status', LessonStatusEnum::AVAILABLE->value);
+    }
+
+    public function scopeConfirmed(Builder $query): void
+    {
+        $query->where('status', LessonStatusEnum::CONFIRMED->value);
+    }
+
+    public function scopeToConfirm(Builder $query): void
+    {
+        $query->where('status', LessonStatusEnum::TO_CONFIRM->value);
+    }
+
+    public function scopeCancelled(Builder $query): void
+    {
+        $query->where('status', LessonStatusEnum::CANCELLED->value);
+    }
+
+    public function scopeFirstSemester(Builder $query): void
+    {
+        $query->where('period', PeriodEnum::FIRST->value);
+    }
+
+    public function scopeSecondSemester(Builder $query): void
+    {
+        $query->where('period', PeriodEnum::SECOND->value);
+    }
+
+    public function scopeWithLocalTeacher(Builder $query): void
+    {
+        $query->whereHas('teacher', function (Builder $q) {
+            $q->where('is_local', true);
+        });
+    }
+
+    public function scopeWithForeignTeacher(Builder $query): void
+    {
+        $query->whereHas('teacher', function (Builder $q) {
+            $q->where('is_local', false);
+        });
     }
 }
