@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\SubjectYearEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SubjectRequest extends FormRequest
@@ -23,7 +22,7 @@ class SubjectRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'year' => 'required|in:'.SubjectYearEnum::toString(),
+            'year' => 'required|exists:years,id',
             'hours' => 'required|numeric',
             'notes' => 'sometimes|nullable|max:2000',
             'files.*' => 'required|file',

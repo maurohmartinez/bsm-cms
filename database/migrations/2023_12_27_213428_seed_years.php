@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\SubjectYearEnum;
 use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 
@@ -14,7 +13,7 @@ return new class extends Migration
         \App\Models\Year::query()
             ->insert([
                 [
-                    'name' => 'Theology',
+                    'name' => '2024/2025',
                     'first_period_starts' => Carbon::create(2024, 9, 30),
                     'first_period_ends' => Carbon::create(2024, 12, 20),
                     'second_period_starts' => Carbon::create(2025, 1, 13),

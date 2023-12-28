@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\SubjectYearEnum;
 use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
