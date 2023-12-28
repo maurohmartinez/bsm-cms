@@ -28,25 +28,25 @@ return new class extends Migration
             ->insert([
                 [
                     'name' => 'God',
-                    'year' => SubjectYearEnum::_2023_2024,
                     'hours' => 16,
                     'is_official' => true,
                     'teacher_id' => 1,
                     'category_id' => 2,
+                    'year_id' => 1,
                 ], [
                     'name' => 'Introduction to the Bible',
-                    'year' => SubjectYearEnum::_2023_2024,
                     'hours' => 16,
                     'is_official' => true,
                     'teacher_id' => 2,
                     'category_id' => 1,
+                    'year_id' => 1,
                 ], [
                     'name' => 'Geography',
-                    'year' => SubjectYearEnum::_2023_2024,
                     'hours' => 16,
                     'is_official' => true,
                     'teacher_id' => 3,
                     'category_id' => 3,
+                    'year_id' => 1,
                 ],
             ]);
     }

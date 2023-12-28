@@ -14,15 +14,28 @@ return new class extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('year');
             $table->integer('hours')->unsigned();
             $table->boolean('is_official');
             $table->text('notes')->nullable();
             $table->json('files')->nullable();
             $table->foreignId('teacher_id');
             $table->foreignId('category_id');
+            $table->foreignId('year_id');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('teacher_id')
+                ->references('id')
+                ->on('teachers')
+                ->cascadeOnDelete();
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('subject_categories')
+                ->cascadeOnDelete();
+            $table->foreign('year_id')
+                ->references('id')
+                ->on('years')
+                ->cascadeOnDelete();
         });
     }
 

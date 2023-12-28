@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class SubjectCategory extends Model
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
-    use \Illuminate\Database\Eloquent\Factories\HasFactory;
     use \Illuminate\Database\Eloquent\SoftDeletes;
 
     /**

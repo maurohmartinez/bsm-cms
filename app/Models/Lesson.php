@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use App\Enums\SubjectYearEnum;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Enums\LessonStatusEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Subject extends Model
+class Lesson extends Model
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use \Illuminate\Database\Eloquent\SoftDeletes;
@@ -18,14 +17,14 @@ class Subject extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'hours',
-        'is_official',
-        'notes',
-        'files',
-        'teacher_id',
-        'category_id',
+        'day_id',
         'year_id',
+        'teacher_id',
+        'subject_id',
+        'interpreter_id',
+        'extras',
+        'status',
+        'notify_teacher',
     ];
 
     /**
@@ -34,14 +33,10 @@ class Subject extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-        'is_official' => 'boolean',
-        'teacher_id' => 'integer',
-        'year' => SubjectYearEnum::class,
-        'files' => 'array',
+        'extras' => 'array',
+        'status' => LessonStatusEnum::class,
+        'notify_teacher' => 'boolean',
     ];
-
-    protected $appends = ['full_name'];
 
     public function year(): BelongsTo
     {
@@ -53,15 +48,13 @@ class Subject extends Model
         return $this->belongsTo(Teacher::class);
     }
 
-    public function category(): BelongsTo
+    public function subject(): BelongsTo
     {
-        return $this->belongsTo(SubjectCategory::class, 'category_id');
+        return $this->belongsTo(Subject::class);
     }
 
-    protected function fullName(): Attribute
+    public function interpreter(): BelongsTo
     {
-        return Attribute::make(
-            get: fn () => $this->name.' '.$this->year,
-        );
+        return $this->belongsTo(Interpreter::class);
     }
 }

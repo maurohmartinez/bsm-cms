@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use App\Enums\LanguagesEnum;
 use Illuminate\Database\Eloquent\Model;
 
-class Teacher extends Model
+class Year extends Model
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use \Illuminate\Database\Eloquent\SoftDeletes;
-    use \Illuminate\Notifications\Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -18,10 +16,10 @@ class Teacher extends Model
      */
     protected $fillable = [
         'name',
-        'email',
-        'phone',
-        'country',
-        'language',
+        'first_period_starts',
+        'first_period_ends',
+        'second_period_starts',
+        'second_period_ends',
     ];
 
     /**
@@ -30,7 +28,9 @@ class Teacher extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-        'language' => LanguagesEnum::class,
+        'first_period_starts' => 'datetime',
+        'first_period_ends' => 'datetime',
+        'second_period_starts' => 'datetime',
+        'second_period_ends' => 'datetime',
     ];
 }

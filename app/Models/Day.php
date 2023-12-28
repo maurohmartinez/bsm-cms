@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use App\Enums\LanguagesEnum;
+use App\Enums\PeriodEnum;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Teacher extends Model
+class Day extends Model
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use \Illuminate\Database\Eloquent\SoftDeletes;
-    use \Illuminate\Notifications\Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -17,11 +17,11 @@ class Teacher extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'phone',
-        'country',
-        'language',
+        'day',
+        'week_number',
+        'period',
+        'extras',
+        'year_id',
     ];
 
     /**
@@ -30,7 +30,14 @@ class Teacher extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-        'language' => LanguagesEnum::class,
+        'day' => 'date',
+        'week_number' => 'integer',
+        'extras' => 'array',
+        'period' => PeriodEnum::class,
     ];
+
+    public function year(): BelongsTo
+    {
+        return $this->belongsTo(Year::class);
+    }
 }

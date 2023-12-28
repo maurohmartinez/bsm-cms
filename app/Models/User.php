@@ -8,7 +8,6 @@ class User extends Authenticatable
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use \Illuminate\Notifications\Notifiable;
-    use \Illuminate\Database\Eloquent\Factories\HasFactory;
     use \Laravel\Sanctum\HasApiTokens;
     use \Illuminate\Database\Eloquent\SoftDeletes;
 
