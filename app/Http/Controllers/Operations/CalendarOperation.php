@@ -86,8 +86,8 @@ trait CalendarOperation
                 return [
                     'id' => $item->id,
                     'title' => $item->subject?->name ?? 'Available',
-                    'start' => $item->starts->format('Y-m-d H:i:s'),
-                    'end' => $item->ends->format('Y-m-d H:i:s'),
+                    'start' => $item->starts_at->format('Y-m-d H:i:s'),
+                    'end' => $item->ends_at->format('Y-m-d H:i:s'),
                     'allDay' => false,
                     // 'url' => route('admin.event.show', $item->id),
                     'color' => LessonStatusEnum::getColor($item->status),
