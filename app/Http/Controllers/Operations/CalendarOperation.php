@@ -85,14 +85,13 @@ trait CalendarOperation
             ->map(function (Lesson $item) {
                 return [
                     'id' => $item->id,
-                    'title' => $item->subject?->name ?? 'Available',
+                    'title' => \App\Enums\LessonStatusEnum::translatedOption($item->status),
                     'start' => $item->starts_at->format('Y-m-d H:i:s'),
                     'end' => $item->ends_at->format('Y-m-d H:i:s'),
                     'allDay' => false,
                     // 'url' => route('admin.event.show', $item->id),
                     'color' => LessonStatusEnum::getColor($item->status),
                     'extendedProps' => [
-                        'status' => LessonStatusEnum::getTranslatedName($item->status),
                         'description' => $item->extras['description'] ?? '',
                     ],
                 ];

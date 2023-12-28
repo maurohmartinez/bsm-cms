@@ -99,7 +99,12 @@ class Lesson extends Model
 
     public function scopeWithoutChapels(Builder $query): void
     {
-        $query->whereNot('status', LessonStatusEnum::CHAPEL->value);
+        $query->whereNotIn('status', [
+            LessonStatusEnum::EVENING_AVAILABLE->value,
+            LessonStatusEnum::CHAPEL->value,
+            LessonStatusEnum::PRAYER->value,
+            LessonStatusEnum::WORSHIP_NIGHT->value,
+        ]);
     }
 
     public function scopeAvailable(Builder $query): void

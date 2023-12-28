@@ -10,6 +10,10 @@
     </div>
 @endsection
 
+@section('modals')
+    <livewire:event />
+@endsection
+
 @section('after_scripts')
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
 <script>
@@ -45,10 +49,7 @@
             ],
             eventMinHeight: 40,
             expandRows: true,
-            select: function (info) {
-                Livewire.dispatch('new-event', { start: info.startStr });
-            },
-            selectable: true,
+            selectable: false,
             nowIndicator: true,
             editable: false,
             initialView: 'timeGridWeek',
@@ -71,14 +72,11 @@
                 }
             ],
             eventClick: function (info) {
-                Livewire.dispatch('show-event', { id: info.event.id });
+                Livewire.dispatch('openModal.event', [{ id: info.event.id }]);
+                // Livewire.dispatch('show-event', { id: info.event.id });
             },
             eventClassNames: function(arg) {
-                if (arg.event.extendedProps.archived_at != null) {
-                    return [ 'text-decoration-line-through' ]
-                } else {
-                    return [ '' ]
-                }
+                return [ 'cursor-pointer' ];
             },
         });
         calendar.render();

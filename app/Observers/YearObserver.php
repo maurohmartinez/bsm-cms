@@ -40,7 +40,7 @@ class YearObserver
                             'year_id' => 1,
                             'period' => $period,
                             'status' => $lessons === ['19:00', '21:00']
-                                ? LessonStatusEnum::CHAPEL
+                                ? LessonStatusEnum::EVENING_AVAILABLE
                                 : LessonStatusEnum::AVAILABLE,
                         ]);
                 }

@@ -8,4 +8,12 @@ enum PeriodEnum: string
 
     case FIRST = 'FIRST';
     case SECOND = 'SECOND';
+
+    public static function translatedOption(self $option): string
+    {
+        return match($option) {
+            self::FIRST => 'First',
+            self::SECOND => 'Second',
+        };
+    }
 }

@@ -42,6 +42,7 @@ class Year extends Model
     }
 
     public static function addOne(
+        string $name,
         Carbon $firstPeriodStarts,
         Carbon $firstPeriodEnds,
         Carbon $secondPeriodStarts,
@@ -50,7 +51,7 @@ class Year extends Model
     {
         self::query()
             ->create([
-                'name' => '2024/2025',
+                'name' => $name,
                 'first_period_starts_at' => $firstPeriodStarts,
                 'first_period_ends_at' => $firstPeriodEnds,
                 'second_period_starts_at' => $secondPeriodStarts,
