@@ -40,8 +40,8 @@ class YearObserver
                             'year_id' => 1,
                             'period' => $period,
                             'status' => $lessons === ['19:00', '21:00']
-                                ? LessonStatusEnum::AVAILABLE
-                                : LessonStatusEnum::SPECIAL_ACTIVITY,
+                                ? LessonStatusEnum::CHAPEL
+                                : LessonStatusEnum::AVAILABLE,
                         ]);
                 }
             }

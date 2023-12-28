@@ -99,7 +99,7 @@ class Lesson extends Model
 
     public function scopeWithoutChapels(Builder $query): void
     {
-        $query->whereNot('status', LessonStatusEnum::SPECIAL_ACTIVITY->value);
+        $query->whereNot('status', LessonStatusEnum::CHAPEL->value);
     }
 
     public function scopeAvailable(Builder $query): void
@@ -115,11 +115,6 @@ class Lesson extends Model
     public function scopeToConfirm(Builder $query): void
     {
         $query->where('status', LessonStatusEnum::TO_CONFIRM->value);
-    }
-
-    public function scopeCancelled(Builder $query): void
-    {
-        $query->where('status', LessonStatusEnum::CANCELLED->value);
     }
 
     public function scopeFirstSemester(Builder $query): void

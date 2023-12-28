@@ -9,17 +9,17 @@ enum LessonStatusEnum: string
     case AVAILABLE = 'AVAILABLE';
     case TO_CONFIRM = 'TO_CONFIRM';
     case CONFIRMED = 'CONFIRMED';
-    case CANCELLED = 'CANCELLED';
     case SPECIAL_ACTIVITY = 'SPECIAL_ACTIVITY';
+    case CHAPEL = 'CHAPEL';
 
     public static function getColor(self $case): string
     {
         return [
-            'AVAILABLE' => 'primary',
-            'TO_CONFIRM' => 'coral',
-            'CONFIRMED' => 'darkcyan',
-            'CANCELLED' => 'tomato',
-            'SPECIAL_ACTIVITY' => 'lightgray',
+            self::AVAILABLE->value => 'primary',
+            self::TO_CONFIRM->value => 'coral',
+            self::CONFIRMED->value => 'darkcyan',
+            self::CHAPEL->value => 'tomato',
+            self::SPECIAL_ACTIVITY->value => 'lightgray',
         ][$case->value] ?? 'primary';
     }
 }
