@@ -24,7 +24,7 @@ return new class extends Migration
             $table->boolean('notify_teacher')->default(false);
             $table->timestamp('starts');
             $table->timestamp('ends');
-            $table->enum('period', PeriodEnum::optionsKeys());
+            $table->enum('period', PeriodEnum::optionsKeys())->default(PeriodEnum::FIRST->value);
             $table->softDeletes();
             $table->timestamps();
 
