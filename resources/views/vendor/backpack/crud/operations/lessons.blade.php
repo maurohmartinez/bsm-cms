@@ -73,7 +73,6 @@
             ],
             eventClick: function (info) {
                 Livewire.dispatch('openModal.event', [{ id: info.event.id }]);
-                // Livewire.dispatch('show-event', { id: info.event.id });
             },
             eventClassNames: function(arg) {
                 return [ 'cursor-pointer' ];

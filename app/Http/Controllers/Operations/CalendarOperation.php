@@ -7,6 +7,7 @@ use App\Models\Lesson;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 trait CalendarOperation
 {
@@ -83,9 +84,12 @@ trait CalendarOperation
             ->whereDate('ends_at', '<', $end)
             ->get()
             ->map(function (Lesson $item) {
+                $lesson = $item->subject()->with('teacher')->first();
                 return [
                     'id' => $item->id,
-                    'title' => \App\Enums\LessonStatusEnum::translatedOption($item->status),
+                    'title' => $lesson
+                        ? Str::words($lesson->name, 2) . ' (' . $lesson->teacher->name . ')'
+                        : \App\Enums\LessonStatusEnum::translatedOption($item->status),
                     'start' => $item->starts_at->format('Y-m-d H:i:s'),
                     'end' => $item->ends_at->format('Y-m-d H:i:s'),
                     'allDay' => false,

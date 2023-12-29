@@ -51,11 +51,21 @@ enum LessonStatusEnum: string implements EnumWithTranslationInterface
             self::AVAILABLE => 'Available',
             self::TO_CONFIRM => 'Lesson to confirm',
             self::CONFIRMED => 'Lesson confirmed',
+            self::SPECIAL_ACTIVITY => 'Special activity',
+            self::EVENING_AVAILABLE => 'Evening available',
             self::CHAPEL => 'Chapel',
             self::PRAYER => 'Evening Prayer',
             self::WORSHIP_NIGHT => 'Worship evening',
-            self::EVENING_AVAILABLE => 'Evening available',
-            self::SPECIAL_ACTIVITY => 'Special activity',
         };
+    }
+
+    public static function chapelsStatuses(): array
+    {
+        return [
+            self::EVENING_AVAILABLE->value => 'Evening available',
+            self::CHAPEL->value => 'Chapel',
+            self::PRAYER->value => 'Evening Prayer',
+            self::WORSHIP_NIGHT->value => 'Worship evening',
+        ];
     }
 }

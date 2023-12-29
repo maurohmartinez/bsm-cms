@@ -56,6 +56,18 @@
         Livewire.on('closeModal', (event) => {
             bootstrap.Modal.getInstance('#modal-' + event.modal)?.hide();
         });
+        Livewire.on('toast', (event) => {
+            new Noty({
+                type: event.type,
+                text: event.message,
+            }).show();
+        });
+        Livewire.on('refresh-calendar', () => {
+            // refresh the calendar
+            if (typeof calendar != 'undefined') {
+                calendar.refetchEvents();
+            }
+        });
     });
 </script>
 </body>

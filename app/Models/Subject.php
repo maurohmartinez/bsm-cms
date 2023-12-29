@@ -39,8 +39,6 @@ class Subject extends Model
         'files' => 'array',
     ];
 
-    protected $appends = ['full_name'];
-
     public function year(): BelongsTo
     {
         return $this->belongsTo(Year::class);
@@ -54,6 +52,11 @@ class Subject extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(SubjectCategory::class, 'category_id');
+    }
+
+    public function lessons(): BelongsTo
+    {
+        return $this->belongsTo(Lesson::class);
     }
 
     protected function fullName(): Attribute

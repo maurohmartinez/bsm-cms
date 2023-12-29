@@ -99,12 +99,7 @@ class Lesson extends Model
 
     public function scopeWithoutChapels(Builder $query): void
     {
-        $query->whereNotIn('status', [
-            LessonStatusEnum::EVENING_AVAILABLE->value,
-            LessonStatusEnum::CHAPEL->value,
-            LessonStatusEnum::PRAYER->value,
-            LessonStatusEnum::WORSHIP_NIGHT->value,
-        ]);
+        $query->whereNotIn('status', LessonStatusEnum::chapelsStatuses());
     }
 
     public function scopeAvailable(Builder $query): void
@@ -144,5 +139,10 @@ class Lesson extends Model
         $query->whereHas('teacher', function (Builder $q) {
             $q->where('is_local', false);
         });
+    }
+
+    public function scopeYear(Builder $query, int $yearId): void
+    {
+        $query->where('year_id', $yearId);
     }
 }
