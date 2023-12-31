@@ -79,6 +79,12 @@
             },
         });
         calendar.render();
+
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('refresh-calendar', () => {
+                calendar.refetchEvents();
+            });
+        });
     });
 </script>
 @endsection

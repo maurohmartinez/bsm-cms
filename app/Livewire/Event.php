@@ -22,9 +22,9 @@ class Event extends WireModal
 
     public ?int $subjectId;
 
-    public ?int $interpreterId;
+    public ?int $interpreterId = null;
 
-    public ?string $chapelType;
+    public ?string $status;
 
     public ?bool $isLesson;
 
@@ -45,12 +45,12 @@ class Event extends WireModal
     {
         $this->validate([
             'subjectId' => 'required|exists:subjects,id',
-            'interpreterId' => 'required|exists:interpreters,id',
-            'chapelType' => 'required|in:' . implode(',', [
-                    LessonStatusEnum::AVAILABLE->value,
-                    LessonStatusEnum::TO_CONFIRM->value,
-                    LessonStatusEnum::CONFIRMED->value,
-                ]),
+            'interpreterId' => 'sometimes|nullable|exists:interpreters,id',
+            'status' => 'required|in:' . implode(',', $this->subjectId
+                    ? [
+                        LessonStatusEnum::TO_CONFIRM->value,
+                        LessonStatusEnum::CONFIRMED->value,
+                    ] : [LessonStatusEnum::AVAILABLE->value]),
             'notes' => 'sometimes|nullable|max:1000',
         ]);
 
@@ -58,8 +58,8 @@ class Event extends WireModal
             $this->lesson->update([
                 'subject_id' => $this->subjectId,
                 'interpreter_id' => $this->interpreterId,
-                'status' => $this->chapelType,
-                'notes' => $this->notes,
+                'status' => $this->status,
+                'extras' => ['notes' => $this->notes],
             ]);
         } catch (Exception $e) {
             $this->addError('toast', $e->getMessage());
@@ -77,14 +77,14 @@ class Event extends WireModal
     #[NoReturn] private function updateChapel(): void
     {
         $this->validate([
-            'chapelType' => 'required|in:' . implode(',', array_keys(LessonStatusEnum::chapelsStatuses())),
+            'status' => 'required|in:' . implode(',', array_keys(LessonStatusEnum::chapelsStatuses())),
             'notes' => 'sometimes|nullable|max:1000',
         ]);
 
         try {
             $this->lesson->update([
-                'status' => $this->chapelType,
-                'notes' => $this->notes,
+                'status' => $this->status,
+                'extras' => ['notes' => $this->notes],
             ]);
         } catch (Exception $e) {
             $this->addError('toast', $e->getMessage());
@@ -103,9 +103,7 @@ class Event extends WireModal
     {
         $this->lesson = Lesson::query()->findOrFail($params['id']);
         $this->isLesson = !in_array($this->lesson->status->value, array_keys(LessonStatusEnum::chapelsStatuses()));
-        $this->chapelType = !$this->isLesson
-            ? $this->lesson->status->value
-            : null;
+        $this->status = $this->lesson->status->value;
         $this->subjects = Subject::query()
             ->where('year_id', $this->lesson->year_id)
             ->get()
@@ -118,6 +116,6 @@ class Event extends WireModal
 
         $this->subjectId = $this->lesson->subject_id;
         $this->interpreterId = $this->lesson->interpreter_id;
-        $this->notes = $this->lesson->notes;
+        $this->notes = $this->lesson->extras['notes'] ?? '';
     }
 }

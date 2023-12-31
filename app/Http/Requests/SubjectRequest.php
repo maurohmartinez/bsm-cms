@@ -22,10 +22,10 @@ class SubjectRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'year' => 'required|exists:years,id',
+            'year_id' => 'required|exists:years,id',
             'hours' => 'required|numeric',
             'notes' => 'sometimes|nullable|max:2000',
-            'files.*' => 'required|file',
+            'files.*' => 'sometimes|nullable|file',
             'is_official' => 'required|boolean',
             'teacher_id' => 'required|exists:teachers,id',
         ];

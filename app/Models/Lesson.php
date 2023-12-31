@@ -8,6 +8,58 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * App\Models\Lesson
+ *
+ * @property int $id
+ * @property int $year_id
+ * @property int|null $teacher_id
+ * @property int|null $subject_id
+ * @property int|null $interpreter_id
+ * @property array|null $extras
+ * @property LessonStatusEnum $status
+ * @property bool $notify_teacher
+ * @property \Illuminate\Support\Carbon|null $starts_at
+ * @property \Illuminate\Support\Carbon|null $ends_at
+ * @property PeriodEnum $period
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Interpreter|null $interpreter
+ * @property-read \App\Models\Subject|null $subject
+ * @property-read \App\Models\Teacher|null $teacher
+ * @property-read \App\Models\Year $year
+ * @method static Builder|Lesson available()
+ * @method static Builder|Lesson confirmed()
+ * @method static Builder|Lesson firstSemester()
+ * @method static Builder|Lesson newModelQuery()
+ * @method static Builder|Lesson newQuery()
+ * @method static Builder|Lesson onlyTrashed()
+ * @method static Builder|Lesson query()
+ * @method static Builder|Lesson secondSemester()
+ * @method static Builder|Lesson toConfirm()
+ * @method static Builder|Lesson whereCreatedAt($value)
+ * @method static Builder|Lesson whereDeletedAt($value)
+ * @method static Builder|Lesson whereEndsAt($value)
+ * @method static Builder|Lesson whereExtras($value)
+ * @method static Builder|Lesson whereId($value)
+ * @method static Builder|Lesson whereInterpreterId($value)
+ * @method static Builder|Lesson whereNotifyTeacher($value)
+ * @method static Builder|Lesson wherePeriod($value)
+ * @method static Builder|Lesson whereStartsAt($value)
+ * @method static Builder|Lesson whereStatus($value)
+ * @method static Builder|Lesson whereSubjectId($value)
+ * @method static Builder|Lesson whereTeacherId($value)
+ * @method static Builder|Lesson whereUpdatedAt($value)
+ * @method static Builder|Lesson whereYearId($value)
+ * @method static Builder|Lesson withForeignTeacher()
+ * @method static Builder|Lesson withLocalTeacher()
+ * @method static Builder|Lesson withTrashed()
+ * @method static Builder|Lesson withoutChapels()
+ * @method static Builder|Lesson withoutTrashed()
+ * @method static Builder|Lesson year(int $yearId)
+ * @mixin \Eloquent
+ */
 class Lesson extends Model
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
@@ -143,6 +195,6 @@ class Lesson extends Model
 
     public function scopeYear(Builder $query, int $yearId): void
     {
-        $query->where('year_id', $yearId);
+        $query->where('lessons.year_id', $yearId);
     }
 }

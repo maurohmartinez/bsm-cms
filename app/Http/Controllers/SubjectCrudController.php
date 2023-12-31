@@ -62,6 +62,7 @@ class SubjectCrudController extends CrudController
         CRUD::field('teacher_id')->size(6)->type('relationship');
         CRUD::field('category_id')->size(6)->type('relationship')->attribute('full_name');
         CRUD::field('notes')->type('textarea');
+        CRUD::field('color')->type('color')->size(6);
         CRUD::field('files')->type('upload_multiple')->withFiles(true)->size(6);
         CRUD::field('is_official')->type('switch');
     }

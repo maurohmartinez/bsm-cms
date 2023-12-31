@@ -18,6 +18,7 @@ return new class extends Migration
             $table->boolean('is_official');
             $table->text('notes')->nullable();
             $table->json('files')->nullable();
+            $table->string('color');
             $table->foreignId('teacher_id');
             $table->foreignId('category_id');
             $table->foreignId('year_id');

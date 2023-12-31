@@ -6,6 +6,37 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * App\Models\Year
+ *
+ * @property int $id
+ * @property string $name
+ * @property \Illuminate\Support\Carbon $first_period_starts_at
+ * @property \Illuminate\Support\Carbon $first_period_ends_at
+ * @property \Illuminate\Support\Carbon $second_period_starts_at
+ * @property \Illuminate\Support\Carbon $second_period_ends_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Lesson> $lessons
+ * @property-read int|null $lessons_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Year newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Year newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Year onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Year query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Year whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Year whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Year whereFirstPeriodEndsAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Year whereFirstPeriodStartsAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Year whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Year whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Year whereSecondPeriodEndsAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Year whereSecondPeriodStartsAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Year whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Year withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Year withoutTrashed()
+ * @mixin \Eloquent
+ */
 class Year extends Model
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;

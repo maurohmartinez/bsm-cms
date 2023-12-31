@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use Ramsey\Collection\Collection;
 
 trait CalendarOperation
 {
@@ -74,32 +75,43 @@ trait CalendarOperation
      */
     public function getCalendarEvents(): array
     {
+        $returns = [];
         $this->crud->hasAccessOrFail('calendar');
 
         $start = request()->input('start');
         $end = request()->input('end');
 
-        return Lesson::whereDate('starts_at', '>', $start)
+        $lessons = Lesson::query()
+            ->whereDate('starts_at', '>', $start)
             ->with(['subject', 'teacher', 'interpreter'])
             ->whereDate('ends_at', '<', $end)
-            ->get()
-            ->map(function (Lesson $item) {
-                $lesson = $item->subject()->with('teacher')->first();
-                return [
-                    'id' => $item->id,
-                    'title' => $lesson
-                        ? Str::words($lesson->name, 2) . ' (' . $lesson->teacher->name . ')'
-                        : \App\Enums\LessonStatusEnum::translatedOption($item->status),
-                    'start' => $item->starts_at->format('Y-m-d H:i:s'),
-                    'end' => $item->ends_at->format('Y-m-d H:i:s'),
+            ->get();
+
+        foreach ($lessons->groupBy('subject_id') as $lessons) {
+            $count = 1;
+            foreach ($lessons as $lesson) {
+                $subject = $lesson->subject()->with('teacher')->first();
+                $teacher = $lesson->subject?->teacher;
+
+                $returns [] = [
+                    'id' => $lesson->id,
+                    'title' => $subject
+                        ? $count . ' | ' . Str::words($subject->name, 2) . ' | ' . ($teacher?->name ?? '-')
+                        : LessonStatusEnum::translatedOption($lesson->status),
+                    'start' => $lesson->starts_at->format('Y-m-d H:i:s'),
+                    'end' => $lesson->ends_at->format('Y-m-d H:i:s'),
                     'allDay' => false,
-                    // 'url' => route('admin.event.show', $item->id),
-                    'color' => LessonStatusEnum::getColor($item->status),
+                    'color' => $lesson->status === LessonStatusEnum::TO_CONFIRM
+                        ? 'gray'
+                        : ($subject?->color ?? 'lightgray'),
                     'extendedProps' => [
-                        'description' => $item->extras['description'] ?? '',
+                        'description' => $lesson->extras['description'] ?? '',
                     ],
                 ];
-            })
-            ->toArray();
+                $count++;
+            }
+        }
+
+        return $returns;
     }
 }

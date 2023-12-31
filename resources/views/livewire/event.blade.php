@@ -25,7 +25,7 @@
                         </select>
 
                         <label class="fw-bold">Status</label>
-                        <select wire:model="chapelType" class="form-control">
+                        <select wire:model="status" class="form-control">
                             <option value="{{ \App\Enums\LessonStatusEnum::AVAILABLE->value }}">Available</option>
                             <option value="{{ \App\Enums\LessonStatusEnum::TO_CONFIRM->value }}">To confirm</option>
                             <option value="{{ \App\Enums\LessonStatusEnum::CONFIRMED->value }}">Confirmed</option>
@@ -40,7 +40,7 @@
                         </select>
                     @else
                         <label class="fw-bold">Type</label>
-                        <select wire:model="chapelType" class="form-control">
+                        <select wire:model="status" class="form-control">
                             @foreach(\App\Enums\LessonStatusEnum::chapelsStatuses() as $value => $status)
                                 <option value="{{ $value }}">{{ $status }}</option>
                             @endforeach

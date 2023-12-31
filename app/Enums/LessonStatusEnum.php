@@ -20,7 +20,7 @@ enum LessonStatusEnum: string implements EnumWithTranslationInterface
     public static function getColor(self $case): string
     {
         return [
-            self::AVAILABLE->value => 'primary',
+            self::AVAILABLE->value => 'lightgray',
             self::TO_CONFIRM->value => 'coral',
             self::CONFIRMED->value => 'darkcyan',
             self::CHAPEL->value => 'darkcyan',

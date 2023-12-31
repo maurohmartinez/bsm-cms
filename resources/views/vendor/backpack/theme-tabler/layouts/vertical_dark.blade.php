@@ -50,7 +50,6 @@
 <script>
     document.addEventListener('livewire:initialized', () => {
         Livewire.on('openModal', (event) => {
-            console.log(bootstrap.Modal.getInstance('#modal-' + event.modal));
             bootstrap.Modal.getInstance('#modal-' + event.modal)?.show();
         });
         Livewire.on('closeModal', (event) => {
@@ -61,12 +60,6 @@
                 type: event.type,
                 text: event.message,
             }).show();
-        });
-        Livewire.on('refresh-calendar', () => {
-            // refresh the calendar
-            if (typeof calendar != 'undefined') {
-                calendar.refetchEvents();
-            }
         });
     });
 </script>
