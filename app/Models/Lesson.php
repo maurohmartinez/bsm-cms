@@ -152,9 +152,9 @@ class Lesson extends Model
         return $this->belongsTo(Interpreter::class);
     }
 
-    public function scopeWithoutChapels(Builder $query): void
+    public function scopeOnlyLessons(Builder $query): void
     {
-        $query->whereNotIn('status', LessonStatusEnum::chapelsStatuses());
+        $query->whereNotIn('status', [LessonStatusEnum::chapelsStatuses(), LessonStatusEnum::SPECIAL_ACTIVITY->value]);
     }
 
     public function scopeAvailable(Builder $query): void
