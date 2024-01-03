@@ -29,6 +29,7 @@
                             <option value="{{ \App\Enums\LessonStatusEnum::AVAILABLE->value }}">Available</option>
                             <option value="{{ \App\Enums\LessonStatusEnum::TO_CONFIRM->value }}">To confirm</option>
                             <option value="{{ \App\Enums\LessonStatusEnum::CONFIRMED->value }}">Confirmed</option>
+                            <option value="{{ \App\Enums\LessonStatusEnum::SPECIAL_ACTIVITY->value }}">Special activity</option>
                         </select>
 
                         <label class="fw-bold mt-3">Interpreter</label>
@@ -48,7 +49,7 @@
                     @endif
 
                     <label class="fw-bold my-3 mb-0">Notes</label>
-                    <textarea wire:model="notes" class="form-control"></textarea>
+                    <input type="text" wire:model="notes" class="form-control">
 
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

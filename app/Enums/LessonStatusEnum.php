@@ -27,7 +27,7 @@ enum LessonStatusEnum: string implements EnumWithTranslationInterface
             self::PRAYER->value,
             self::WORSHIP_NIGHT->value => 'primary',
             self::EVENING_AVAILABLE->value => 'tomato',
-            self::SPECIAL_ACTIVITY->value => 'lightgray',
+            self::SPECIAL_ACTIVITY->value => 'gray',
         ][$case->value] ?? 'primary';
     }
 

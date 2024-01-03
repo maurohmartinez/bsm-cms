@@ -92,21 +92,20 @@ trait CalendarOperation
             foreach ($lessons as $lesson) {
                 $subject = $lesson->subject()->with('teacher')->first();
                 $teacher = $lesson->subject?->teacher;
+                $title = $subject
+                    ? '[' . $count . '] ' . Str::words($subject->name, 2) . '/' . ($teacher?->name ?? '-')
+                    : LessonStatusEnum::translatedOption($lesson->status);
+                $title .= ($lesson->extras['notes'] ?? null) ? ' - ' . $lesson->extras['notes'] : '';
 
                 $returns [] = [
                     'id' => $lesson->id,
-                    'title' => $subject
-                        ? $count . ' | ' . Str::words($subject->name, 2) . ' | ' . ($teacher?->name ?? '-')
-                        : LessonStatusEnum::translatedOption($lesson->status),
+                    'title' => $title,
                     'start' => $lesson->starts_at->format('Y-m-d H:i:s'),
                     'end' => $lesson->ends_at->format('Y-m-d H:i:s'),
                     'allDay' => false,
-                    'color' => $lesson->status === LessonStatusEnum::TO_CONFIRM
-                        ? 'gray'
+                    'color' => $lesson->is_chapel || $lesson->status === LessonStatusEnum::SPECIAL_ACTIVITY
+                        ? LessonStatusEnum::getColor($lesson->status)
                         : ($subject?->color ?? 'lightgray'),
-                    'extendedProps' => [
-                        'description' => $lesson->extras['description'] ?? '',
-                    ],
                 ];
                 $count++;
             }

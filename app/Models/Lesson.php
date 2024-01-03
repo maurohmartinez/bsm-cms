@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\LessonStatusEnum;
 use App\Enums\PeriodEnum;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -129,6 +130,8 @@ class Lesson extends Model
         'status' => LessonStatusEnum::class,
     ];
 
+    protected $appends = ['is_chapel'];
+
     public function year(): BelongsTo
     {
         return $this->belongsTo(Year::class);
@@ -196,5 +199,12 @@ class Lesson extends Model
     public function scopeYear(Builder $query, int $yearId): void
     {
         $query->where('lessons.year_id', $yearId);
+    }
+
+    protected function isChapel(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => in_array($this->status->value, array_keys(LessonStatusEnum::chapelsStatuses())),
+        );
     }
 }

@@ -55,6 +55,7 @@
             initialView: 'timeGridWeek',
             slotMinTime: '08:30',
             slotMaxTime: '20:00',
+            displayEventTime: false,
             eventSources: [
                 {
                     id: "all-lessons",
@@ -76,6 +77,19 @@
             },
             eventClassNames: function(arg) {
                 return [ 'cursor-pointer' ];
+            },
+            eventMouseEnter: function ({event, el}) {
+                if (event.extendedProps.notes) {
+                    $(el).popover({
+                        // title: 'Notes',
+                        placement: 'auto',
+                        html: true,
+                        trigger: 'hover',
+                        animation: true,
+                        content: event.extendedProps.notes,
+                        container: $(el),
+                    });
+                }
             },
         });
         calendar.render();

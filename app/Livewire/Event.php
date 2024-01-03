@@ -20,7 +20,7 @@ class Event extends WireModal
 
     public ?string $notes = '';
 
-    public ?int $subjectId;
+    public ?int $subjectId = null;
 
     public ?int $interpreterId = null;
 
@@ -44,14 +44,21 @@ class Event extends WireModal
     #[NoReturn] private function updateRegularLesson(): void
     {
         $this->validate([
-            'subjectId' => 'required|exists:subjects,id',
-            'interpreterId' => 'sometimes|nullable|exists:interpreters,id',
+            'subjectId' => in_array($this->status, [LessonStatusEnum::SPECIAL_ACTIVITY->value, LessonStatusEnum::AVAILABLE->value])
+                ? 'prohibited'
+                : 'required|exists:subjects,id',
+            'interpreterId' => in_array($this->status, [LessonStatusEnum::SPECIAL_ACTIVITY->value, LessonStatusEnum::AVAILABLE->value])
+                ? 'prohibited'
+                : 'required|exists:interpreters,id',
             'status' => 'required|in:' . implode(',', $this->subjectId
                     ? [
                         LessonStatusEnum::TO_CONFIRM->value,
                         LessonStatusEnum::CONFIRMED->value,
-                    ] : [LessonStatusEnum::AVAILABLE->value]),
-            'notes' => 'sometimes|nullable|max:1000',
+                    ] : [
+                        LessonStatusEnum::AVAILABLE->value,
+                        LessonStatusEnum::SPECIAL_ACTIVITY->value,
+                    ]),
+            'notes' => 'sometimes|nullable|max:35',
         ]);
 
         try {
@@ -78,11 +85,13 @@ class Event extends WireModal
     {
         $this->validate([
             'status' => 'required|in:' . implode(',', array_keys(LessonStatusEnum::chapelsStatuses())),
-            'notes' => 'sometimes|nullable|max:1000',
+            'notes' => 'sometimes|nullable|max:35',
         ]);
 
         try {
             $this->lesson->update([
+                'subject_id' => null,
+                'interpreter_id' => null,
                 'status' => $this->status,
                 'extras' => ['notes' => $this->notes],
             ]);
@@ -102,7 +111,7 @@ class Event extends WireModal
     public function setInitialState(?array $params): void
     {
         $this->lesson = Lesson::query()->findOrFail($params['id']);
-        $this->isLesson = !in_array($this->lesson->status->value, array_keys(LessonStatusEnum::chapelsStatuses()));
+        $this->isLesson = !$this->lesson->is_chapel;
         $this->status = $this->lesson->status->value;
         $this->subjects = Subject::query()
             ->where('year_id', $this->lesson->year_id)
