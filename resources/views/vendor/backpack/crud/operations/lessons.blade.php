@@ -3,7 +3,8 @@
 @section('content')
     <div class="page-body animated fadeIn">
         <div class="row">
-            <div class="container-xl">
+            <livewire:status />
+            <div class="col-12">
                 <div id="lessons" class="card border-0 p-3"></div>
             </div>
         </div>
@@ -98,6 +99,9 @@
             Livewire.on('refresh-calendar', () => {
                 calendar.refetchEvents();
             });
+            @if($currentYearId)
+                Livewire.dispatch('update-calendar-year', { yearId: {{ $currentYearId }} })
+            @endif
         });
     });
 </script>

@@ -4,10 +4,12 @@ namespace App\Models;
 
 use App\Enums\LessonStatusEnum;
 use App\Enums\PeriodEnum;
+use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Lesson
@@ -20,16 +22,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property array|null $extras
  * @property LessonStatusEnum $status
  * @property bool $notify_teacher
- * @property \Illuminate\Support\Carbon|null $starts_at
- * @property \Illuminate\Support\Carbon|null $ends_at
+ * @property Carbon|null $starts_at
+ * @property Carbon|null $ends_at
  * @property PeriodEnum $period
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Interpreter|null $interpreter
- * @property-read \App\Models\Subject|null $subject
- * @property-read \App\Models\Teacher|null $teacher
- * @property-read \App\Models\Year $year
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Interpreter|null $interpreter
+ * @property-read Subject|null $subject
+ * @property-read Teacher|null $teacher
+ * @property-read Year $year
  * @method static Builder|Lesson available()
  * @method static Builder|Lesson confirmed()
  * @method static Builder|Lesson firstSemester()
@@ -39,6 +41,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static Builder|Lesson query()
  * @method static Builder|Lesson secondSemester()
  * @method static Builder|Lesson toConfirm()
+ * @method static Builder|Lesson onlyLessons()
  * @method static Builder|Lesson whereCreatedAt($value)
  * @method static Builder|Lesson whereDeletedAt($value)
  * @method static Builder|Lesson whereEndsAt($value)
@@ -59,7 +62,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static Builder|Lesson withoutChapels()
  * @method static Builder|Lesson withoutTrashed()
  * @method static Builder|Lesson year(int $yearId)
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class Lesson extends Model
 {
@@ -154,7 +157,10 @@ class Lesson extends Model
 
     public function scopeOnlyLessons(Builder $query): void
     {
-        $query->whereNotIn('status', [LessonStatusEnum::chapelsStatuses(), LessonStatusEnum::SPECIAL_ACTIVITY->value]);
+        $query->whereNotIn('status', [
+            ...array_keys(LessonStatusEnum::chapelsStatuses()),
+            LessonStatusEnum::SPECIAL_ACTIVITY->value,
+        ]);
     }
 
     public function scopeAvailable(Builder $query): void

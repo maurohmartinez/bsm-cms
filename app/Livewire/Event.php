@@ -78,6 +78,7 @@ class Event extends WireModal
 
         $this->dispatch('toast', type: 'success', message: 'Done!');
         $this->dispatch('refresh-calendar');
+        $this->dispatch('refresh-lessons-count');
         $this->hide();
     }
 
@@ -105,6 +106,7 @@ class Event extends WireModal
 
         $this->dispatch('toast', type: 'success', message: 'Done!');
         $this->dispatch('refresh-calendar');
+        $this->dispatch('refresh-lessons-count');
         $this->hide();
     }
 

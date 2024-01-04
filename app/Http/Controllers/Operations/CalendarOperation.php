@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Operations;
 
 use App\Enums\LessonStatusEnum;
 use App\Models\Lesson;
+use App\Models\Year;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
@@ -64,6 +65,10 @@ trait CalendarOperation
         $this->crud->setSubheading('All events in selected date range.');
 
         $this->data['crud'] = $this->crud;
+        $this->data['currentYearId'] = Year::query()
+            ->whereDate('first_period_starts_at', '<', now())
+            ->whereDate('second_period_ends_at', '>', now())
+            ->first()?->id;
 
         return view("crud::operations.lessons", $this->data);
     }
@@ -81,6 +86,7 @@ trait CalendarOperation
         $start = request()->input('start');
         $end = request()->input('end');
 
+        /** @var \Illuminate\Support\Collection<Lesson> $lessons */
         $lessons = Lesson::query()
             ->whereDate('starts_at', '>', $start)
             ->with(['subject', 'teacher', 'interpreter'])
@@ -88,9 +94,16 @@ trait CalendarOperation
             ->get();
 
         foreach ($lessons->groupBy('subject_id') as $lessons) {
-            $count = 1;
             foreach ($lessons as $lesson) {
                 $subject = $lesson->subject()->with('teacher')->first();
+
+                if ($subject) {
+                    $count = $subject ? Lesson::query()
+                        ->where('subject_id', $lesson->subject_id)
+                        ->where('id', '<=', $lesson->id)
+                        ->count() : 0;
+                }
+
                 $teacher = $lesson->subject?->teacher;
                 $title = $subject
                     ? '[' . $count . '] ' . Str::words($subject->name, 2) . '/' . ($teacher?->name ?? '-')
@@ -107,7 +120,6 @@ trait CalendarOperation
                         ? LessonStatusEnum::getColor($lesson->status)
                         : ($subject?->color ?? 'lightgray'),
                 ];
-                $count++;
             }
         }
 
