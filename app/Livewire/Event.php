@@ -47,9 +47,9 @@ class Event extends WireModal
             'subjectId' => in_array($this->status, [LessonStatusEnum::SPECIAL_ACTIVITY->value, LessonStatusEnum::AVAILABLE->value])
                 ? 'prohibited'
                 : 'required|exists:subjects,id',
-            'interpreterId' => in_array($this->status, [LessonStatusEnum::SPECIAL_ACTIVITY->value, LessonStatusEnum::AVAILABLE->value])
-                ? 'prohibited'
-                : 'required|exists:interpreters,id',
+//            'interpreterId' => in_array($this->status, [LessonStatusEnum::SPECIAL_ACTIVITY->value, LessonStatusEnum::AVAILABLE->value])
+//                ? 'prohibited'
+//                : 'required|exists:interpreters,id',
             'status' => 'required|in:' . implode(',', $this->subjectId
                     ? [
                         LessonStatusEnum::TO_CONFIRM->value,
@@ -64,7 +64,7 @@ class Event extends WireModal
         try {
             $this->lesson->update([
                 'subject_id' => $this->subjectId,
-                'interpreter_id' => $this->interpreterId,
+                'interpreter_id' => null,
                 'status' => $this->status,
                 'extras' => ['notes' => $this->notes],
             ]);
@@ -126,7 +126,7 @@ class Event extends WireModal
             ->get();
 
         $this->subjectId = $this->lesson->subject_id;
-        $this->interpreterId = $this->lesson->interpreter_id;
+//        $this->interpreterId = $this->lesson->interpreter_id;
         $this->notes = $this->lesson->extras['notes'] ?? '';
     }
 }

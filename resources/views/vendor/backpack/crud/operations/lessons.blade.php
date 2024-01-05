@@ -23,9 +23,10 @@
             themeSystem: 'bootstrap5',
             headerToolbar: {
                 start: 'today prev,next',
-                end: 'dayGridMonth,timeGridWeek,timeGridDay',
+                end: 'multiMonthYear,dayGridMonth,timeGridWeek,timeGridDay',
                 center: 'title',
             },
+            multiMonthMaxColumns: 1,
             businessHours: [
                 {
                     daysOfWeek: [1],

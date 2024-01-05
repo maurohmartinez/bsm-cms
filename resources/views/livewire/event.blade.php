@@ -31,14 +31,13 @@
                             <option value="{{ \App\Enums\LessonStatusEnum::CONFIRMED->value }}">Confirmed</option>
                             <option value="{{ \App\Enums\LessonStatusEnum::SPECIAL_ACTIVITY->value }}">Special activity</option>
                         </select>
-
-                        <label class="fw-bold mt-3">Interpreter</label>
-                        <select wire:model="interpreterId" class="form-control">
-                            <option value="">None...</option>
-                            @foreach($interpreters as $interpreter)
-                                <option value="{{ $interpreter->id }}">{{ $interpreter->name }}</option>
-                            @endforeach
-                        </select>
+{{--                        <label class="fw-bold mt-3">Interpreter</label>--}}
+{{--                        <select wire:model="interpreterId" class="form-control">--}}
+{{--                            <option value="">None...</option>--}}
+{{--                            @foreach($interpreters as $interpreter)--}}
+{{--                                <option value="{{ $interpreter->id }}">{{ $interpreter->name }}</option>--}}
+{{--                            @endforeach--}}
+{{--                        </select>--}}
                     @else
                         <label class="fw-bold">Type</label>
                         <select wire:model="status" class="form-control">
