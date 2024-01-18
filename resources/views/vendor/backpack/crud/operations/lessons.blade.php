@@ -31,9 +31,7 @@
                         dayHeaderFormat: { weekday: 'short', month: 'short', day: 'numeric', omitCommas: true },
                     },
                 },
-                weekends: false,
                 multiMonthMaxColumns: 1,
-                firstDay: 1,
                 businessHours: [
                     {
                         daysOfWeek: [1],
