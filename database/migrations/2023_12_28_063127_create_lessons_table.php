@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('lessons', function (Blueprint $table) {
             $table->id();
             $table->foreignId('year_id');
-            $table->foreignId('teacher_id')->nullable();
             $table->foreignId('subject_id')->nullable();
             $table->foreignId('interpreter_id')->nullable();
             $table->json('extras')->nullable();

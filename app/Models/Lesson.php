@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Carbon;
 
 /**
@@ -16,7 +17,6 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property int $year_id
- * @property int|null $teacher_id
  * @property int|null $subject_id
  * @property int|null $interpreter_id
  * @property array|null $extras
@@ -111,7 +111,6 @@ class Lesson extends Model
         'ends_at',
         'period',
         'year_id',
-        'teacher_id',
         'subject_id',
         'interpreter_id',
         'extras',
@@ -140,9 +139,16 @@ class Lesson extends Model
         return $this->belongsTo(Year::class);
     }
 
-    public function teacher(): BelongsTo
+    public function teacher(): HasOneThrough
     {
-        return $this->belongsTo(Teacher::class);
+        return $this->hasOneThrough(
+            Teacher::class,
+            Subject::class,
+            'id',
+            'id',
+            'subject_id',
+            'teacher_id',
+        );
     }
 
     public function subject(): BelongsTo

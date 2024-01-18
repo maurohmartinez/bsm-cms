@@ -37,24 +37,25 @@ class LessonCrudController extends CrudController
     {
         CRUD::enableExportButtons();
 
-        CRUD::filter('year_id')
+        CRUD::filter('by_year')
             ->type('dropdown')
             ->values(Year::all()->pluck('name', 'id')->toArray())
             ->whenActive(fn (int $value) => CRUD::addBaseClause('where', 'year_id', $value));
 
-        CRUD::filter('subject_id')
+        CRUD::filter('by_subject')
             ->type('select2')
             ->values(Subject::with('year')->get()->pluck('full_name', 'id')->toArray())
             ->whenActive(fn (int $value) => CRUD::addBaseClause('where', 'subject_id', $value));
 
-        CRUD::filter('teacher_id')
+        CRUD::filter('by_teacher')
             ->type('select2')
             ->values(Teacher::all()->pluck('name', 'id')->toArray())
             ->whenActive(fn (int $value) => CRUD::addBaseClause('where', 'teacher_id', $value));
 
+        CRUD::column('id');
         CRUD::column('starts_at');
         CRUD::column('subject_id');
-        CRUD::column('teacher_id');
+        CRUD::column('teacher.name');
         CRUD::column('status')->type('enum');
     }
 }
