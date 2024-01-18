@@ -30,6 +30,7 @@ class LessonCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/lesson');
         CRUD::setEntityNameStrings('lesson', 'lesson');
         CRUD::addBaseClause('onlyLessons');
+        CRUD::addBaseClause('with', ['teacher', 'year', 'subject']);
     }
 
     protected function setupListOperation(): void
@@ -53,7 +54,7 @@ class LessonCrudController extends CrudController
 
         CRUD::column('starts_at');
         CRUD::column('subject_id');
-        CRUD::column('teacher_id')->attribute('name');
+        CRUD::column('teacher_id');
         CRUD::column('status')->type('enum');
     }
 }
