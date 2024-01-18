@@ -70,6 +70,10 @@ trait CalendarOperation
             ->whereDate('second_period_ends_at', '>', now())
             ->first()?->id;
 
+        $this->data['currentYearId'] ??= Year::query()
+            ->whereDate('first_period_starts_at', '>', now())
+            ->first()?->id;
+
         return view("crud::operations.lessons", $this->data);
     }
 

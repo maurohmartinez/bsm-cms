@@ -7,21 +7,26 @@ use App\Enums\PeriodEnum;
 use App\Models\Lesson;
 use App\Models\Subject;
 use App\Models\Year;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cookie;
 use Livewire\Component;
 use Livewire\Attributes\On;
 
 class Status extends Component
 {
-    public ?int $yearId = null;
+    public int $yearId;
 
     public array $count;
 
-    #[On('update-calendar-year')]
-    public function updateCalendarYear(int $yearId): void
+    public function mount(?int $yearId): void
     {
         $this->yearId = $yearId;
+        $this->updatedYearId();
+    }
+
+    public function updatedYearId(): void
+    {
+        Cookie::queue('calendar_year', $this->yearId);
         $this->count = $this->lessonsCount();
     }
 
@@ -33,11 +38,12 @@ class Status extends Component
 
     private function lessonsCount(): array
     {
+        if (!$this->yearId) {
+            return [];
+        }
+
         $year = Year::query()->findOrFail($this->yearId);
-        $lessons = Lesson::query()
-            ->where('year_id', $this->yearId)
-            ->onlyLessons()
-            ->get();
+        $lessons = $year->lessons()->onlyLessons()->get();
 
         $lessonsFirstSemester = $this->getSemesterCount($lessons->where('period', '===', PeriodEnum::FIRST));
         $lessonsSecondSemester = $this->getSemesterCount($lessons->where('period', '===', PeriodEnum::SECOND));
@@ -67,7 +73,7 @@ class Status extends Component
 
     private function getPercentage(int $count, int $total): int
     {
-        $percentage = (int) (($count / $total) * 50);
+        $percentage = (int) (($count / ($total === 0 ? 1 : $total)) * 50);
         if ($percentage === 0 && $count > 0) {
             $percentage = 1;
         }

@@ -17,7 +17,7 @@
 
                     @if($isLesson)
                         <label class="fw-bold">Subject</label>
-                        <select wire:model="subjectId" class="form-control">
+                        <select wire:model.live="subjectId" class="form-control">
                             <option value="">None...</option>
                             @foreach($subjects as $subject)
                                 <option value="{{ $subject->id }}">{{ $subject->name }} ({{ $subject->lessons()->year($this->lesson->year_id)->count() }}/{{ $subject->hours }}) » {{ $subject->teacher()->first()->name }}</option>

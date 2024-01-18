@@ -19,14 +19,14 @@ class YearObserver
     {
         $periodStarts = $year->first_period_starts_at;
         $periodEnds = $year->first_period_ends_at;
-        $this->buildSemester($periodStarts, $periodEnds, PeriodEnum::FIRST);
+        $this->buildSemester($year, $periodStarts, $periodEnds, PeriodEnum::FIRST);
 
         $periodStarts = $year->second_period_starts_at;
         $periodEnds = $year->second_period_ends_at;
-        $this->buildSemester($periodStarts, $periodEnds, PeriodEnum::SECOND);
+        $this->buildSemester($year, $periodStarts, $periodEnds, PeriodEnum::SECOND);
     }
 
-    private function buildSemester(Carbon $periodStarts, Carbon $periodEnds, PeriodEnum $period): void
+    private function buildSemester(Year $year, Carbon $periodStarts, Carbon $periodEnds, PeriodEnum $period): void
     {
         while (!$periodStarts->isAfter($periodEnds)) {
             if (!$periodStarts->isWeekend()) {
@@ -37,7 +37,7 @@ class YearObserver
                         ->create([
                             'starts_at' => $periodStarts->format('Y-m-d') . ' ' . $lessons[0],
                             'ends_at' => $periodStarts->format('Y-m-d') . ' ' . $lessons[1],
-                            'year_id' => 1,
+                            'year_id' => $year->id,
                             'period' => $period,
                             'status' => $lessons === ['19:00', '21:00']
                                 ? LessonStatusEnum::EVENING_AVAILABLE

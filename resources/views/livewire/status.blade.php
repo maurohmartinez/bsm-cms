@@ -2,7 +2,14 @@
     @if($yearId)
         <div class="card" wire:loading.remove>
             <div class="card-body">
-                <h3 class="mb-0 fw-light">Total lessons <strong>{{ $count['total'] }} for year {{ $count['year_name'] }}</h3>
+                <div class="d-flex align-items-center">
+                    <h3 class="mb-0 fw-light">Total lessons <strong>{{ $count['total'] }} for year</h3>
+                    <select wire:model.live="yearId" class="form-control form-control-sm ms-1">
+                        @foreach(\App\Models\Year::all() as $year)
+                        <option value="{{ $year->id }}">{{ $year->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 @if($count['total'] !== $count['total_from_subjects'])
                     <p class="text-danger fw-light">
                         <i class="la la-warning me-1"></i>Please fix the discrepancy in the amount of hours offered by subjects — <strong>{{ $count['total_from_subjects'] }}</strong> instead of <strong>{{ $count['total'] }}</strong>!

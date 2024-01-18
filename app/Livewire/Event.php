@@ -41,6 +41,15 @@ class Event extends WireModal
         };
     }
 
+    public function updatedSubjectId(): void
+    {
+        if ($this->subjectId) {
+            if ($this->status !== LessonStatusEnum::TO_CONFIRM->value) {
+                $this->status = LessonStatusEnum::CONFIRMED->value;
+            }
+        }
+    }
+
     #[NoReturn] private function updateRegularLesson(): void
     {
         $this->validate([
