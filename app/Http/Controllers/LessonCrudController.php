@@ -55,7 +55,7 @@ class LessonCrudController extends CrudController
         CRUD::column('id');
         CRUD::column('starts_at');
         CRUD::column('subject_id');
-        CRUD::column('teacher.name');
+        CRUD::column('teacher.name')->label('Teacher');
         CRUD::column('status')->type('enum');
     }
 }
