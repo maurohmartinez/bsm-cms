@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Operations;
 
 use App\Enums\LessonStatusEnum;
 use App\Models\Lesson;
+use App\Models\Subject;
 use App\Models\Year;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
-use Ramsey\Collection\Collection;
 
 trait CalendarOperation
 {
@@ -22,12 +21,12 @@ trait CalendarOperation
      */
     protected function setupCalendarRoutes(string $segment, string $routeName, string $controller): void
     {
-        Route::get($segment . '/', [
+        Route::get($segment . '/calendar', [
             'as' => $routeName . '.calendar',
             'uses' => $controller . '@calendar',
             'operation' => 'calendar',
         ]);
-        Route::post($segment . '/', [
+        Route::post($segment . '/calendar', [
             'as' => $routeName . '.getCalendarEvents',
             'uses' => $controller . '@getCalendarEvents',
             'operation' => 'calendar',
@@ -46,11 +45,6 @@ trait CalendarOperation
         $this->crud->operation('calendar', function () {
             $this->crud->loadDefaultOperationSettingsFromConfig();
             $this->crud->setupDefaultSaveActions();
-        });
-
-        // Button
-        $this->crud->operation('list', function () {
-            $this->crud->addButton('top', 'calendar', 'view', 'crud::buttons.calendar', 'end');
         });
     }
 
@@ -103,14 +97,13 @@ trait CalendarOperation
 
         foreach ($lessons->groupBy('subject_id') as $lessons) {
             foreach ($lessons as $lesson) {
+                /** @var Subject $subject */
                 $subject = $lesson->subject()->with('teacher')->first();
 
-                if ($subject) {
-                    $count = $subject ? Lesson::query()
-                        ->where('subject_id', $lesson->subject_id)
-                        ->where('id', '<=', $lesson->id)
-                        ->count() : 0;
-                }
+                $count = $subject ? Lesson::query()
+                    ->where('subject_id', $lesson->subject_id)
+                    ->where('id', '<=', $lesson->id)
+                    ->count() : 0;
 
                 $teacher = $lesson->subject?->teacher;
                 $title = $subject

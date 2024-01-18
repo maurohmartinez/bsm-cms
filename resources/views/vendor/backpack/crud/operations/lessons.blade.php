@@ -66,7 +66,7 @@
                 eventSources: [
                     {
                         id: "all-lessons",
-                        url: "{{ backpack_url($crud->route) }}",
+                        url: "{{ backpack_url($crud->route) }}/calendar",
                         method: 'POST',
                         extraParams: {
                             _token: $('meta[name="csrf-token"]').attr('content'),

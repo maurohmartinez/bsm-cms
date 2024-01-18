@@ -21,7 +21,7 @@ enum LessonStatusEnum: string implements EnumWithTranslationInterface
     {
         return [
             self::AVAILABLE->value => 'lightgray',
-            self::TO_CONFIRM->value => 'coral',
+            self::TO_CONFIRM->value => 'red',
             self::CONFIRMED->value => 'darkcyan',
             self::CHAPEL->value => 'darkcyan',
             self::PRAYER->value,
