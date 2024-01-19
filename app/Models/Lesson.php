@@ -219,4 +219,19 @@ class Lesson extends Model
             get: fn () => in_array($this->status->value, array_keys(LessonStatusEnum::chapelsStatuses())),
         );
     }
+
+    protected function number(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return match (true) {
+                    is_null($this->subject_id) => 0,
+                    default => $this->query()
+                        ->where('subject_id', $this->subject_id)
+                        ->where('id', '<=', $this->id)
+                        ->count(),
+                };
+            },
+        );
+    }
 }

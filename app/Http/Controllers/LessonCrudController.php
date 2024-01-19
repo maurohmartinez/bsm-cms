@@ -36,6 +36,7 @@ class LessonCrudController extends CrudController
     protected function setupListOperation(): void
     {
         CRUD::enableExportButtons();
+        CRUD::addBaseClause('orderBy', 'starts_at');
 
         CRUD::filter('by_year')
             ->type('dropdown')
@@ -52,7 +53,7 @@ class LessonCrudController extends CrudController
             ->values(Teacher::all()->pluck('name', 'id')->toArray())
             ->whenActive(fn (int $value) => CRUD::addBaseClause('where', 'teacher_id', $value));
 
-        CRUD::column('id');
+        CRUD::column('number');
         CRUD::column('starts_at');
         CRUD::column('subject_id');
         CRUD::column('teacher.name')->label('Teacher');

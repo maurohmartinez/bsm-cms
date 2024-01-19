@@ -100,14 +100,9 @@ trait CalendarOperation
                 /** @var Subject $subject */
                 $subject = $lesson->subject()->with('teacher')->first();
 
-                $count = $subject ? Lesson::query()
-                    ->where('subject_id', $lesson->subject_id)
-                    ->where('id', '<=', $lesson->id)
-                    ->count() : 0;
-
                 $teacher = $lesson->subject?->teacher;
                 $title = $subject
-                    ? '[' . $count . '] ' . Str::words($subject->name, 2) . '/' . ($teacher?->name ?? '-')
+                    ? '[' . $lesson->number . '] ' . Str::words($subject->name, 2) . '/' . ($teacher?->name ?? '-')
                     : LessonStatusEnum::translatedOption($lesson->status);
                 $title .= ($lesson->extras['notes'] ?? null) ? ' - ' . $lesson->extras['notes'] : '';
 
