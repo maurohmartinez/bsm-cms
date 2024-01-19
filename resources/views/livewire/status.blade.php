@@ -10,7 +10,7 @@
                         @endforeach
                     </select>
                 </div>
-                @if($count['total'] !== $count['total_from_subjects'])
+                @if((int) $count['total'] !== (int) $count['total_from_subjects'])
                     <p class="text-danger fw-light">
                         <i class="la la-warning me-1"></i>Please fix the discrepancy in the amount of hours offered by subjects — <strong>{{ $count['total_from_subjects'] }}</strong> instead of <strong>{{ $count['total'] }}</strong>!
                     </p>

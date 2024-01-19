@@ -102,7 +102,7 @@ trait CalendarOperation
 
                 $teacher = $lesson->subject?->teacher;
                 $title = $subject
-                    ? '[' . $lesson->number . '] ' . Str::words($subject->name, 2) . '/' . ($teacher?->name ?? '-')
+                    ? '[' . $lesson->totalOf . '] ' . Str::words($subject->name, 2) . '/' . ($teacher?->name ?? '-')
                     : LessonStatusEnum::translatedOption($lesson->status);
                 $title .= ($lesson->extras['notes'] ?? null) ? ' - ' . $lesson->extras['notes'] : '';
 

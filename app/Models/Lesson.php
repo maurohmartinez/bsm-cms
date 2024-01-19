@@ -234,4 +234,11 @@ class Lesson extends Model
             },
         );
     }
+
+    protected function totalOf(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->number . '/' . $this->subject->hours,
+        );
+    }
 }
