@@ -112,9 +112,10 @@ trait CalendarOperation
                     'start' => $lesson->starts_at->format('Y-m-d H:i:s'),
                     'end' => $lesson->ends_at->format('Y-m-d H:i:s'),
                     'allDay' => false,
-                    'color' => $lesson->is_chapel || $lesson->status === LessonStatusEnum::SPECIAL_ACTIVITY
-                        ? LessonStatusEnum::getColor($lesson->status)
-                        : ($subject?->color ?? 'lightgray'),
+                    'color' => match (true) {
+                        $lesson->is_chapel || in_array($lesson->status, [LessonStatusEnum::SPECIAL_ACTIVITY, LessonStatusEnum::TO_CONFIRM]) => LessonStatusEnum::getColor($lesson->status),
+                        default => $subject?->color ?? 'lightgray',
+                    },
                 ];
             }
         }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\LessonStatusEnum;
 use App\Models\Subject;
 use App\Models\Teacher;
 use App\Models\Year;
@@ -38,20 +39,29 @@ class LessonCrudController extends CrudController
         CRUD::enableExportButtons();
         CRUD::addBaseClause('orderBy', 'starts_at');
 
-        CRUD::filter('by_year')
+        CRUD::filter('year')
             ->type('dropdown')
             ->values(Year::all()->pluck('name', 'id')->toArray())
             ->whenActive(fn (int $value) => CRUD::addBaseClause('where', 'year_id', $value));
 
-        CRUD::filter('by_subject')
+        CRUD::filter('subject')
             ->type('select2')
             ->values(Subject::with('year')->get()->pluck('full_name', 'id')->toArray())
             ->whenActive(fn (int $value) => CRUD::addBaseClause('where', 'subject_id', $value));
 
-        CRUD::filter('by_teacher')
+        CRUD::filter('teacher')
             ->type('select2')
             ->values(Teacher::all()->pluck('name', 'id')->toArray())
             ->whenActive(fn (int $value) => CRUD::addBaseClause('where', 'teacher_id', $value));
+
+        CRUD::filter('status')
+            ->type('dropdown')
+            ->options([
+                LessonStatusEnum::AVAILABLE->value => LessonStatusEnum::translatedOption(LessonStatusEnum::AVAILABLE),
+                LessonStatusEnum::TO_CONFIRM->value => LessonStatusEnum::translatedOption(LessonStatusEnum::TO_CONFIRM),
+                LessonStatusEnum::CONFIRMED->value => LessonStatusEnum::translatedOption(LessonStatusEnum::CONFIRMED),
+            ])
+            ->whenActive(fn (string $value) => CRUD::addBaseClause('where', 'status', $value));
 
         CRUD::column('number');
         CRUD::column('starts_at');
