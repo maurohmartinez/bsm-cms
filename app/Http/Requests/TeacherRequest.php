@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Enums\LanguagesEnum;
 use App\Services\CountriesService;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class TeacherRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class TeacherRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'email' => 'required|email|unique:teachers,email',
+            'email' => ['required', 'email', Rule::unique('teachers')->ignore($this->get('id'))],
             'country' => 'required|in:'.implode(',', array_keys(CountriesService::getCountries())),
             'phone' => 'required|phone',
             'language' => 'required|in:'.LanguagesEnum::toString(),
