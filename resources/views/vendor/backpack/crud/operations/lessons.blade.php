@@ -3,7 +3,7 @@
 @section('content')
     <div class="page-body animated fadeIn">
         <div class="row">
-            <livewire:status :year-id="\Illuminate\Support\Facades\Cookie::get('calendar_year', $currentYearId)"/>
+            <livewire:status :year-id="$currentYearId"/>
             <div class="col-12">
                 <div id="lessons" class="card border-0 p-3"></div>
             </div>
