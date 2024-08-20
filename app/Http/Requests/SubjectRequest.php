@@ -22,6 +22,7 @@ class SubjectRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
+            'color' => 'required|string',
             'year_id' => 'required|exists:years,id',
             'hours' => 'required|numeric',
             'notes' => 'sometimes|nullable|max:2000',
