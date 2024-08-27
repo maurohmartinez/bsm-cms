@@ -3,7 +3,12 @@
 namespace App\Models;
 
 use App\Enums\LanguagesEnum;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\DatabaseNotificationCollection;
+use Illuminate\Support\Carbon;
+use Barryvdh\LaravelIdeHelper\Eloquent;
 
 /**
  * App\Models\Teacher
@@ -16,29 +21,29 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $country
  * @property LanguagesEnum $language
  * @property bool $is_local
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- * @method static \Illuminate\Database\Eloquent\Builder|Teacher newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Teacher newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Teacher onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Teacher query()
- * @method static \Illuminate\Database\Eloquent\Builder|Teacher whereCountry($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Teacher whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Teacher whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Teacher whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Teacher whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Teacher whereImage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Teacher whereIsLocal($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Teacher whereLanguage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Teacher whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Teacher wherePhone($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Teacher whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Teacher withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Teacher withoutTrashed()
- * @mixin \Eloquent
+ * @method static Builder|Teacher newModelQuery()
+ * @method static Builder|Teacher newQuery()
+ * @method static Builder|Teacher onlyTrashed()
+ * @method static Builder|Teacher query()
+ * @method static Builder|Teacher whereCountry($value)
+ * @method static Builder|Teacher whereCreatedAt($value)
+ * @method static Builder|Teacher whereDeletedAt($value)
+ * @method static Builder|Teacher whereEmail($value)
+ * @method static Builder|Teacher whereId($value)
+ * @method static Builder|Teacher whereImage($value)
+ * @method static Builder|Teacher whereIsLocal($value)
+ * @method static Builder|Teacher whereLanguage($value)
+ * @method static Builder|Teacher whereName($value)
+ * @method static Builder|Teacher wherePhone($value)
+ * @method static Builder|Teacher whereUpdatedAt($value)
+ * @method static Builder|Teacher withTrashed()
+ * @method static Builder|Teacher withoutTrashed()
+ * @mixin Eloquent
  */
 class Teacher extends Model
 {

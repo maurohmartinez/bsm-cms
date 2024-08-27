@@ -11,7 +11,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
  *
  * @property-read CrudPanel $crud
  */
-class SubjectCategoryCrudController extends CrudController
+class BookkeepingCategoryCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
@@ -20,22 +20,23 @@ class SubjectCategoryCrudController extends CrudController
 
     public function setup(): void
     {
-        CRUD::setModel(\App\Models\SubjectCategory::class);
-        CRUD::setRoute(config('backpack.base.route_prefix').'/subject-category');
-        CRUD::setEntityNameStrings('subject category', 'subject categories');
+        CRUD::setModel(\App\Models\BookkeepingCategory::class);
+        CRUD::setRoute(config('backpack.base.route_prefix').'/bookkeeping-category');
+        CRUD::setEntityNameStrings('category', 'categories');
     }
 
     protected function setupListOperation(): void
     {
-        CRUD::column('code');
         CRUD::column('name');
+        CRUD::column('type')->type('enum');
     }
 
     protected function setupCreateOperation(): void
     {
-        CRUD::setValidation(\App\Http\Requests\SubjectCategoryRequest::class);
+        CRUD::setValidation(\App\Http\Requests\BookkeepingCategoryRequest::class);
 
-        CRUD::field('name');
+        CRUD::column('name');
+        CRUD::column('type')->type('enum');
     }
 
     protected function setupUpdateOperation(): void

@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Barryvdh\LaravelIdeHelper\Eloquent;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\SubjectCategory
@@ -11,22 +14,23 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $name
  * @property string $code
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @method static \Illuminate\Database\Eloquent\Builder|SubjectCategory newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|SubjectCategory newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|SubjectCategory onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|SubjectCategory query()
- * @method static \Illuminate\Database\Eloquent\Builder|SubjectCategory whereCode($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SubjectCategory whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SubjectCategory whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SubjectCategory whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SubjectCategory whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SubjectCategory whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SubjectCategory withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|SubjectCategory withoutTrashed()
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @method static Builder|SubjectCategory newModelQuery()
+ * @method static Builder|SubjectCategory newQuery()
+ * @method static Builder|SubjectCategory onlyTrashed()
+ * @method static Builder|SubjectCategory query()
+ * @method static Builder|SubjectCategory whereCode($value)
+ * @method static Builder|SubjectCategory whereCreatedAt($value)
+ * @method static Builder|SubjectCategory whereDeletedAt($value)
+ * @method static Builder|SubjectCategory whereId($value)
+ * @method static Builder|SubjectCategory whereName($value)
+ * @method static Builder|SubjectCategory whereUpdatedAt($value)
+ * @method static Builder|SubjectCategory withTrashed()
+ * @method static Builder|SubjectCategory withoutTrashed()
+ * @property-read mixed $full_name
+ * @mixin Eloquent
  */
 class SubjectCategory extends Model
 {

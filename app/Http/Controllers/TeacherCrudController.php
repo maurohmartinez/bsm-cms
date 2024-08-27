@@ -19,25 +19,13 @@ class TeacherCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 
-    /**
-     * Configure the CrudPanel object. Apply settings to all operations.
-     *
-     * @return void
-     */
-    public function setup()
+    public function setup(): void
     {
         CRUD::setModel(\App\Models\Teacher::class);
         CRUD::setRoute(config('backpack.base.route_prefix').'/teacher');
         CRUD::setEntityNameStrings('teacher', 'teachers');
     }
 
-    /**
-     * Define what happens when the List operation is loaded.
-     *
-     * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
-     *
-     * @return void
-     */
     protected function setupListOperation(): void
     {
         CRUD::column('name');
@@ -50,13 +38,6 @@ class TeacherCrudController extends CrudController
          */
     }
 
-    /**
-     * Define what happens when the Create operation is loaded.
-     *
-     * @see https://backpackforlaravel.com/docs/crud-operation-create
-     *
-     * @return void
-     */
     protected function setupCreateOperation(): void
     {
         CRUD::setValidation(\App\Http\Requests\TeacherRequest::class);
@@ -73,13 +54,6 @@ class TeacherCrudController extends CrudController
         CRUD::field('is_local')->type('switch')->wrapper(['class' => 'mt-2']);
     }
 
-    /**
-     * Define what happens when the Update operation is loaded.
-     *
-     * @see https://backpackforlaravel.com/docs/crud-operation-update
-     *
-     * @return void
-     */
     protected function setupUpdateOperation(): void
     {
         $this->setupCreateOperation();

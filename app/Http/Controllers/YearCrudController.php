@@ -17,11 +17,6 @@ class YearCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 
-    /**
-     * Configure the CrudPanel object. Apply settings to all operations.
-     *
-     * @return void
-     */
     public function setup(): void
     {
         CRUD::setModel(\App\Models\Year::class);
@@ -29,13 +24,6 @@ class YearCrudController extends CrudController
         CRUD::setEntityNameStrings('year', 'years');
     }
 
-    /**
-     * Define what happens when the List operation is loaded.
-     *
-     * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
-     *
-     * @return void
-     */
     protected function setupListOperation(): void
     {
         CRUD::column('name');
@@ -45,13 +33,6 @@ class YearCrudController extends CrudController
         CRUD::column('second_period_ends_at');
     }
 
-    /**
-     * Define what happens when the Create operation is loaded.
-     *
-     * @see https://backpackforlaravel.com/docs/crud-operation-create
-     *
-     * @return void
-     */
     protected function setupCreateOperation(): void
     {
         CRUD::setValidation(\App\Http\Requests\YearRequest::class);
@@ -63,13 +44,6 @@ class YearCrudController extends CrudController
         CRUD::field('second_period_ends_at')->size(6)->type('date');
     }
 
-    /**
-     * Define what happens when the Update operation is loaded.
-     *
-     * @see https://backpackforlaravel.com/docs/crud-operation-update
-     *
-     * @return void
-     */
     protected function setupUpdateOperation(): void
     {
         CRUD::field('name');

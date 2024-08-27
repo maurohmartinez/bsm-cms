@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Barryvdh\LaravelIdeHelper\Eloquent;
 
 /**
  * App\Models\Year
@@ -18,24 +21,24 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Lesson> $lessons
+ * @property-read Collection<int, Lesson> $lessons
  * @property-read int|null $lessons_count
- * @method static \Illuminate\Database\Eloquent\Builder|Year newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Year newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Year onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Year query()
- * @method static \Illuminate\Database\Eloquent\Builder|Year whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Year whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Year whereFirstPeriodEndsAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Year whereFirstPeriodStartsAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Year whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Year whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Year whereSecondPeriodEndsAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Year whereSecondPeriodStartsAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Year whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Year withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Year withoutTrashed()
- * @mixin \Eloquent
+ * @method static Builder|Year newModelQuery()
+ * @method static Builder|Year newQuery()
+ * @method static Builder|Year onlyTrashed()
+ * @method static Builder|Year query()
+ * @method static Builder|Year whereCreatedAt($value)
+ * @method static Builder|Year whereDeletedAt($value)
+ * @method static Builder|Year whereFirstPeriodEndsAt($value)
+ * @method static Builder|Year whereFirstPeriodStartsAt($value)
+ * @method static Builder|Year whereId($value)
+ * @method static Builder|Year whereName($value)
+ * @method static Builder|Year whereSecondPeriodEndsAt($value)
+ * @method static Builder|Year whereSecondPeriodStartsAt($value)
+ * @method static Builder|Year whereUpdatedAt($value)
+ * @method static Builder|Year withTrashed()
+ * @method static Builder|Year withoutTrashed()
+ * @mixin Eloquent
  */
 class Year extends Model
 {

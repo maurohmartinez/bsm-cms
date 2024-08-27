@@ -18,11 +18,6 @@ class SubjectCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 
-    /**
-     * Configure the CrudPanel object. Apply settings to all operations.
-     *
-     * @return void
-     */
     public function setup(): void
     {
         CRUD::setModel(\App\Models\Subject::class);
@@ -30,13 +25,6 @@ class SubjectCrudController extends CrudController
         CRUD::setEntityNameStrings('subject', 'subjects');
     }
 
-    /**
-     * Define what happens when the List operation is loaded.
-     *
-     * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
-     *
-     * @return void
-     */
     protected function setupListOperation(): void
     {
         CRUD::column('name');
@@ -45,13 +33,6 @@ class SubjectCrudController extends CrudController
         CRUD::column('hours');
     }
 
-    /**
-     * Define what happens when the Create operation is loaded.
-     *
-     * @see https://backpackforlaravel.com/docs/crud-operation-create
-     *
-     * @return void
-     */
     protected function setupCreateOperation(): void
     {
         CRUD::setValidation(\App\Http\Requests\SubjectRequest::class);
@@ -67,13 +48,6 @@ class SubjectCrudController extends CrudController
         CRUD::field('is_official')->type('switch');
     }
 
-    /**
-     * Define what happens when the Update operation is loaded.
-     *
-     * @see https://backpackforlaravel.com/docs/crud-operation-update
-     *
-     * @return void
-     */
     protected function setupUpdateOperation(): void
     {
         $this->setupCreateOperation();

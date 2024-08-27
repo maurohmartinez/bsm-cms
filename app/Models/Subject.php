@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Barryvdh\LaravelIdeHelper\Eloquent;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Subject
@@ -20,33 +23,35 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $teacher_id
  * @property int $category_id
  * @property int $year_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\SubjectCategory $category
- * @property-read \App\Models\Lesson|null $lessons
- * @property-read \App\Models\Teacher $teacher
- * @property-read \App\Models\Year $year
- * @method static \Illuminate\Database\Eloquent\Builder|Subject newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Subject newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Subject onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Subject query()
- * @method static \Illuminate\Database\Eloquent\Builder|Subject whereCategoryId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subject whereColor($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subject whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subject whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subject whereFiles($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subject whereHours($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subject whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subject whereIsOfficial($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subject whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subject whereNotes($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subject whereTeacherId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subject whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subject whereYearId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Subject withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Subject withoutTrashed()
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read SubjectCategory $category
+ * @property-read Lesson|null $lessons
+ * @property-read Teacher $teacher
+ * @property-read Year $year
+ * @property-read mixed $full_name
+ * @property-read int|null $lessons_count
+ * @method static Builder|Subject newModelQuery()
+ * @method static Builder|Subject newQuery()
+ * @method static Builder|Subject onlyTrashed()
+ * @method static Builder|Subject query()
+ * @method static Builder|Subject whereCategoryId($value)
+ * @method static Builder|Subject whereColor($value)
+ * @method static Builder|Subject whereCreatedAt($value)
+ * @method static Builder|Subject whereDeletedAt($value)
+ * @method static Builder|Subject whereFiles($value)
+ * @method static Builder|Subject whereHours($value)
+ * @method static Builder|Subject whereId($value)
+ * @method static Builder|Subject whereIsOfficial($value)
+ * @method static Builder|Subject whereName($value)
+ * @method static Builder|Subject whereNotes($value)
+ * @method static Builder|Subject whereTeacherId($value)
+ * @method static Builder|Subject whereUpdatedAt($value)
+ * @method static Builder|Subject whereYearId($value)
+ * @method static Builder|Subject withTrashed()
+ * @method static Builder|Subject withoutTrashed()
+ * @mixin Eloquent
  */
 class Subject extends Model
 {

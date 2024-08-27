@@ -30,4 +30,8 @@ Route::group([
     Route::crud('subject-category', 'SubjectCategoryCrudController');
     Route::crud('subject', 'SubjectCrudController');
     Route::crud('year', 'YearCrudController');
+    Route::crud('bookkeeping-category', 'BookkeepingCategoryCrudController');
+    Route::crud('vendor', 'VendorCrudController');
+    Route::crud('customer', 'CustomerCrudController');
+    Route::crud('bookkeeping', 'BookkeepingCrudController');
 }); // this should be the absolute last line of this file

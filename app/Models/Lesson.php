@@ -32,6 +32,9 @@ use Illuminate\Support\Carbon;
  * @property-read Subject|null $subject
  * @property-read Teacher|null $teacher
  * @property-read Year $year
+ * @property-read mixed $is_chapel
+ * @property-read mixed $number
+ * @property-read mixed $total_of
  * @method static Builder|Lesson available()
  * @method static Builder|Lesson confirmed()
  * @method static Builder|Lesson firstSemester()

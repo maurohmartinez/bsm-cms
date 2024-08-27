@@ -19,11 +19,11 @@ return new class extends Migration
             $table->foreignId('subject_id')->nullable();
             $table->foreignId('interpreter_id')->nullable();
             $table->json('extras')->nullable();
-            $table->enum('status', LessonStatusEnum::optionsKeys())->default(LessonStatusEnum::AVAILABLE);
+            $table->enum('status', LessonStatusEnum::options())->default(LessonStatusEnum::AVAILABLE);
             $table->boolean('notify_teacher')->default(false);
             $table->timestamp('starts_at')->nullable();
             $table->timestamp('ends_at')->nullable();
-            $table->enum('period', PeriodEnum::optionsKeys())->default(PeriodEnum::FIRST->value);
+            $table->enum('period', PeriodEnum::options())->default(PeriodEnum::FIRST->value);
             $table->softDeletes();
             $table->timestamps();
 
@@ -31,10 +31,6 @@ return new class extends Migration
                 ->references('id')
                 ->on('years')
                 ->cascadeOnDelete();
-            $table->foreign('teacher_id')
-                ->references('id')
-                ->on('teachers')
-                ->nullOnDelete();
             $table->foreign('subject_id')
                 ->references('id')
                 ->on('subjects')

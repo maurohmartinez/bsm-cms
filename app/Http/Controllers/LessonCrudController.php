@@ -20,11 +20,6 @@ class LessonCrudController extends CrudController
     use \App\Http\Controllers\Operations\CalendarOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
 
-    /**
-     * Configure the CrudPanel object. Apply settings to all operations.
-     *
-     * @return void
-     */
     public function setup(): void
     {
         CRUD::setModel(\App\Models\Lesson::class);

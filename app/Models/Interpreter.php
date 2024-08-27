@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Barryvdh\LaravelIdeHelper\Eloquent;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Interpreter
@@ -11,23 +14,23 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property string $name
  * @property int $year_id
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Year $year
- * @method static \Illuminate\Database\Eloquent\Builder|Interpreter newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Interpreter newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Interpreter onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Interpreter query()
- * @method static \Illuminate\Database\Eloquent\Builder|Interpreter whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Interpreter whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Interpreter whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Interpreter whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Interpreter whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Interpreter whereYearId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Interpreter withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Interpreter withoutTrashed()
- * @mixin \Eloquent
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Year $year
+ * @method static Builder|Interpreter newModelQuery()
+ * @method static Builder|Interpreter newQuery()
+ * @method static Builder|Interpreter onlyTrashed()
+ * @method static Builder|Interpreter query()
+ * @method static Builder|Interpreter whereCreatedAt($value)
+ * @method static Builder|Interpreter whereDeletedAt($value)
+ * @method static Builder|Interpreter whereId($value)
+ * @method static Builder|Interpreter whereName($value)
+ * @method static Builder|Interpreter whereUpdatedAt($value)
+ * @method static Builder|Interpreter whereYearId($value)
+ * @method static Builder|Interpreter withTrashed()
+ * @method static Builder|Interpreter withoutTrashed()
+ * @mixin Eloquent
  */
 class Interpreter extends Model
 {
