@@ -35,8 +35,8 @@ class VendorCrudController extends CrudController
     {
         CRUD::setValidation(\App\Http\Requests\VendorRequest::class);
 
-        CRUD::column('name');
-        CRUD::column('description');
+        CRUD::field('name');
+        CRUD::field('description');
     }
 
     protected function setupUpdateOperation(): void

@@ -35,8 +35,8 @@ class BookkeepingCategoryCrudController extends CrudController
     {
         CRUD::setValidation(\App\Http\Requests\BookkeepingCategoryRequest::class);
 
-        CRUD::column('name');
-        CRUD::column('type')->type('enum');
+        CRUD::field('name');
+        CRUD::field('type')->type('enum');
     }
 
     protected function setupUpdateOperation(): void
