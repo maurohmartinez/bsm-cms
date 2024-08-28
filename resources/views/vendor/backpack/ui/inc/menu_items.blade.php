@@ -14,7 +14,7 @@
 <x-backpack::menu-item title="Subject categories" icon="la la-list" :link="route('subject-category.index')"/>
 
 <x-backpack::menu-dropdown title="Bookkeeping" icon="la la-wallet">
-    <x-backpack::menu-dropdown-item title="Movements" icon="la la-euro-sign" :link="route('bookkeeping.index')" />
+    <x-backpack::menu-dropdown-item title="Transactions" icon="la la-euro-sign" :link="route('bookkeeping.index')" />
     <x-backpack::menu-dropdown-item title="Categories" icon="la la-list" :link="route('bookkeeping-category.index')" />
     <x-backpack::menu-dropdown-item title="Customers" icon="la la-user-friends" :link="route('customer.index')" />
     <x-backpack::menu-dropdown-item title="Vendors" icon="la la-dolly-flatbed" :link="route('vendor.index')" />

@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\BookkeepingAccountEnum;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -13,7 +15,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read BookkeepingCategory|null $bookkeepingCategory
  * @property-read Customer|null $customer
  * @property-read Vendor|null $vendor
- * @property-read Year|null $year
  * @method static Builder|Bookkeeping newModelQuery()
  * @method static Builder|Bookkeeping newQuery()
  * @method static Builder|Bookkeeping onlyTrashed()
@@ -24,28 +25,24 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Bookkeeping extends Model
 {
+    use HasFactory;
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use \Illuminate\Database\Eloquent\SoftDeletes;
 
     protected $table = 'bookkeeping';
 
     protected $fillable = [
-        'year_id',
         'bookkeeping_category_id',
         'customer_id',
         'vendor_id',
-        'value',
+        'amount',
+        'account',
         'description',
         'images',
-        'date',
+        'when',
     ];
 
-    protected $casts = ['images' => 'array', 'date' => 'date'];
-
-    public function year(): BelongsTo
-    {
-        return $this->belongsTo(Year::class);
-    }
+    protected $casts = ['images' => 'array', 'when' => 'date', 'account' => BookkeepingAccountEnum::class];
 
     public function bookkeepingCategory(): BelongsTo
     {

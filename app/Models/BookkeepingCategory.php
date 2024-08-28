@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\BookkeepingTypeEnum;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -31,6 +32,7 @@ use Illuminate\Support\Carbon;
  */
 class BookkeepingCategory extends Model
 {
+    use HasFactory;
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use \Illuminate\Database\Eloquent\SoftDeletes;
 

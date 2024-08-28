@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -30,6 +31,7 @@ use Barryvdh\LaravelIdeHelper\Eloquent;
  */
 class Vendor extends Model
 {
+    use HasFactory;
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use \Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -37,4 +39,13 @@ class Vendor extends Model
         'name',
         'description',
     ];
+
+    public static function boot(): void
+    {
+        parent::boot();
+
+        // Protect Bank and Cash
+        self::updating(fn (self $model) => $model->id > 2);
+        self::deleting(fn (self $model) => $model->id > 2);
+    }
 }

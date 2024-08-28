@@ -2,21 +2,59 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Enums\BookkeepingTypeEnum;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        \App\Models\BookkeepingCategory::factory()->create([
+            'name' => 'Transfer between accounts',
+            'type' => BookkeepingTypeEnum::INCOME,
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\BookkeepingCategory::factory()->create([
+            'name' => 'Transfer between accounts',
+            'type' => BookkeepingTypeEnum::EXPENSE,
+        ]);
+
+        \App\Models\BookkeepingCategory::factory()->create([
+            'name' => 'Offerings',
+            'type' => BookkeepingTypeEnum::INCOME,
+        ]);
+
+         \App\Models\BookkeepingCategory::factory()->create([
+            'name' => 'Tuition',
+            'type' => BookkeepingTypeEnum::INCOME,
+        ]);
+
+        \App\Models\BookkeepingCategory::factory()->create([
+            'name' => 'Garbage',
+            'type' => BookkeepingTypeEnum::EXPENSE,
+        ]);
+
+        \App\Models\BookkeepingCategory::factory()->create([
+            'name' => 'Salaries',
+            'type' => BookkeepingTypeEnum::EXPENSE,
+        ]);
+
+        \App\Models\BookkeepingCategory::factory()->create([
+            'name' => 'Electricity',
+            'type' => BookkeepingTypeEnum::EXPENSE,
+        ]);
+
+        \App\Models\BookkeepingCategory::factory()->create([
+            'name' => 'Gas',
+            'type' => BookkeepingTypeEnum::EXPENSE,
+        ]);
+
+        \App\Models\Customer::factory()->create(['name' => 'Bank']);
+        \App\Models\Customer::factory()->create(['name' => 'Cash']);
+         \App\Models\Customer::factory(5)->create();
+
+        \App\Models\Vendor::factory()->create(['name' => 'Bank']);
+        \App\Models\Vendor::factory()->create(['name' => 'Cash']);
+         \App\Models\Vendor::factory(5)->create();
     }
 }

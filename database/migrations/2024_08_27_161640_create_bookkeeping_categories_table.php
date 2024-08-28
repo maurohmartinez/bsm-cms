@@ -18,6 +18,8 @@ return new class extends Migration
             $table->enum('type', [BookkeepingTypeEnum::options()]);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique(['name', 'type']);
         });
     }
 
