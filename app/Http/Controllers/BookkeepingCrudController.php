@@ -48,11 +48,13 @@ class BookkeepingCrudController extends CrudController
         CRUD::setValidation(\App\Http\Requests\BookkeepingRequest::class);
 
         Widget::add()->type('script')->content('js/bookkeeping-crud.js');
-
         CRUD::field('type')->fake(true)->type('select_from_array')->size(4)->options([
             BookkeepingTypeEnum::INCOME->value => 'Income',
             BookkeepingTypeEnum::EXPENSE->value => 'Outcome',
-        ]);
+        ])
+            ->value(CRUD::getOperation() === 'update'
+                ? CRUD::getCurrentEntry()->bookkeepingCategory->type->value
+                : null);
         CRUD::field('when')->type('date_picker')->size(4)->default(Carbon::now()->format('Y-m-d'));
         CRUD::field('account')->type('select_from_array')->size(4)->options([
             BookkeepingAccountEnum::CASH->value => 'Cash',
@@ -67,7 +69,7 @@ class BookkeepingCrudController extends CrudController
             ->include_all_form_fields(true)
             ->dependencies(['type'])
             ->minimum_input_length(0);
-        CRUD::field('amount')->prefix('€')->size(6);
+        CRUD::field('amount')->size(6)->type('currency');
         CRUD::field('customer')
             ->type('relationship')
             ->ajax(true)

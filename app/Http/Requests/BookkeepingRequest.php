@@ -23,14 +23,14 @@ class BookkeepingRequest extends FormRequest
             'customer' => [function (string $attribute, mixed $value, Closure $fail) {
                 /** @var BookkeepingCategory $category */
                 $category = BookkeepingCategory::query()->find($this->get('bookkeepingCategory'));
-                if ($category->type === BookkeepingTypeEnum::INCOME && empty($value)) {
+                if ($category?->type === BookkeepingTypeEnum::INCOME && empty($value)) {
                     $fail('The customer field is required.');
                 }
             }],
             'vendor' => [function (string $attribute, mixed $value, Closure $fail) {
                 /** @var BookkeepingCategory $category */
                 $category = BookkeepingCategory::query()->find($this->get('bookkeepingCategory'));
-                if ($category->type === BookkeepingTypeEnum::EXPENSE && empty($value)) {
+                if ($category?->type === BookkeepingTypeEnum::EXPENSE && empty($value)) {
                     $fail('The vendor field is required.');
                 }
             }],

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\BookkeepingAccountEnum;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * App\Models\Bookkeeping
  *
+ * @property integer $amount
  * @property-read BookkeepingCategory|null $bookkeepingCategory
  * @property-read Customer|null $customer
  * @property-read Vendor|null $vendor
@@ -57,5 +59,29 @@ class Bookkeeping extends Model
     public function vendor(): BelongsTo
     {
         return $this->belongsTo(Vendor::class);
+    }
+
+    public function amount(): Attribute
+    {
+        return Attribute::make(
+            get: function (string $val) {
+                $number = '';
+                $numbers = str_split($val);
+
+                foreach ($numbers as $key => $numb) {
+                    if ($key > 0 && $key - count($numbers) === -5) {
+                        $number .= '.';
+                    }
+                    if ($key - count($numbers) === -2) {
+                        $number .= $key === 0 ? '0' : '';
+                        $number .= ',';
+                    }
+                    $number .= $numb;
+                }
+
+                return $number;
+            },
+            set: fn (string $val) => (int) str_replace(',', '', str_replace('.', '', str_replace('€', '', trim($val)))),
+        );
     }
 }
