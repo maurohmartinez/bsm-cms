@@ -50,7 +50,7 @@ class BookkeepingCrudController extends CrudController
         Widget::add()->type('script')->content('js/bookkeeping-crud.js');
         CRUD::field('type')->fake(true)->type('select_from_array')->size(4)->options([
             BookkeepingTypeEnum::INCOME->value => 'Income',
-            BookkeepingTypeEnum::EXPENSE->value => 'Outcome',
+            BookkeepingTypeEnum::EXPENSE->value => 'Expense',
         ])
             ->value(CRUD::getOperation() === 'update'
                 ? CRUD::getCurrentEntry()->bookkeepingCategory->type->value
