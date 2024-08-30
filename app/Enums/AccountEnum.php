@@ -2,18 +2,18 @@
 
 namespace App\Enums;
 
-enum BookkeepingTypeEnum: string
+enum AccountEnum: string
 {
     use EnumTrait;
 
-    case INCOME = 'INCOME';
-    case EXPENSE = 'EXPENSE';
+    case BANK = 'BANK';
+    case CASH = 'CASH';
 
     public static function translatedOption(self $option): string
     {
         return match($option) {
-            self::INCOME => 'Income',
-            self::EXPENSE => 'Expense',
+            self::BANK => 'Bank',
+            self::CASH => 'Cash',
         };
     }
 }

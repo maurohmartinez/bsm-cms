@@ -30,8 +30,9 @@ Route::group([
     Route::crud('subject-category', 'SubjectCategoryCrudController');
     Route::crud('subject', 'SubjectCrudController');
     Route::crud('year', 'YearCrudController');
-    Route::crud('bookkeeping-category', 'BookkeepingCategoryCrudController');
+    Route::crud('transaction-category', 'TransactionCategoryCrudController');
     Route::crud('vendor', 'VendorCrudController');
     Route::crud('customer', 'CustomerCrudController');
-    Route::crud('bookkeeping', 'BookkeepingCrudController');
+    Route::crud('transaction', 'TransactionCrudController');
+    Route::get('charts/bookkeeping', 'Charts\BookkeepingChartController@response')->name('charts.bookkeeping.index');
 }); // this should be the absolute last line of this file

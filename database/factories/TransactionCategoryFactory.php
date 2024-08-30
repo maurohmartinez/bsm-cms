@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Enums\BookkeepingTypeEnum;
+use App\Enums\TransactionTypeEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\BookkeepingCategory;
+use App\Models\TransactionCategory;
 
-class BookkeepingCategoryFactory extends Factory
+class TransactionCategoryFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = BookkeepingCategory::class;
+    protected $model = TransactionCategory::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +22,7 @@ class BookkeepingCategoryFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'type' => $this->faker->randomElement(BookkeepingTypeEnum::options()),
+            'type' => $this->faker->randomElement(TransactionTypeEnum::options()),
         ];
     }
 }

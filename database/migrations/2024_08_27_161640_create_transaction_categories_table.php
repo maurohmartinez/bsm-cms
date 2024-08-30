@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\BookkeepingTypeEnum;
+use App\Enums\TransactionTypeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,10 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bookkeeping_categories', function (Blueprint $table) {
+        Schema::create('transaction_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('type', [BookkeepingTypeEnum::options()]);
+            $table->enum('type', [TransactionTypeEnum::options()]);
             $table->timestamps();
             $table->softDeletes();
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bookkeeping_categories');
+        Schema::dropIfExists('transaction_categories');
     }
 };

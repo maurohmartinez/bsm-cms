@@ -21,7 +21,14 @@ class VendorFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->randomElement(['Maxima', 'Rimi', 'Lidl', 'Top', 'Elvi', 'Elektrum']),
+            'name' => $this->faker->randomElement([
+                'Maxima ' . rand(1, 10),
+                'Rimi ' . rand(1, 10),
+                'Lidl ' . rand(1, 10),
+                'Top ' . rand(1, 10),
+                'Elvi ' . rand(1, 10),
+                'Elektrum ' . rand(1, 10),
+            ]),
             'description' => $this->faker->text(),
         ];
     }

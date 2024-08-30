@@ -108,4 +108,5 @@ return [
 
     'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_cache_'),
 
+    'duration' => 3600 * 24 * 7, // 1 day
 ];

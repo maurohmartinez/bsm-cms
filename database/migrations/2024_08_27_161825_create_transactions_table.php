@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\BookkeepingAccountEnum;
+use App\Enums\AccountEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,22 +12,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bookkeeping', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bookkeeping_category_id')->nullable();
+            $table->foreignId('transaction_category_id')->nullable();
             $table->foreignId('customer_id')->nullable()->default(null);
             $table->foreignId('vendor_id')->nullable()->default(null);
             $table->integer('amount')->unsigned();
             $table->date('when');
-            $table->enum('account', BookkeepingAccountEnum::options());
+            $table->enum('account', AccountEnum::options());
             $table->text('description')->nullable()->default(null);
             $table->json('images')->nullable()->default(null);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('bookkeeping_category_id')
+            $table->foreign('transaction_category_id')
                 ->references('id')
-                ->on('bookkeeping_categories')
+                ->on('transaction_categories')
                 ->nullOnDelete();
         });
     }
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bookkeeping');
+        Schema::dropIfExists('transactions');
     }
 };

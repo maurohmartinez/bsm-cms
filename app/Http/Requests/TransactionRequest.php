@@ -2,13 +2,13 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\BookkeepingTypeEnum;
-use App\Models\BookkeepingCategory;
+use App\Enums\TransactionTypeEnum;
+use App\Models\TransactionCategory;
 use Closure;
 use Illuminate\Foundation\Http\FormRequest;
 use Backpack\CRUD\app\Library\Validation\Rules\ValidUploadMultiple;
 
-class BookkeepingRequest extends FormRequest
+class TransactionRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -19,18 +19,18 @@ class BookkeepingRequest extends FormRequest
     {
         return [
             'amount' => 'required',
-            'bookkeepingCategory' => 'required|exists:bookkeeping_categories,id',
+            'transactionCategory' => 'required|exists:transaction_categories,id',
             'customer' => [function (string $attribute, mixed $value, Closure $fail) {
-                /** @var BookkeepingCategory $category */
-                $category = BookkeepingCategory::query()->find($this->get('bookkeepingCategory'));
-                if ($category?->type === BookkeepingTypeEnum::INCOME && empty($value)) {
+                /** @var TransactionCategory $category */
+                $category = TransactionCategory::query()->find($this->get('transactionCategory'));
+                if ($category?->type === TransactionTypeEnum::INCOME && empty($value)) {
                     $fail('The customer field is required.');
                 }
             }],
             'vendor' => [function (string $attribute, mixed $value, Closure $fail) {
-                /** @var BookkeepingCategory $category */
-                $category = BookkeepingCategory::query()->find($this->get('bookkeepingCategory'));
-                if ($category?->type === BookkeepingTypeEnum::EXPENSE && empty($value)) {
+                /** @var TransactionCategory $category */
+                $category = TransactionCategory::query()->find($this->get('transactionCategory'));
+                if ($category?->type === TransactionTypeEnum::EXPENSE && empty($value)) {
                     $fail('The vendor field is required.');
                 }
             }],
@@ -39,7 +39,7 @@ class BookkeepingRequest extends FormRequest
                 ->file('file|mimes:jpeg,png,jpg,gif,svg|max:2048'),
             'when' => 'required|date',
             'description' => 'sometimes|nullable|max:1000',
-            'type' => 'required|in:' . BookkeepingTypeEnum::toString(),
+            'type' => 'required|in:' . TransactionTypeEnum::toString(),
         ];
     }
 }

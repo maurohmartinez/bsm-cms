@@ -11,7 +11,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
  *
  * @property-read CrudPanel $crud
  */
-class BookkeepingCategoryCrudController extends CrudController
+class TransactionCategoryCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
@@ -21,9 +21,9 @@ class BookkeepingCategoryCrudController extends CrudController
 
     public function setup(): void
     {
-        CRUD::setModel(\App\Models\BookkeepingCategory::class);
-        CRUD::setRoute(config('backpack.base.route_prefix').'/bookkeeping-category');
-        CRUD::setEntityNameStrings('category', 'categories');
+        CRUD::setModel(\App\Models\TransactionCategory::class);
+        CRUD::setRoute(config('backpack.base.route_prefix').'/transaction-category');
+        CRUD::setEntityNameStrings('transaction category', 'transaction categories');
     }
 
     protected function setupListOperation(): void
@@ -34,7 +34,7 @@ class BookkeepingCategoryCrudController extends CrudController
 
     protected function setupCreateOperation(): void
     {
-        CRUD::setValidation(\App\Http\Requests\BookkeepingCategoryRequest::class);
+        CRUD::setValidation(\App\Http\Requests\TransactionCategoryRequest::class);
 
         CRUD::field('name');
 

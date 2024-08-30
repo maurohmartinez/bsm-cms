@@ -2,59 +2,61 @@
 
 namespace Database\Seeders;
 
-use App\Enums\BookkeepingTypeEnum;
+use App\Enums\TransactionTypeEnum;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        \App\Models\BookkeepingCategory::factory()->create([
+        \App\Models\TransactionCategory::factory()->create([
             'name' => 'Transfer between accounts',
-            'type' => BookkeepingTypeEnum::INCOME,
+            'type' => TransactionTypeEnum::INCOME,
         ]);
 
-        \App\Models\BookkeepingCategory::factory()->create([
+        \App\Models\TransactionCategory::factory()->create([
             'name' => 'Transfer between accounts',
-            'type' => BookkeepingTypeEnum::EXPENSE,
+            'type' => TransactionTypeEnum::EXPENSE,
         ]);
 
-        \App\Models\BookkeepingCategory::factory()->create([
+        \App\Models\TransactionCategory::factory()->create([
             'name' => 'Offerings',
-            'type' => BookkeepingTypeEnum::INCOME,
+            'type' => TransactionTypeEnum::INCOME,
         ]);
 
-         \App\Models\BookkeepingCategory::factory()->create([
+        \App\Models\TransactionCategory::factory()->create([
             'name' => 'Tuition',
-            'type' => BookkeepingTypeEnum::INCOME,
+            'type' => TransactionTypeEnum::INCOME,
         ]);
 
-        \App\Models\BookkeepingCategory::factory()->create([
+        \App\Models\TransactionCategory::factory()->create([
             'name' => 'Garbage',
-            'type' => BookkeepingTypeEnum::EXPENSE,
+            'type' => TransactionTypeEnum::EXPENSE,
         ]);
 
-        \App\Models\BookkeepingCategory::factory()->create([
+        \App\Models\TransactionCategory::factory()->create([
             'name' => 'Salaries',
-            'type' => BookkeepingTypeEnum::EXPENSE,
+            'type' => TransactionTypeEnum::EXPENSE,
         ]);
 
-        \App\Models\BookkeepingCategory::factory()->create([
+        \App\Models\TransactionCategory::factory()->create([
             'name' => 'Electricity',
-            'type' => BookkeepingTypeEnum::EXPENSE,
+            'type' => TransactionTypeEnum::EXPENSE,
         ]);
 
-        \App\Models\BookkeepingCategory::factory()->create([
+        \App\Models\TransactionCategory::factory()->create([
             'name' => 'Gas',
-            'type' => BookkeepingTypeEnum::EXPENSE,
+            'type' => TransactionTypeEnum::EXPENSE,
         ]);
 
         \App\Models\Customer::factory()->create(['name' => 'Bank']);
         \App\Models\Customer::factory()->create(['name' => 'Cash']);
-         \App\Models\Customer::factory(5)->create();
+        \App\Models\Customer::factory(5)->create();
 
         \App\Models\Vendor::factory()->create(['name' => 'Bank']);
         \App\Models\Vendor::factory()->create(['name' => 'Cash']);
-         \App\Models\Vendor::factory(5)->create();
+        \App\Models\Vendor::factory(5)->create();
+
+        \App\Models\Transaction::factory(1000)->create();
     }
 }
