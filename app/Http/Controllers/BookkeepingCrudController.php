@@ -68,20 +68,30 @@ class BookkeepingCrudController extends CrudController
             ->ajax(true)
             ->include_all_form_fields(true)
             ->dependencies(['type'])
-            ->minimum_input_length(0);
+            ->minimum_input_length(0)
+            ->inline_create([
+                'include_main_form_fields' => true,
+                'add_button_label' => 'Add category',
+            ]);
         CRUD::field('amount')->size(6)->type('currency');
         CRUD::field('customer')
             ->type('relationship')
             ->ajax(true)
             ->include_all_form_fields(true)
             ->dependencies(['bookkeepingCategory', 'account'])
-            ->minimum_input_length(0);
+            ->minimum_input_length(0)
+            ->inline_create([
+                'add_button_label' => 'Add customer',
+            ]);
         CRUD::field('vendor')
             ->type('relationship')
             ->ajax(true)
             ->include_all_form_fields(true)
             ->dependencies(['bookkeepingCategory', 'account'])
-            ->minimum_input_length(0);;
+            ->minimum_input_length(0)
+            ->inline_create([
+                'add_button_label' => 'Add vendor',
+            ]);
         CRUD::field('images')->type('upload_multiple')->withFiles(true);
         CRUD::field('description');
     }

@@ -17,6 +17,7 @@ class BookkeepingCategoryCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Backpack\Pro\Http\Controllers\Operations\InlineCreateOperation;
 
     public function setup(): void
     {
@@ -36,7 +37,12 @@ class BookkeepingCategoryCrudController extends CrudController
         CRUD::setValidation(\App\Http\Requests\BookkeepingCategoryRequest::class);
 
         CRUD::field('name');
-        CRUD::field('type')->type('enum');
+
+        $forceType = collect(CRUD::getRequest()->get('main_form_fields'))->firstWhere('name', 'type')['value'] ?? null;
+
+        $forceType
+            ? CRUD::field('type')->type('enum')->value($forceType)->attributes(['disabled' => 'disabled'])
+            : CRUD::field('type')->type('enum');
     }
 
     protected function setupUpdateOperation(): void
