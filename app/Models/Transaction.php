@@ -118,7 +118,8 @@ class Transaction extends Model
         return $number;
     }
 
-    public static function getInitialMonth(): Carbon{
+    public static function getInitialMonth(): Carbon
+    {
         $start = Carbon::create('first day of september')->startOfMonth();
         if ($start->isFuture()) {
             $start->subYear();
@@ -135,6 +136,6 @@ class Transaction extends Model
     private static function clearRelatedCache(self $model): void
     {
         Cache::forget($model->getCacheKey());
-        Cache::forget('statements_total');
+        Cache::forget('statements_total_' . $model->account->value);
     }
 }

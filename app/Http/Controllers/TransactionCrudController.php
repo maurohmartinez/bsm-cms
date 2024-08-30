@@ -179,19 +179,19 @@ class TransactionCrudController extends CrudController
     private function getStatement(Carbon $yearStart, AccountEnum $account): string
     {
         $statement = Cache::remember(
-            'statements_total' . strtolower($account->value) . '_' . $yearStart->year,
+            'statements_total_' . $account->value,
             config('cache.duration'),
             fn () => [
                 TransactionTypeEnum::INCOME->value => Transaction::query()
                     ->with(['transactionCategory'])
                     ->where('account', $account->value)
-                    ->whereDate('when', '>', $yearStart)
+                    ->whereDate('when', '>=', $yearStart)
                     ->income()
                     ->sum('amount'),
                 TransactionTypeEnum::EXPENSE->value => Transaction::query()
                     ->with(['transactionCategory'])
                     ->where('account', $account->value)
-                    ->whereDate('when', '>', $yearStart)
+                    ->whereDate('when', '>=', $yearStart)
                     ->expense()
                     ->sum('amount'),
             ]
