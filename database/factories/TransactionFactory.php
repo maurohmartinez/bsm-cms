@@ -11,16 +11,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TransactionFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = Transaction::class;
 
-    /**
-     * Define the model's default state.
-     */
     public function definition(): array
     {
         return [
@@ -29,7 +21,7 @@ class TransactionFactory extends Factory
             'vendor_id' => Vendor::all()->random(),
             'amount' => rand(1, 1000),
             'account' => $this->faker->randomElement([AccountEnum::CASH, AccountEnum::BANK]),
-            'when' => $this->faker->dateTime(),
+            'when' => Transaction::getInitialMonth()->addMonths(rand(0, 11)),
             'description' => $this->faker->text(),
             'images' => [],
         ];
