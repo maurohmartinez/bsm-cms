@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('first_period_ends_at');
             $table->date('second_period_starts_at');
             $table->date('second_period_ends_at');
+            $table->integer('cost');
             $table->softDeletes();
             $table->timestamps();
         });

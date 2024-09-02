@@ -6,8 +6,16 @@ enum LanguagesEnum: string
 {
     use EnumTrait;
 
-    case ENGLISH = 'ENGLISH';
     case LATVIAN = 'LATVIAN';
+    case ENGLISH = 'ENGLISH';
     case RUSSIAN = 'RUSSIAN';
-    case SPANISH = 'SPANISH';
+
+    public static function translatedOption(self $option): string
+    {
+        return match($option) {
+            self::LATVIAN => 'Latvian',
+            self::ENGLISH => 'English',
+            self::RUSSIAN => 'Russian',
+        };
+    }
 }

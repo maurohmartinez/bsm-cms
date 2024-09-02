@@ -20,12 +20,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\TransactionCategory::factory()->create([
-            'name' => 'Offerings',
+            'name' => 'Tuition',
             'type' => TransactionTypeEnum::INCOME,
         ]);
 
         \App\Models\TransactionCategory::factory()->create([
-            'name' => 'Tuition',
+            'name' => 'Offerings',
             'type' => TransactionTypeEnum::INCOME,
         ]);
 
@@ -58,5 +58,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Vendor::factory(5)->create();
 
         \App\Models\Transaction::factory(1000)->create();
+
+        \App\Models\Student::factory(100)->create();
     }
 }

@@ -11,10 +11,9 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
  *
  * @property-read CrudPanel $crud
  */
-class UserCrudController extends CrudController
+class AdminCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
@@ -22,29 +21,22 @@ class UserCrudController extends CrudController
     public function setup(): void
     {
         CRUD::setModel(\App\Models\User::class);
-        CRUD::setRoute(config('backpack.base.route_prefix').'/user');
-        CRUD::setEntityNameStrings('user', 'users');
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/admin');
+        CRUD::setEntityNameStrings('admin', 'admins');
     }
 
     protected function setupListOperation(): void
     {
-        CRUD::setFromDb(); // set columns from db columns.
-
-        /**
-         * Columns can be defined using the fluent syntax:
-         * - CRUD::column('price')->type('number');
-         */
+        CRUD::column('name');
+        CRUD::column('email');
     }
 
     protected function setupCreateOperation(): void
     {
         CRUD::setValidation(\App\Http\Requests\UserRequest::class);
-        CRUD::setFromDb(); // set fields from db columns.
 
-        /**
-         * Fields can be defined using the fluent syntax:
-         * - CRUD::field('price')->type('number');
-         */
+        CRUD::field('name');
+        CRUD::field('email');
     }
 
     protected function setupUpdateOperation(): void

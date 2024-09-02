@@ -59,16 +59,7 @@ trait CalendarOperation
         $this->crud->setSubheading('All events in selected date range.');
 
         $this->data['crud'] = $this->crud;
-        $this->data['currentYearId'] = Year::query()
-            ->whereDate('first_period_starts_at', '<', now())
-            ->whereDate('second_period_ends_at', '>', now())
-            ->first()?->id
-            ?? Year::query()
-            ->whereDate('first_period_starts_at', '>', now())
-            ->first()?->id
-            ?? Year::query()
-                ->whereDate('first_period_starts_at', '<', now())
-                ->first()?->id;
+        $this->data['currentYearId'] = Year::getCurrent()->id;
 
         return view("crud::operations.lessons", $this->data);
     }

@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Enums\AccountEnum;
 use App\Enums\TransactionTypeEnum;
+use App\Models\Student;
 use App\Models\Transaction;
 use App\Models\TransactionCategory;
 use App\Models\Customer;
 use App\Models\Vendor;
+use App\Models\Year;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -47,6 +49,7 @@ class TransactionCrudController extends CrudController
             ->content([
                 'cash' => $this->getStatement(Transaction::getInitialMonth(), AccountEnum::CASH),
                 'bank' => $this->getStatement(Transaction::getInitialMonth(), AccountEnum::BANK),
+                'tuition_to_pay' => Year::getCurrent()->tuitionLeft,
             ]);
 
         Widget::add()
@@ -109,6 +112,12 @@ class TransactionCrudController extends CrudController
             ->inline_create([
                 'add_button_label' => 'Add vendor',
             ]);
+        CRUD::field('student')
+            ->type('relationship')
+            ->ajax(true)
+            ->include_all_form_fields(true)
+            ->dependencies(['transactionCategory'])
+            ->minimum_input_length(0);
         CRUD::field('images')->type('upload_multiple')->withFiles(true);
         CRUD::field('description');
     }
@@ -174,6 +183,18 @@ class TransactionCrudController extends CrudController
                     : AccountEnum::BANK->value
                 ))),
         ]);
+    }
+
+    public function fetchStudent(): Paginator|JsonResponse
+    {
+        $params = collect(CRUD::getRequest()->get('form'));
+        $transactionCategory = $params->firstWhere('name', 'transactionCategory')['value'] ?? null;
+
+        if ((int) $transactionCategory !== 3) {
+            return new JsonResponse();
+        }
+
+        return $this->fetch(Student::class);
     }
 
     private function getStatement(Carbon $yearStart, AccountEnum $account): string

@@ -22,6 +22,7 @@ class YearRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
+            'cost' => 'required|numeric|min:0',
             'first_period_starts_at' => 'required|date|before:first_period_ends_at',
             'first_period_ends_at' => 'required|date|after:first_period_starts_at',
             'second_period_starts_at' => 'required|date|after:first_period_ends_at',

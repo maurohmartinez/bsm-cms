@@ -25,11 +25,12 @@ Route::group([
     })->name('backpack');
 
     Route::crud('lesson', 'LessonCrudController');
-    Route::crud('user', 'UserCrudController');
+    Route::crud('admin', 'AdminCrudController');
     Route::crud('teacher', 'TeacherCrudController');
     Route::crud('subject-category', 'SubjectCategoryCrudController');
     Route::crud('subject', 'SubjectCrudController');
     Route::crud('year', 'YearCrudController');
+    Route::crud('student', 'StudentCrudController');
     Route::crud('transaction-category', 'TransactionCategoryCrudController');
     Route::crud('vendor', 'VendorCrudController');
     Route::crud('customer', 'CustomerCrudController');

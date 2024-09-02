@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -23,6 +24,8 @@ use Barryvdh\LaravelIdeHelper\Eloquent;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read Collection<int, Lesson> $lessons
  * @property-read int|null $lessons_count
+ * @property-read Collection<Student> $students
+ * @property-read int $cost
  * @method static Builder|Year newModelQuery()
  * @method static Builder|Year newQuery()
  * @method static Builder|Year onlyTrashed()
@@ -52,6 +55,7 @@ class Year extends Model
      */
     protected $fillable = [
         'name',
+        'cost',
         'first_period_starts_at',
         'first_period_ends_at',
         'second_period_starts_at',
@@ -75,8 +79,14 @@ class Year extends Model
         return $this->hasMany(Lesson::class);
     }
 
+    public function students(): HasMany
+    {
+        return $this->hasMany(Student::class);
+    }
+
     public static function addOne(
         string $name,
+        int    $cost,
         Carbon $firstPeriodStarts,
         Carbon $firstPeriodEnds,
         Carbon $secondPeriodStarts,
@@ -86,10 +96,40 @@ class Year extends Model
         self::query()
             ->create([
                 'name' => $name,
+                'cost' => $cost,
                 'first_period_starts_at' => $firstPeriodStarts,
                 'first_period_ends_at' => $firstPeriodEnds,
                 'second_period_starts_at' => $secondPeriodStarts,
                 'second_period_ends_at' => $secondPeriodEnds,
             ]);
+    }
+
+    public static function getCurrent(): Year
+    {
+        return self::query()
+            ->whereDate('first_period_starts_at', '<', now())
+            ->whereDate('second_period_ends_at', '>', now())
+            ->first()
+            ?? self::query()
+            ->whereDate('first_period_starts_at', '>', now())
+            ->first()
+            ?? self::query()
+                ->whereDate('first_period_starts_at', '<', now())
+                ->first();
+    }
+
+    protected function tuitionLeft(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $total = $this->cost * $this->students->count() * 100;
+
+                foreach ($this->students as $student) {
+                    $total -= $student->transactions()->sum('amount');
+                }
+
+                return Transaction::toCurrency($total);
+            },
+        );
     }
 }

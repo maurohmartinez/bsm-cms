@@ -22,25 +22,41 @@
                     <div class="progress-bar bg-secondary opacity-10" role="progressbar" style="width: {{ 50 - $count['second_semester_percentage_available'] }}%" aria-label="System"></div>
                 </div>
                 <div class="row">
-                    <div class="col-auto d-flex align-items-center pe-2">
-                        <span class="legend me-2 bg-primary"></span>
-                        <span>Assigned First Semester</span>
-                        <span class="d-none d-md-inline d-lg-none d-xxl-inline ms-2 text-secondary">{{ $count['first_semester_total']['assigned'] }}</span>
+                    <div class="col-auto row">
+                        <div>
+                            <div class="d-flex align-items-center">
+                                <span><strong>First semester</strong></span>
+                                <span class="d-none d-md-inline d-lg-none d-xxl-inline ms-2 text-secondary">{{ $count['first_semester_total']['assigned'] + $count['first_semester_total']['available'] }}</span>
+                            </div>
+                        </div>
+                        <div class="col-auto d-flex align-items-center pe-2">
+                            <span class="legend me-2 bg-primary"></span>
+                            <span>Assigned</span>
+                            <span class="d-none d-md-inline d-lg-none d-xxl-inline ms-2 text-secondary">{{ $count['first_semester_total']['assigned'] }}</span>
+                        </div>
+                        <div class="col-auto d-flex align-items-center pe-2">
+                            <span class="legend me-2"></span>
+                            <span>Available</span>
+                            <span class="d-none d-md-inline d-lg-none d-xxl-inline ms-2 text-secondary">{{ $count['first_semester_total']['available'] }}</span>
+                        </div>
                     </div>
-                    <div class="col-auto d-flex align-items-center px-2">
-                        <span class="legend me-2"></span>
-                        <span>Available First Semester</span>
-                        <span class="d-none d-md-inline d-lg-none d-xxl-inline ms-2 text-secondary">{{ $count['first_semester_total']['available'] }}</span>
-                    </div>
-                    <div class="col-auto d-flex align-items-center px-2">
-                        <span class="legend me-2 bg-info"></span>
-                        <span>Assigned Second Semester</span>
-                        <span class="d-none d-md-inline d-lg-none d-xxl-inline ms-2 text-secondary">{{ $count['second_semester_total']['assigned'] }}</span>
-                    </div>
-                    <div class="col-auto d-flex align-items-center ps-2">
-                        <span class="legend me-2"></span>
-                        <span>Available Second Semester</span>
-                        <span class="d-none d-md-inline d-lg-none d-xxl-inline ms-2 text-secondary">{{ $count['second_semester_total']['available'] }}</span>
+                    <div class="col-auto row">
+                        <div>
+                            <div class="d-flex align-items-center">
+                                <span><strong>Second semester</strong></span>
+                                <span class="d-none d-md-inline d-lg-none d-xxl-inline ms-2 text-secondary">{{ $count['second_semester_total']['assigned'] + $count['second_semester_total']['available'] }}</span>
+                            </div>
+                        </div>
+                        <div class="col-auto d-flex align-items-center px-2">
+                            <span class="legend me-2 bg-info"></span>
+                            <span>Assigned</span>
+                            <span class="d-none d-md-inline d-lg-none d-xxl-inline ms-2 text-secondary">{{ $count['second_semester_total']['assigned'] }}</span>
+                        </div>
+                        <div class="col-auto d-flex align-items-center ps-2">
+                            <span class="legend me-2"></span>
+                            <span>Available</span>
+                            <span class="d-none d-md-inline d-lg-none d-xxl-inline ms-2 text-secondary">{{ $count['second_semester_total']['available'] }}</span>
+                        </div>
                     </div>
                 </div>
             </div>

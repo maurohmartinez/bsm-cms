@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('transaction_category_id')->nullable();
             $table->foreignId('customer_id')->nullable()->default(null);
             $table->foreignId('vendor_id')->nullable()->default(null);
+            $table->foreignId('student_id')->nullable()->default(null);
             $table->integer('amount')->unsigned();
             $table->date('when');
             $table->enum('account', AccountEnum::options());
@@ -28,6 +29,21 @@ return new class extends Migration
             $table->foreign('transaction_category_id')
                 ->references('id')
                 ->on('transaction_categories')
+                ->nullOnDelete();
+
+            $table->foreign('customer_id')
+                ->references('id')
+                ->on('customers')
+                ->nullOnDelete();
+
+            $table->foreign('vendor_id')
+                ->references('id')
+                ->on('vendors')
+                ->nullOnDelete();
+
+            $table->foreign('student_id')
+                ->references('id')
+                ->on('students')
                 ->nullOnDelete();
         });
     }

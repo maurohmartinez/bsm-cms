@@ -42,6 +42,7 @@ class Transaction extends Model
         'transaction_category_id',
         'customer_id',
         'vendor_id',
+        'student_id',
         'amount',
         'account',
         'description',
@@ -76,6 +77,11 @@ class Transaction extends Model
         return $this->belongsTo(Vendor::class);
     }
 
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(Student::class);
+    }
+
     public function amount(): Attribute
     {
         return Attribute::make(
@@ -105,7 +111,8 @@ class Transaction extends Model
         $numbers = str_split($value);
 
         foreach ($numbers as $key => $numb) {
-            if ($key > 0 && $key - count($numbers) === -5) {
+            $countToCheckThousand = $numbers[0] === '-' ? 6 : 5;
+            if ($key > 0 && $key - count($numbers) === -$countToCheckThousand && $numb !== '-') {
                 $number .= '.';
             }
             if ($key - count($numbers) === -2) {

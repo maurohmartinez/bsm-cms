@@ -42,4 +42,13 @@ class TransactionCategory extends Model
     ];
 
     protected $casts = ['type' => TransactionTypeEnum::class];
+
+    public static function boot(): void
+    {
+        parent::boot();
+
+        // Protect Bank and Cash
+        self::updating(fn (self $model) => $model->id > 4);
+        self::deleting(fn (self $model) => $model->id > 4);
+    }
 }

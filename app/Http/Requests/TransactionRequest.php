@@ -23,8 +23,15 @@ class TransactionRequest extends FormRequest
             'customer' => [function (string $attribute, mixed $value, Closure $fail) {
                 /** @var TransactionCategory $category */
                 $category = TransactionCategory::query()->find($this->get('transactionCategory'));
-                if ($category?->type === TransactionTypeEnum::INCOME && empty($value)) {
+                if ($category?->type === TransactionTypeEnum::INCOME && $category?->type === 3 && empty($value)) {
                     $fail('The customer field is required.');
+                }
+            }],
+            'student' => [function (string $attribute, mixed $value, Closure $fail) {
+                /** @var TransactionCategory $category */
+                $category = TransactionCategory::query()->find($this->get('transactionCategory'));
+                if ($category?->id === 3 && empty($value)) {
+                    $fail('The student field is required.');
                 }
             }],
             'vendor' => [function (string $attribute, mixed $value, Closure $fail) {

@@ -7,8 +7,9 @@
 @includeWhen(class_exists(\Backpack\DevTools\DevToolsServiceProvider::class), 'backpack.devtools::buttons.sidebar_item')
 
 <x-backpack::menu-item title="Lessons" icon="la la-list" :link="route('lesson.index')"/>
-<x-backpack::menu-item title="Users" icon="la la-user" :link="route('user.index')"/>
+<x-backpack::menu-item title="Admins" icon="la la-user" :link="route('admin.index')"/>
 <x-backpack::menu-item title="Years" icon="la la-calendar" :link="route('year.index')"/>
+<x-backpack::menu-item title="Students" icon="la la-school" :link="route('student.index')"/>
 <x-backpack::menu-item title="Teachers" icon="la la-users" :link="route('teacher.index')"/>
 <x-backpack::menu-item title="Subjects" icon="la la-chalkboard-teacher" :link="route('subject.index')"/>
 <x-backpack::menu-item title="Subject categories" icon="la la-list" :link="route('subject-category.index')"/>

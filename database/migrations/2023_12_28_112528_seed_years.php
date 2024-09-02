@@ -15,13 +15,13 @@ return new class extends Migration {
         $secondPeriodStarts = Carbon::create(2024, 1, 8);
         $secondPeriodEnds = Carbon::create(2024, 6, 7);
 
-        Year::addOne('2023/2024', $firstPeriodStarts, $firstPeriodEnds, $secondPeriodStarts, $secondPeriodEnds);
+        Year::addOne('2023/2024', 2300, $firstPeriodStarts, $firstPeriodEnds, $secondPeriodStarts, $secondPeriodEnds);
 
         $firstPeriodStarts = Carbon::create(2024, 9, 30);
         $firstPeriodEnds = Carbon::create(2024, 12, 20);
         $secondPeriodStarts = Carbon::create(2025, 1, 13);
         $secondPeriodEnds = Carbon::create(2025, 5, 30);
 
-        Year::addOne('2024/2025', $firstPeriodStarts, $firstPeriodEnds, $secondPeriodStarts, $secondPeriodEnds);
+        Year::addOne('2024/2025', 2500, $firstPeriodStarts, $firstPeriodEnds, $secondPeriodStarts, $secondPeriodEnds);
     }
 };
