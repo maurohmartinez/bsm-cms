@@ -201,12 +201,14 @@ class TransactionCrudController extends CrudController
             config('cache.duration'),
             fn () => [
                 TransactionTypeEnum::INCOME->value => Transaction::query()
+                    ->withoutTrashed()
                     ->with(['transactionCategory'])
                     ->where('account', $account->value)
                     ->whereDate('when', '>=', $yearStart)
                     ->income()
                     ->sum('amount'),
                 TransactionTypeEnum::EXPENSE->value => Transaction::query()
+                    ->withoutTrashed()
                     ->with(['transactionCategory'])
                     ->where('account', $account->value)
                     ->whereDate('when', '>=', $yearStart)
