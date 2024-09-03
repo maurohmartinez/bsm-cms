@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('birth');
             $table->string('personal_code');
             $table->string('passport');
+            $table->json('images')->nullable()->default(null);
             $table->timestamps();
             $table->softDeletes();
 

@@ -15,7 +15,7 @@ class VendorRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'description' => 'required|max:1000',
+            'description' => 'sometimes|nullable|max:1000',
         ];
     }
 }

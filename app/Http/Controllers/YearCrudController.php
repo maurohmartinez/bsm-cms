@@ -48,6 +48,6 @@ class YearCrudController extends CrudController
 
     protected function setupUpdateOperation(): void
     {
-        CRUD::field('name');
+        $this->setupCreateOperation();
     }
 }

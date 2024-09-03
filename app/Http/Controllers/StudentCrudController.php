@@ -104,10 +104,11 @@ class StudentCrudController extends CrudController
         CRUD::field('birth')->size(4)->type('date_picker');
         CRUD::field('personal_code')->size(6);
         CRUD::field('personal_code')->size(6);
+        CRUD::field('images')->type('upload_multiple')->withFiles(true);
     }
 
     protected function setupUpdateOperation(): void
     {
-        CRUD::field('name');
+        $this->setupCreateOperation();
     }
 }

@@ -24,6 +24,7 @@ class Student extends Model
         'birth',
         'personal_code',
         'passport',
+        'images',
     ];
 
     protected $casts = ['birth' => 'date', 'languages' => 'array'];
