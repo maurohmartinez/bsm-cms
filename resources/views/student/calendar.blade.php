@@ -51,7 +51,7 @@
                 eventSources: [
                     {
                         id: "all-lessons",
-                        url: "{{ url('student/get-calendar-events') }}",
+                        url: "{{ url('i-am-student/get-calendar-events') }}",
                         method: 'POST',
                         extraParams: {
                             _token: $('meta[name="csrf-token"]').attr('content'),
