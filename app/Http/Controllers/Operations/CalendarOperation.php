@@ -7,6 +7,7 @@ use App\Models\Lesson;
 use App\Models\Subject;
 use App\Models\Year;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -77,7 +78,7 @@ trait CalendarOperation
         $start = request()->input('start');
         $end = request()->input('end');
 
-        /** @var \Illuminate\Support\Collection<Lesson> $lessons */
+        /** @var Collection<Lesson> $lessons */
         $lessons = Lesson::query()
             ->whereDate('starts_at', '>', $start)
             ->with(['subject', 'teacher', 'interpreter'])

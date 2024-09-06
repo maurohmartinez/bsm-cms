@@ -12,3 +12,22 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::group([
+    'prefix' => 'student',
+    'namespace' => 'App\Http\Controllers',
+], function () {
+    Route::group([
+        'middleware' => 'auth.students',
+    ], function () {
+        Route::get('/', [\App\Http\Controllers\StudentController::class, 'calendar'])->name('students.index');
+        Route::get('tuition', [\App\Http\Controllers\StudentController::class, 'tuition'])->name('students.tuition');
+        Route::get('grades', [\App\Http\Controllers\StudentController::class, 'grades'])->name('students.grades');
+
+        Route::post('get-calendar-events', [\App\Http\Controllers\StudentController::class, 'getCalendarEvents']);
+        Route::post('logout', [\App\Http\Controllers\StudentController::class, 'logout'])->name('students.logout');
+    });
+
+    Route::get('login', [\App\Http\Controllers\StudentController::class, 'login'])->name('students.login');
+    Route::post('login', [\App\Http\Controllers\StudentController::class, 'handleLogin']);
+});

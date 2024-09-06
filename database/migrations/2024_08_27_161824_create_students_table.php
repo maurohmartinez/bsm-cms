@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('personal_code');
             $table->string('passport');
             $table->json('images')->nullable()->default(null);
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
 

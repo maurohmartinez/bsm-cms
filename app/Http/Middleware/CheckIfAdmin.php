@@ -3,6 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CheckIfAdmin
 {
@@ -22,22 +26,14 @@ class CheckIfAdmin
      * does not have a '/home' route, use something you've built for your users
      * (again - users, not admins).
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable|null  $user
-     * @return bool
      */
-    private function checkIfUserIsAdmin($user)
+    private function checkIfUserIsAdmin(?Authenticatable $user): bool
     {
         // return ($user->is_admin == 1);
         return true;
     }
 
-    /**
-     * Answer to unauthorized access request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
-     */
-    private function respondToUnauthorizedRequest($request)
+    private function respondToUnauthorizedRequest(Request $request): Response|RedirectResponse
     {
         if ($request->ajax() || $request->wantsJson()) {
             return response(trans('backpack::base.unauthorized'), 401);
@@ -46,14 +42,7 @@ class CheckIfAdmin
         }
     }
 
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         if (backpack_auth()->guest()) {
             return $this->respondToUnauthorizedRequest($request);

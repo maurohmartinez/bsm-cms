@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Charts;
+namespace App\Http\Controllers\Charts;
 
 use App\Enums\TransactionTypeEnum;
 use App\Models\Transaction;

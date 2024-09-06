@@ -59,6 +59,8 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Transaction::factory(1000)->create();
 
+        \App\Models\Student::factory()->create(['email' => 'student@example.com', 'password' => 'password']);
+
         \App\Models\Student::factory(100)->create();
     }
 }

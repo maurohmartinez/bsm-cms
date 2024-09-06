@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Enums\AccountEnum;
 use App\Enums\TransactionTypeEnum;
+use App\Models\Customer;
 use App\Models\Student;
 use App\Models\Transaction;
 use App\Models\TransactionCategory;
-use App\Models\Customer;
 use App\Models\Vendor;
 use App\Models\Year;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
@@ -54,7 +54,7 @@ class TransactionCrudController extends CrudController
 
         Widget::add()
             ->type('chart')
-            ->controller(\App\Http\Controllers\Admin\Charts\BookkeepingChartController::class)
+            ->controller(Charts\BookkeepingChartController::class)
             ->wrapper(['class' => 'col-12 mt-4'])
             ->to('after_content');
 
