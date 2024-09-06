@@ -3,7 +3,7 @@
 @section('content')
     <h3>{{ \Illuminate\Support\Facades\Auth::guard('students')->user()->name }}</h3>
 
-    <h1>Paid: <span class="fw-light">EUR {{ $paid }} | </span> To pay: <span class="fw-light">EUR {{ $total - $paid }}</span></h1>
+    <h1>Paid: <span class="fw-light">EUR {{ $paid }} | </span> To pay: <span class="fw-light">EUR {{ $total - ($paid / 100) }}</span></h1>
 
     <div class="page-body animated fadeIn">
         @if(count($transactions) > 0)
