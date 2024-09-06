@@ -28,7 +28,7 @@ class StudentController extends Controller
     {
         return view('student.tuition', [
             'transactions' => Auth::guard('students')->user()->transactions,
-            'paid' => Auth::guard('students')->user()->transactions()->sum('amount'),
+            'paid' => Auth::guard('students')->user()->transactions()->sum('amount') / 100,
             'total' => Auth::guard('students')->user()->year->cost,
         ]);
     }
