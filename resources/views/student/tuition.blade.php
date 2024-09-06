@@ -22,9 +22,9 @@
                                 <tbody>
                                 @foreach($transactions as $transaction)
                                     <tr>
-                                        <td>100</td>
-                                        <td>100</td>
-                                        <td>100</td>
+                                        <td>{{ $transaction->created_at }}</td>
+                                        <td>{{ $transaction->amount }}</td>
+                                        <td>{{ $transaction->account->value }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
