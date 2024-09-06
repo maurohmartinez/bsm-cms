@@ -27,10 +27,10 @@
                                     </a>
                                 </li>
                             @endunless
-                            @include(backpack_view('inc.sidebar_content'))
+                            @include(backpack_view('inc.student_sidebar_content'))
                         </ul>
                         @unless(backpack_theme_config('options.doubleTopBarInHorizontalLayouts'))
-                            <form class="nav-link" action="{{ route('students.logout') }}" method="POST">
+                            <form class="nav-link" action="{{ route('i-am-student.logout') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-danger"><i class="la la-sign-out-alt me-1"></i> Logout</button>
                             </form>
@@ -51,7 +51,7 @@
                         </li>
                         @include(backpack_view('inc.topbar_right_content'))
                         <div class="nav-item dropdown">
-                            <form class="nav-link" action="{{ route('students.logout') }}" method="POST">
+                            <form class="nav-link" action="{{ route('i-am-student.logout') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-danger"><i class="la la-sign-out-alt me-1"></i> Logout</button>
                             </form>
@@ -68,7 +68,7 @@
                 </ul>
                 <div class="collapse navbar-collapse" id="mobile-menu">
                     <ul class="navbar-nav pt-lg-3">
-                        @include(backpack_view('inc.sidebar_content'))
+                        @include(backpack_view('inc.student_sidebar_content'))
                     </ul>
                 </div>
             </div>

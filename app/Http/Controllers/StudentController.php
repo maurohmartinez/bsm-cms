@@ -106,18 +106,18 @@ class StudentController extends Controller
         $user = Student::query()->where('email', $request->get('email'))->first();
 
         if (!$user) {
-            return Redirect::route('students.login')->withErrors(['email' => 'The user entered doesn\'t exists.']);
+            return Redirect::route('i-am-student.login')->withErrors(['email' => 'The user entered doesn\'t exists.']);
         }
 
         Auth::guard('students')->login($user);
 
-        return Redirect::route('students.index');
+        return Redirect::route('i-am-student.index');
     }
 
     public function logout(): RedirectResponse
     {
         Auth::guard('students')->logout();
 
-        return Redirect::route('students.login');
+        return Redirect::route('i-am-student.login');
     }
 }

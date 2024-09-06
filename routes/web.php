@@ -14,20 +14,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group([
-    'prefix' => 'student',
+    'prefix' => 'i-am-student',
     'namespace' => 'App\Http\Controllers',
 ], function () {
     Route::group([
         'middleware' => 'auth.students',
     ], function () {
-        Route::get('/', [\App\Http\Controllers\StudentController::class, 'calendar'])->name('students.index');
-        Route::get('tuition', [\App\Http\Controllers\StudentController::class, 'tuition'])->name('students.tuition');
-        Route::get('grades', [\App\Http\Controllers\StudentController::class, 'grades'])->name('students.grades');
+        Route::get('/', [\App\Http\Controllers\StudentController::class, 'calendar'])->name('i-am-student.index');
+        Route::get('tuition', [\App\Http\Controllers\StudentController::class, 'tuition'])->name('i-am-student.tuition');
+        Route::get('grades', [\App\Http\Controllers\StudentController::class, 'grades'])->name('i-am-student.grades');
 
         Route::post('get-calendar-events', [\App\Http\Controllers\StudentController::class, 'getCalendarEvents']);
-        Route::post('logout', [\App\Http\Controllers\StudentController::class, 'logout'])->name('students.logout');
+        Route::post('logout', [\App\Http\Controllers\StudentController::class, 'logout'])->name('i-am-student.logout');
     });
 
-    Route::get('login', [\App\Http\Controllers\StudentController::class, 'login'])->name('students.login');
+    Route::get('login', [\App\Http\Controllers\StudentController::class, 'login'])->name('i-am-student.login');
     Route::post('login', [\App\Http\Controllers\StudentController::class, 'handleLogin']);
 });

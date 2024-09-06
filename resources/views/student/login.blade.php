@@ -9,7 +9,7 @@
             <div class="card card-md">
                 <div class="card-body pt-0">
                     <h2 class="h2 text-center my-4">{{ trans('backpack::base.login') }}</h2>
-                    <form method="POST" action="{{ route('students.login') }}" autocomplete="off" novalidate="">
+                    <form method="POST" action="{{ route('i-am-student.login') }}" autocomplete="off" novalidate="">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label" for="email">{{ trans('backpack::base.'.strtolower(config('backpack.base.authentication_column_name'))) }}</label>

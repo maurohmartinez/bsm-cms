@@ -1,6 +1,6 @@
-<x-backpack::menu-item title="Calendar" icon="la la-users" :link="route('students.index')"/>
-<x-backpack::menu-item title="Tuition" icon="la la-wallet" :link="route('students.tuition')"/>
-<x-backpack::menu-item title="Grades" icon="la la-school" :link="route('students.grades')"/>
+<x-backpack::menu-item title="Calendar" icon="la la-users" :link="route('i-am-student.index')"/>
+<x-backpack::menu-item title="Tuition" icon="la la-wallet" :link="route('i-am-student.tuition')"/>
+<x-backpack::menu-item title="Grades" icon="la la-school" :link="route('i-am-student.grades')"/>
 
 @push('after_scripts')
 @bassetBlock('tabler-menu-javascript.js')

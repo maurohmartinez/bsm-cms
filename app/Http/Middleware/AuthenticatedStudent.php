@@ -12,7 +12,7 @@ class AuthenticatedStudent
     public function handle(Request $request, Closure $next): mixed
     {
         if (!Auth::guard('students')->check()) {
-            return Redirect::route('students.login');
+            return Redirect::route('i-am-student.login');
         }
 
         return $next($request);
