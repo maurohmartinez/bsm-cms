@@ -22,7 +22,7 @@
                                 <tbody>
                                 @foreach($transactions as $transaction)
                                     <tr>
-                                        <td>{{ $transaction->created_at }}</td>
+                                        <td>{{ $transaction->created_at->format('m.d.Y') }}</td>
                                         <td>{{ $transaction->amount }}</td>
                                         <td>{{ $transaction->account->value }}</td>
                                     </tr>

@@ -27,8 +27,9 @@ class StudentController extends Controller
     public function tuition(): View
     {
         return view('student.tuition', [
-            'transactions' => Auth::guard('students')->user()->transactions()->get(),
-            'total' => Auth::guard('students')->user()->year()->first()->cost,
+            'transactions' => Auth::guard('students')->user()->transactions,
+            'paid' => Auth::guard('students')->user()->transactions()->sum('amount'),
+            'total' => Auth::guard('students')->user()->year->cost,
         ]);
     }
 
