@@ -105,7 +105,6 @@ class StudentCrudController extends CrudController
         CRUD::field('personal_code')->size(6);
         CRUD::field('passport')->size(6);
         CRUD::field('images')->type('upload_multiple')->withFiles(true);
-        CRUD::field('password')->type('password');
     }
 
     protected function setupUpdateOperation(): void
