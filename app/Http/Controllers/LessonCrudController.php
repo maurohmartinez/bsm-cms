@@ -28,7 +28,7 @@ class LessonCrudController extends CrudController
         CRUD::setEntityNameStrings('lesson', 'lesson');
 
         if (!UserService::hasAccessTo('lessons')) {
-            $this->crud->denyAllAccess();
+            $this->crud->denyAccess(['list']);
         }
 
         CRUD::addBaseClause('onlyLessons');
