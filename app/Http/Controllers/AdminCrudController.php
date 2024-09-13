@@ -42,10 +42,14 @@ class AdminCrudController extends CrudController
 
         CRUD::field('name');
         CRUD::field('email');
+        CRUD::field('password');
     }
 
     protected function setupUpdateOperation(): void
     {
-        $this->setupCreateOperation();
+        CRUD::setValidation(\App\Http\Requests\UserRequest::class);
+
+        CRUD::field('name');
+        CRUD::field('email');
     }
 }
