@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\UserService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -24,6 +25,10 @@ class CustomerCrudController extends CrudController
         CRUD::setModel(\App\Models\Customer::class);
         CRUD::setRoute(config('backpack.base.route_prefix').'/customer');
         CRUD::setEntityNameStrings('customer', 'customers');
+
+        if (!UserService::hasAccessTo('bookkeeping')) {
+            $this->crud->denyAllAccess();
+        }
     }
 
     protected function setupListOperation(): void

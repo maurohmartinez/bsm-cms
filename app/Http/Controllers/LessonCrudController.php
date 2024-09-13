@@ -6,6 +6,7 @@ use App\Enums\LessonStatusEnum;
 use App\Models\Subject;
 use App\Models\Teacher;
 use App\Models\Year;
+use App\Services\UserService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -25,6 +26,11 @@ class LessonCrudController extends CrudController
         CRUD::setModel(\App\Models\Lesson::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/lesson');
         CRUD::setEntityNameStrings('lesson', 'lesson');
+
+        if (!UserService::hasAccessTo('lessons')) {
+            $this->crud->denyAllAccess();
+        }
+
         CRUD::addBaseClause('onlyLessons');
         CRUD::addBaseClause('with', ['teacher', 'year', 'subject']);
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\LanguageLevelsEnum;
 use App\Enums\LanguagesEnum;
 use App\Models\Year;
+use App\Services\UserService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -25,6 +26,10 @@ class StudentCrudController extends CrudController
         CRUD::setModel(\App\Models\Student::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/student');
         CRUD::setEntityNameStrings('student', 'students');
+
+        if (!UserService::hasAccessTo('students')) {
+            $this->crud->denyAllAccess();
+        }
     }
 
     protected function setupListOperation(): void

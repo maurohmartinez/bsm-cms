@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\UserService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -24,6 +25,10 @@ class TransactionCategoryCrudController extends CrudController
         CRUD::setModel(\App\Models\TransactionCategory::class);
         CRUD::setRoute(config('backpack.base.route_prefix').'/transaction-category');
         CRUD::setEntityNameStrings('transaction category', 'transaction categories');
+
+        if (!UserService::hasAccessTo('bookkeeping')) {
+            $this->crud->denyAllAccess();
+        }
     }
 
     protected function setupListOperation(): void

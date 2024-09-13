@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\UserService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -23,6 +24,10 @@ class SubjectCrudController extends CrudController
         CRUD::setModel(\App\Models\Subject::class);
         CRUD::setRoute(config('backpack.base.route_prefix').'/subject');
         CRUD::setEntityNameStrings('subject', 'subjects');
+
+        if (!UserService::hasAccessTo('subjects')) {
+            $this->crud->denyAllAccess();
+        }
     }
 
     protected function setupListOperation(): void
