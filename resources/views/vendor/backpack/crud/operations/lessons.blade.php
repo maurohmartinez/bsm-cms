@@ -28,7 +28,7 @@
                 },
                 views: {
                     timeGrid: {
-                        dayHeaderFormat: { weekday: 'short', month: 'short', day: 'numeric', omitCommas: true },
+                        dayHeaderFormat: {weekday: 'short', month: 'short', day: 'numeric', omitCommas: true},
                     },
                 },
                 multiMonthMaxColumns: 1,
@@ -79,24 +79,25 @@
                         }
                     }
                 ],
+                @if(!\App\Services\UserService::hasAccessTo('lessons'))
                 eventClick: function (info) {
                     Livewire.dispatch('openModal.event', [{id: info.event.id}]);
                 },
+                @endif
                 eventClassNames: function (arg) {
                     return ['cursor-pointer'];
                 },
                 eventMouseEnter: function ({event, el}) {
-                    if (event.extendedProps.notes) {
-                        $(el).popover({
-                            // title: 'Notes',
-                            placement: 'auto',
-                            html: true,
-                            trigger: 'hover',
-                            animation: true,
-                            content: event.extendedProps.notes,
-                            container: $(el),
-                        });
-                    }
+                    // if (event.extendedProps.notes) {
+                    //     $(el).popover({
+                    //         placement: 'auto',
+                    //         html: true,
+                    //         trigger: 'hover',
+                    //         animation: true,
+                    //         content: event.extendedProps.notes,
+                    //         container: $(el),
+                    //     });
+                    // }
                 },
             });
             calendar.render();
