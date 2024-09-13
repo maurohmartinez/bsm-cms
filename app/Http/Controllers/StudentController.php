@@ -85,7 +85,7 @@ class StudentController extends Controller
                     'end' => $lesson->ends_at->format('Y-m-d H:i:s'),
                     'allDay' => false,
                     'color' => match (true) {
-                        !is_null($lesson->subject_id) => LessonStatusEnum::getColor($lesson->status),
+                        !is_null($lesson->subject_id) => $subject?->color ?? 'primary',
                         default => 'lightgray',
                     },
                 ];
