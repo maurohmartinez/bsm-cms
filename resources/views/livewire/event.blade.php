@@ -47,7 +47,7 @@
                         </select>
                     @endif
 
-                    <label class="fw-bold my-3 mb-0">Notes</label>
+                    <label class="fw-bold my-3 mb-0">Translation</label>
                     <input type="text" wire:model="notes" class="form-control">
 
                 </div>

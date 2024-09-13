@@ -30,7 +30,7 @@
                             @include(backpack_view('inc.student_sidebar_content'))
                         </ul>
                         @unless(backpack_theme_config('options.doubleTopBarInHorizontalLayouts'))
-                            <form class="nav-link" action="{{ route('i-am-student.logout') }}" method="POST">
+                            <form class="nav-link" action="{{ route('students.logout') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-danger"><i class="la la-sign-out-alt me-1"></i> Logout</button>
                             </form>
@@ -51,7 +51,7 @@
                         </li>
                         @include(backpack_view('inc.topbar_right_content'))
                         <div class="nav-item dropdown">
-                            <form class="nav-link" action="{{ route('i-am-student.logout') }}" method="POST">
+                            <form class="nav-link" action="{{ route('students.logout') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-danger"><i class="la la-sign-out-alt me-1"></i> Logout</button>
                             </form>

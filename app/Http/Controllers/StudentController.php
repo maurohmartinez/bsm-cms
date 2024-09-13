@@ -9,6 +9,7 @@ use App\Models\Subject;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,9 +28,9 @@ class StudentController extends Controller
     public function tuition(): View
     {
         return view('student.tuition', [
-            'transactions' => Auth::guard('students')->user()->transactions,
-            'paid' => Auth::guard('students')->user()->transactions()->sum('amount') / 100,
-            'total' => Auth::guard('students')->user()->year->cost,
+            'transactions' => Auth::guard(Student::GUARD)->user()->transactions,
+            'paid' => Auth::guard(Student::GUARD)->user()->transactions()->sum('amount') / 100,
+            'total' => Auth::guard(Student::GUARD)->user()->year->cost,
         ]);
     }
 
@@ -37,7 +38,7 @@ class StudentController extends Controller
     {
         return view('student.grades', [
             'subjects' => Subject::query()
-                ->where('year_id', Auth::guard('students')->user()->year->id)
+                ->where('year_id', Auth::guard(Student::GUARD)->user()->year->id)
                 ->with('teacher')
                 ->get(),
         ]);
@@ -48,6 +49,8 @@ class StudentController extends Controller
      */
     public function getCalendarEvents(Request $request): JsonResponse
     {
+        /** @var Student $student */
+        $student = Auth::guard(Student::GUARD)->user();
         $returns = [];
 
         $start = $request->input('start');
@@ -61,7 +64,7 @@ class StudentController extends Controller
         /** @var Collection<Lesson> $lessons */
         $lessons = Lesson::query()
             ->whereDate('starts_at', '>', $start)
-            ->with(['subject', 'teacher', 'interpreter'])
+            ->with(['subject', 'teacher', 'interpreter', 'studentAttendance'])
             ->whereDate('ends_at', '<', $end)
             ->get();
 
@@ -72,25 +75,40 @@ class StudentController extends Controller
 
                 $teacher = $lesson->subject?->teacher;
                 $title = $subject
-                    ? '[' . $lesson->totalOf . '] ' . Str::words($subject->name, 2) . '/' . ($teacher?->name ?? '-')
-                    : LessonStatusEnum::translatedOption($lesson->status);
-                $title .= ($lesson->extras['notes'] ?? null) ? ' - ' . $lesson->extras['notes'] : '';
+                    ? '[' . $lesson->totalOf . '] ' . Str::words($subject->name, 2) . ' - ' . ($teacher?->name ?? '')
+                    : 'To be confirmed';
 
                 $returns [] = [
                     'id' => $lesson->id,
-                    'title' => $title,
+                    'title' => ($lesson?->studentAttendance()?->student($student)?->exists() ? '✅ ' : '') . $title,
                     'start' => $lesson->starts_at->format('Y-m-d H:i:s'),
                     'end' => $lesson->ends_at->format('Y-m-d H:i:s'),
                     'allDay' => false,
                     'color' => match (true) {
-                        $lesson->is_chapel || in_array($lesson->status, [LessonStatusEnum::SPECIAL_ACTIVITY, LessonStatusEnum::TO_CONFIRM]) => LessonStatusEnum::getColor($lesson->status),
-                        default => $subject?->color ?? 'lightgray',
+                        !is_null($lesson->subject_id) => LessonStatusEnum::getColor($lesson->status),
+                        default => 'lightgray',
                     },
                 ];
             }
         }
 
         return new JsonResponse($returns);
+    }
+
+    public function setAttendance(int $lessonId): JsonResponse
+    {
+        /** @var Student $student */
+        $student = Auth::guard(Student::GUARD)->user();
+
+        $lesson = Lesson::query()
+            ->where('id', $lessonId)
+            ->whereHas('subject', fn (Builder $query) => $query->where('year_id', $student->year_id))
+            ->firstOrFail();
+
+        $studentAttendance = $lesson->studentAttendance()->first();
+        $studentAttendance ? $studentAttendance->delete() : $lesson->studentAttendance()->create(['student_id' => $student->id]);
+
+        return new JsonResponse(['success' => true]);
     }
 
     public function login(): View
@@ -106,18 +124,18 @@ class StudentController extends Controller
         $user = Student::query()->where('email', $request->get('email'))->first();
 
         if (!$user) {
-            return Redirect::route('i-am-student.login')->withErrors(['email' => 'The user entered doesn\'t exists.']);
+            return Redirect::route('students.login')->withErrors(['email' => 'The user entered doesn\'t exists.']);
         }
 
-        Auth::guard('students')->login($user);
+        Auth::guard(Student::GUARD)->login($user);
 
-        return Redirect::route('i-am-student.index');
+        return Redirect::route('students.index');
     }
 
     public function logout(): RedirectResponse
     {
-        Auth::guard('students')->logout();
+        Auth::guard(Student::GUARD)->logout();
 
-        return Redirect::route('i-am-student.login');
+        return Redirect::route('students.login');
     }
 }

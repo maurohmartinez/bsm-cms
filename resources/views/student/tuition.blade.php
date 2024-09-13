@@ -1,7 +1,7 @@
 @extends(backpack_view('layouts.horizontal_overlap'))
 
 @section('content')
-    <h3>{{ \Illuminate\Support\Facades\Auth::guard('students')->user()->name }}</h3>
+    <h3>{{ \Illuminate\Support\Facades\Auth::guard(\App\Models\Student::GUARD)->user()->name }}</h3>
 
     <h1>Paid: <span class="fw-light">EUR {{ $paid }} | </span> To pay: <span class="fw-light">EUR {{ $total - $paid }}</span></h1>
 

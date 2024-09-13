@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Student;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,8 +12,8 @@ class AuthenticatedStudent
 {
     public function handle(Request $request, Closure $next): mixed
     {
-        if (!Auth::guard('students')->check()) {
-            return Redirect::route('i-am-student.login');
+        if (!Auth::guard(Student::GUARD)->check()) {
+            return Redirect::route('students.login');
         }
 
         return $next($request);

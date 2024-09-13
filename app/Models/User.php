@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\PersonalAccessToken;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 
@@ -71,6 +72,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'api_token',
     ];
 
     /**
@@ -82,4 +84,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public static function boot(): void
+    {
+        parent::boot();
+
+        self::creating(fn (self $model) => $model->setAttribute('api_token', Str::random(32)));
+    }
 }

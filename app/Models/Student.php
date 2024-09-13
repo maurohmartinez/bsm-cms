@@ -15,6 +15,8 @@ class Student extends Authenticatable
     use \Laravel\Sanctum\HasApiTokens;
     use \Illuminate\Database\Eloquent\SoftDeletes;
 
+    public const GUARD = 'students';
+
     protected $fillable = [
         'name',
         'year_id',
@@ -41,6 +43,11 @@ class Student extends Authenticatable
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class, 'student_id', 'id');
+    }
+
+    public function attendance(): HasMany
+    {
+        return $this->hasMany(StudentAttendance::class);
     }
 
     public function subjects(): HasManyThrough

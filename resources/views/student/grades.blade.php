@@ -1,7 +1,7 @@
 @extends(backpack_view('layouts.horizontal_overlap'))
 
 @section('content')
-    <h3>{{ \Illuminate\Support\Facades\Auth::guard('students')->user()->name }}</h3>
+    <h3>{{ \Illuminate\Support\Facades\Auth::guard(\App\Models\Student::GUARD)->user()->name }}</h3>
     <div class="page-body animated fadeIn">
         <div class="row">
             <div class="col-12">

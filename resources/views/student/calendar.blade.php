@@ -1,7 +1,7 @@
 @extends(backpack_view('layouts.horizontal_overlap'))
 
 @section('content')
-    <h3>{{ \Illuminate\Support\Facades\Auth::guard('students')->user()->name }}</h3>
+    <h3>{{ \Illuminate\Support\Facades\Auth::guard(\App\Models\Student::GUARD)->user()->name }}</h3>
     <div class="page-body animated fadeIn">
         <div class="row">
             <div class="col-12">
@@ -51,7 +51,7 @@
                 eventSources: [
                     {
                         id: "all-lessons",
-                        url: "{{ url('i-am-student/get-calendar-events') }}",
+                        url: "{{ url('students/get-calendar-events') }}",
                         method: 'POST',
                         extraParams: {
                             _token: $('meta[name="csrf-token"]').attr('content'),
@@ -61,6 +61,29 @@
                         }
                     }
                 ],
+                eventClick: function (info) {
+                    $.ajax({
+                        url: '{{ url('students/set-attendance') }}/' + info.event.id,
+                        type: 'POST',
+                        success: function () {
+                            calendar.refetchEvents();
+                            new Noty({
+                                type: "success",
+                                text: "<?php echo '<strong>' . trans('backpack::crud.delete_confirmation_title') . '</strong><br>' . trans('backpack::crud.delete_confirmation_message'); ?>"
+                            }).show();
+                        },
+                        error: function (result) {
+                            // Show an alert with the result
+                            swal({
+                                title: "<?php echo trans('backpack::crud.delete_confirmation_not_title'); ?>",
+                                text: "<?php echo trans('backpack::crud.delete_confirmation_not_message'); ?>",
+                                icon: "error",
+                                timer: 4000,
+                                buttons: false,
+                            });
+                        }
+                    });
+                },
             });
             calendar.render();
         });
