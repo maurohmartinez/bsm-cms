@@ -62,6 +62,10 @@
                     }
                 ],
                 eventClick: function (info) {
+                    if (!info.event.extendedProps.subject_id) {
+                        return;
+                    }
+
                     $.ajax({
                         url: '{{ url('students/set-attendance') }}/' + info.event.id,
                         type: 'POST',

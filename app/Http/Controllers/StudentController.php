@@ -84,6 +84,7 @@ class StudentController extends Controller
                     'start' => $lesson->starts_at->format('Y-m-d H:i:s'),
                     'end' => $lesson->ends_at->format('Y-m-d H:i:s'),
                     'allDay' => false,
+                    'subject_id' => $lesson->subject_id,
                     'color' => match (true) {
                         !is_null($lesson->subject_id) => $subject?->color ?? 'primary',
                         default => 'lightgray',

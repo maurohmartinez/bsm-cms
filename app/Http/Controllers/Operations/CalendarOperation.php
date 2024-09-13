@@ -13,13 +13,6 @@ use Illuminate\Support\Str;
 
 trait CalendarOperation
 {
-    /**
-     * Define which routes are needed for this operation.
-     *
-     * @param string $segment Name of the current entity (singular). Used as first URL segment.
-     * @param string $routeName Prefix of the route name.
-     * @param string $controller Name of the current CrudController.
-     */
     protected function setupCalendarRoutes(string $segment, string $routeName, string $controller): void
     {
         Route::get($segment . '/calendar', [
@@ -34,9 +27,6 @@ trait CalendarOperation
         ]);
     }
 
-    /**
-     * Add the default settings, buttons, etc that this operation needs.
-     */
     protected function setupCalendarDefaults(): void
     {
         // Access
@@ -49,11 +39,6 @@ trait CalendarOperation
         });
     }
 
-    /**
-     * Method to handle the GET request and display the View with a Backpack form
-     *
-     * @return View
-     */
     public function calendar(): View
     {
         $this->crud->hasAccessOrFail('calendar');
@@ -65,11 +50,6 @@ trait CalendarOperation
         return view("crud::operations.lessons", $this->data);
     }
 
-    /**
-     * Method to handle the POST request and perform the operation
-     *
-     * @return array
-     */
     public function getCalendarEvents(): array
     {
         $returns = [];
