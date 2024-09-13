@@ -79,7 +79,7 @@
                         }
                     }
                 ],
-                @if(!\App\Services\UserService::hasAccessTo('lessons'))
+                @if(\App\Services\UserService::hasAccessTo('lessons'))
                 eventClick: function (info) {
                     Livewire.dispatch('openModal.event', [{id: info.event.id}]);
                 },
