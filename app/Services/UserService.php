@@ -44,6 +44,6 @@ class UserService
 
     public static function hasAccessTo(string $permission, ?User $user = null): bool
     {
-        return in_array($permission, self::ACCESS_DENIED_BY_USER_ID[$user?->id ?? backpack_user()->id]);
+        return in_array($permission, self::ACCESS_DENIED_BY_USER_ID[$user?->id ?? backpack_user()->id] ?? []);
     }
 }
