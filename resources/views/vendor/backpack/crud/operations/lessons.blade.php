@@ -99,6 +99,23 @@
                     //     });
                     // }
                 },
+                eventContent: function (arg) {
+                    let innerHtml = '';
+                    const div = document.createElement('div');
+
+                    innerHtml = arg.event.title;
+                    innerHtml += arg.event.extendedProps.teacherName
+                        ? ('<br>' + arg.event.extendedProps.teacherName)
+                        : '';
+                    innerHtml += arg.event.extendedProps.translation
+                        ? ('<br>' + arg.event.extendedProps.translation)
+                        : '';
+
+                    div.innerHTML = innerHtml;
+
+                    let arrayOfDomNodes = [div];
+                    return {domNodes: arrayOfDomNodes}
+                },
             });
             calendar.render();
 

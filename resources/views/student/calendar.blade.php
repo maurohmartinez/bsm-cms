@@ -19,7 +19,7 @@
                 themeSystem: 'bootstrap5',
                 views: {
                     timeGrid: {
-                        dayHeaderFormat: { weekday: 'short'},
+                        dayHeaderFormat: {weekday: 'short'},
                     },
                 },
                 businessHours: [
@@ -61,26 +61,44 @@
                         }
                     }
                 ],
-                eventClick: function (info) {
-                    if (!info.event.extendedProps.subject_id) {
+                eventContent: function (arg) {
+                    let innerHtml = '';
+                    const div = document.createElement('div');
+                    div.classList.add('p-2');
+
+                    innerHtml = arg.event.extendedProps.hasAttendanceMarked
+                        ? '✅<br>'
+                        : (arg.event.extendedProps.subjectId ? '⬜<br>' : '');
+                    innerHtml += arg.event.title + '<br>' + arg.event.extendedProps.teacherName;
+
+                    div.innerHTML = innerHtml;
+
+                    let arrayOfDomNodes = [div];
+                    return {domNodes: arrayOfDomNodes}
+                },
+                eventClassNames: function (arg) {
+                    return arg.event.extendedProps.subjectId ? ['cursor-pointer'] : [];
+                },
+                eventClick: function (arg) {
+                    if (!arg.event.extendedProps.subjectId) {
                         return;
                     }
 
                     $.ajax({
-                        url: '{{ url('students/set-attendance') }}/' + info.event.id,
+                        url: '{{ url('students/set-attendance') }}/' + arg.event.id,
                         type: 'POST',
                         success: function () {
                             calendar.refetchEvents();
                             new Noty({
                                 type: "success",
-                                text: "<?php echo '<strong>' . trans('backpack::crud.delete_confirmation_title') . '</strong><br>' . trans('backpack::crud.delete_confirmation_message'); ?>"
+                                text: "<strong>Done!</strong><br>Attendance successfully updated."
                             }).show();
                         },
                         error: function (result) {
                             // Show an alert with the result
                             swal({
-                                title: "<?php echo trans('backpack::crud.delete_confirmation_not_title'); ?>",
-                                text: "<?php echo trans('backpack::crud.delete_confirmation_not_message'); ?>",
+                                title: "Error",
+                                text: "An error occurred. Please try again later.",
                                 icon: "error",
                                 timer: 4000,
                                 buttons: false,

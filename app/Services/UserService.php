@@ -18,6 +18,7 @@ class UserService
             'subjects',
         ], // Mauro
         2 => [ // Julia
+            'bookkeeping',
             'admins',
             'years',
             'lessons',

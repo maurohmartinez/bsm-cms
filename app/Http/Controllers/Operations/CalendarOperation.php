@@ -72,13 +72,14 @@ trait CalendarOperation
 
                 $teacher = $lesson->subject?->teacher;
                 $title = $subject
-                    ? '[' . $lesson->totalOf . '] ' . Str::words($subject->name, 2) . '/' . ($teacher?->name ?? '-')
+                    ? '[' . $lesson->totalOf . '] ' . Str::words($subject->name, 2)
                     : LessonStatusEnum::translatedOption($lesson->status);
-                $title .= ($lesson->extras['notes'] ?? null) ? ' - ' . $lesson->extras['notes'] : '';
 
                 $returns [] = [
                     'id' => $lesson->id,
                     'title' => $title,
+                    'teacherName' => $teacher?->name,
+                    'translation' => $lesson->extras['notes'] ?? null,
                     'start' => $lesson->starts_at->format('Y-m-d H:i:s'),
                     'end' => $lesson->ends_at->format('Y-m-d H:i:s'),
                     'allDay' => false,

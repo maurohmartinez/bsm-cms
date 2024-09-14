@@ -75,16 +75,18 @@ class StudentController extends Controller
 
                 $teacher = $lesson->subject?->teacher;
                 $title = $subject
-                    ? '[' . $lesson->totalOf . '] ' . Str::words($subject->name, 2) . ' - ' . ($teacher?->name ?? '')
+                    ? ('[' . $lesson->totalOf . '] ' . Str::words($subject->name, 2))
                     : 'To be confirmed';
 
                 $returns [] = [
                     'id' => $lesson->id,
-                    'title' => ($lesson?->studentAttendance()?->student($student)?->exists() ? '✅ ' : '') . $title,
+                    'title' => $title,
+                    'hasAttendanceMarked' => $lesson?->studentAttendance()?->student($student)?->exists(),
+                    'teacherName' => $teacher?->name ?? '',
+                    'subjectId' => $lesson->subject_id,
                     'start' => $lesson->starts_at->format('Y-m-d H:i:s'),
                     'end' => $lesson->ends_at->format('Y-m-d H:i:s'),
                     'allDay' => false,
-                    'subject_id' => $lesson->subject_id,
                     'color' => match (true) {
                         !is_null($lesson->subject_id) => $subject?->color ?? 'primary',
                         default => 'lightgray',
