@@ -18,6 +18,7 @@ class AdminCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \App\Http\Controllers\Operations\PasswordOperation;
 
     public function setup(): void
     {
@@ -51,5 +52,11 @@ class AdminCrudController extends CrudController
 
         CRUD::field('name');
         CRUD::field('email');
+    }
+
+    protected function setupPasswordOperation(): void
+    {
+        CRUD::setValidation(\App\Http\Requests\PasswordRequest::class);
+        CRUD::field('password');
     }
 }

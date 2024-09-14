@@ -20,6 +20,7 @@ class StudentCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \App\Http\Controllers\Operations\PasswordOperation;
 
     public function setup(): void
     {
@@ -110,6 +111,12 @@ class StudentCrudController extends CrudController
         CRUD::field('personal_code')->size(6);
         CRUD::field('passport')->size(6);
         CRUD::field('images')->type('upload_multiple')->withFiles(true);
+    }
+
+    protected function setupPasswordOperation(): void
+    {
+        CRUD::setValidation(\App\Http\Requests\PasswordRequest::class);
+        CRUD::field('password');
     }
 
     protected function setupUpdateOperation(): void
