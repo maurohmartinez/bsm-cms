@@ -58,7 +58,7 @@
                         },
                         failure: function (e) {
                             alert(e.message);
-                        }
+                        },
                     }
                 ],
                 eventContent: function (arg) {
