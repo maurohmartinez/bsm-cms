@@ -91,6 +91,8 @@ return [
          * When true, horizontal layouts will display the classic top bar on top to free some space when multiple nav items are used.
          */
         'doubleTopBarInHorizontalLayouts' => false,
+
+        'showPasswordVisibilityToggler' => false,
     ],
 
     /**
