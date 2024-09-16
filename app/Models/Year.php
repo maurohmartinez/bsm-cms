@@ -107,7 +107,7 @@ class Year extends Model
     public static function getCurrent(): Year
     {
         if (env('CURRENT_YEAR_ID')) {
-            self::query()->findOrFail((int)env('CURRENT_YEAR_ID'));
+            return self::query()->findOrFail((int)env('CURRENT_YEAR_ID'));
         }
 
         return
