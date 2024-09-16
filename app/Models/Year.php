@@ -106,10 +106,15 @@ class Year extends Model
 
     public static function getCurrent(): Year
     {
-        return self::query()
-            ->whereDate('first_period_starts_at', '<', now())
-            ->whereDate('second_period_ends_at', '>', now())
-            ->first()
+        if (env('CURRENT_YEAR_ID')) {
+            self::query()->findOrFail((int)env('CURRENT_YEAR_ID'));
+        }
+
+        return
+            self::query()
+                ->whereDate('first_period_starts_at', '<', now())
+                ->whereDate('second_period_ends_at', '>', now())
+                ->first()
             ?? self::query()
             ->whereDate('first_period_starts_at', '>', now())
             ->first()
