@@ -85,7 +85,7 @@
                     }
 
                     $.ajax({
-                        url: '{{ url('students/set-attendance') }}/' + arg.event.id,
+                        url: '{{ url('students/set-attendance') }}' + '/' + arg.event.id,
                         type: 'POST',
                         success: function () {
                             calendar.refetchEvents();
