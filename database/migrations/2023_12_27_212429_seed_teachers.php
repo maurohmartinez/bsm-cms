@@ -30,7 +30,7 @@ return new class extends Migration
                     'language' => LanguagesEnum::LATVIAN->value,
                 ], [
                     'name' => 'Matias Pecile',
-                    'email' => 'maurohmartinez@gmail.com',
+                    'email' => 'matiaspecile@gmail.com',
                     'phone' => '+37123209525',
                     'country' => 'AR',
                     'is_local' => true,

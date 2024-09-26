@@ -55,7 +55,14 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Vendor::factory()->create(['name' => 'Bank']);
         \App\Models\Vendor::factory()->create(['name' => 'Cash']);
-        \App\Models\Vendor::factory(5)->create();
+        \App\Models\Vendor::factory(6)->sequence(
+            ['name' => 'Maxima'],
+            ['name' => 'Rimi'],
+            ['name' => 'Lidl'],
+            ['name' => 'Top'],
+            ['name' => 'Elvi'],
+            ['name' => 'Elektrum'],
+        )->create();
 
         \App\Models\Transaction::factory(1000)->create();
 

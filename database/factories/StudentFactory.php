@@ -38,6 +38,7 @@ class StudentFactory extends Factory
             'birth' => Carbon::now()->subYears(rand(20, 30)),
             'personal_code' => Str::random(8),
             'passport' => Str::random(10),
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
         ];
     }
 }

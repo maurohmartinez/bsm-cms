@@ -17,7 +17,7 @@ return new class extends Migration {
 
         Year::addOne('2023/2024', 2300, $firstPeriodStarts, $firstPeriodEnds, $secondPeriodStarts, $secondPeriodEnds);
 
-        $firstPeriodStarts = Carbon::create(2024, 9, 30);
+        $firstPeriodStarts = Carbon::create(2024, 9, 16);
         $firstPeriodEnds = Carbon::create(2024, 12, 20);
         $secondPeriodStarts = Carbon::create(2025, 1, 13);
         $secondPeriodEnds = Carbon::create(2025, 5, 30);

@@ -113,7 +113,7 @@ class StudentController extends Controller
             ->whereHas('subject', fn (Builder $query) => $query->where('year_id', $student->year_id))
             ->firstOrFail();
 
-        $studentAttendance = $lesson->studentAttendance()->first();
+        $studentAttendance = $lesson->studentAttendance()->where('student_id', $student->id)->first();
         $studentAttendance ? $studentAttendance->delete() : $lesson->studentAttendance()->create(['student_id' => $student->id]);
 
         return new JsonResponse(['success' => true]);

@@ -17,6 +17,11 @@
         document.addEventListener('DOMContentLoaded', function () {
             const calendar = new FullCalendar.Calendar(document.getElementById('lessons'), {
                 themeSystem: 'bootstrap5',
+                headerToolbar: {
+                    start: 'today prev,next',
+                    end: 'timeGridWeek,timeGridDay',
+                    center: 'title',
+                },
                 views: {
                     timeGrid: {
                         dayHeaderFormat: {weekday: 'short'},
@@ -38,6 +43,7 @@
                         startTime: '08:30',
                         endTime: '13:00',
                     },
+
                 ],
                 eventMinHeight: 40,
                 expandRows: true,
@@ -64,7 +70,11 @@
                 eventContent: function (arg) {
                     let innerHtml = '';
                     const div = document.createElement('div');
-                    div.classList.add('p-2');
+                    div.classList.add('p-2', 'cursor-pointer');
+
+                    if (arg.event.extendedProps.subjectId) {
+                        div.onclick = () => onClickEvent(arg.event.id);
+                    }
 
                     innerHtml = arg.event.extendedProps.hasAttendanceMarked
                         ? '✅<br>'
@@ -76,38 +86,37 @@
                     let arrayOfDomNodes = [div];
                     return {domNodes: arrayOfDomNodes}
                 },
-                eventClassNames: function (arg) {
-                    return arg.event.extendedProps.subjectId ? ['cursor-pointer'] : [];
-                },
-                eventClick: function (arg) {
-                    if (!arg.event.extendedProps.subjectId) {
-                        return;
-                    }
-
-                    $.ajax({
-                        url: '{{ url('students/set-attendance') }}' + '/' + arg.event.id,
-                        type: 'POST',
-                        success: function () {
-                            calendar.refetchEvents();
-                            new Noty({
-                                type: "success",
-                                text: "<strong>Done!</strong><br>Attendance successfully updated."
-                            }).show();
-                        },
-                        error: function (result) {
-                            // Show an alert with the result
-                            swal({
-                                title: "Error",
-                                text: "An error occurred. Please try again later.",
-                                icon: "error",
-                                timer: 4000,
-                                buttons: false,
-                            });
-                        }
-                    });
-                },
+                // eventClassNames: function (arg) {
+                    // return arg.event.extendedProps.subjectId ? ['cursor-pointer'] : [];
+                // },
+                // eventClick: function (arg) {
+                    {{--arg.jsEvent.preventDefault();--}}
+                // },
             });
             calendar.render();
+
+            const onClickEvent = (eventId) => {
+                $.ajax({
+                    url: '{{ url('students/set-attendance') }}' + '/' + eventId,
+                    type: 'POST',
+                    success: function () {
+                        calendar.refetchEvents();
+                        new Noty({
+                            type: "success",
+                            text: "<strong>Done!</strong><br>Attendance successfully updated."
+                        }).show();
+                    },
+                    error: function () {
+                        swal({
+                            title: "Error",
+                            text: "An error occurred. Please try again later.",
+                            icon: "error",
+                            timer: 4000,
+                            buttons: false,
+                        });
+                    }
+                });
+            }
         });
     </script>
 @endsection

@@ -54,7 +54,6 @@
                         endTime: '21:00',
                     },
                 ],
-                eventMinHeight: 40,
                 expandRows: true,
                 selectable: false,
                 nowIndicator: true,
