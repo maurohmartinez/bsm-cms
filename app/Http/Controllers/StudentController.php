@@ -119,8 +119,12 @@ class StudentController extends Controller
         return new JsonResponse(['success' => true]);
     }
 
-    public function login(): View
+    public function login(): View|RedirectResponse
     {
+        if (Auth::guard(Student::GUARD)->check()) {
+            return Redirect::route('students.index');
+        }
+
         return view('student.login');
     }
 
