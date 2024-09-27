@@ -30,7 +30,7 @@ Install all dependencies:
 composer install
 ```
 
-Run migrations and seeders:
+Create a local database `bsm_cms` and run migrations with seeders:
 
 ```shell
 php artisan migrate --seed
