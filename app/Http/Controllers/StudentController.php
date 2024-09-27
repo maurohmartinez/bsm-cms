@@ -139,7 +139,7 @@ class StudentController extends Controller
             return Redirect::route('students.login')->withErrors(['password' => 'Wrong password.'])->withInput();
         }
 
-        Auth::guard(Student::GUARD)->login($user);
+        Auth::guard(Student::GUARD)->login($user, $request->input('remember') === 'on');
 
         return Redirect::route('students.index');
     }
