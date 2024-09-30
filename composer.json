@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "ext-intl": "*",
         "backpack/crud": "^6.4",
         "backpack/editable-columns": "^3.0",
         "backpack/logmanager": "^5.0",
@@ -18,8 +19,7 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.3",
         "predis/predis": "^2.2",
-        "propaganistas/laravel-phone": "^5.1",
-        "ext-intl": "*"
+        "propaganistas/laravel-phone": "^5.1"
     },
     "require-dev": {
         "backpack/devtools": "^3.0",
