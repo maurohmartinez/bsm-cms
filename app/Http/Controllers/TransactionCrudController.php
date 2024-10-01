@@ -47,7 +47,7 @@ class TransactionCrudController extends CrudController
 
     protected function setupListOperation(): void
     {
-        CRUD::addBaseClause('orderBy', 'when');
+        CRUD::addBaseClause('orderByDesc', 'when');
 
         Widget::add()
             ->type('bookkeeping')
