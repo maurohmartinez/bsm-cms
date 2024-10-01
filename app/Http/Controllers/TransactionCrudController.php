@@ -39,7 +39,6 @@ class TransactionCrudController extends CrudController
         CRUD::setModel(\App\Models\Transaction::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/transaction');
         CRUD::setEntityNameStrings('transaction', 'transactions');
-        CRUD::addBaseClause('orderBy', 'when');
 
         if (!UserService::hasAccessTo('bookkeeping')) {
             $this->crud->denyAllAccess();
@@ -48,6 +47,8 @@ class TransactionCrudController extends CrudController
 
     protected function setupListOperation(): void
     {
+        CRUD::addBaseClause('orderBy', 'when');
+
         Widget::add()
             ->type('bookkeeping')
             ->wrapper(['class' => 'col-12 mt-4'])
