@@ -71,6 +71,12 @@ class TransactionCrudController extends CrudController
             ->label('By Account')
             ->whenActive(fn (string $value) => CRUD::addBaseClause('where', 'account', $value));
 
+        CRUD::filter('by_type')
+            ->type('dropdown')
+            ->values([TransactionTypeEnum::INCOME->value => TransactionTypeEnum::INCOME->value, TransactionTypeEnum::EXPENSE->value => TransactionTypeEnum::EXPENSE->value])
+            ->label('By Type')
+            ->whenActive(fn (string $value) => CRUD::addBaseClause('whereHas', 'transactionCategory', fn (Builder $query) => $query->where('type', $value)));
+
         CRUD::column('amount')->prefix('€ ');
         CRUD::column('transactionCategory.type')->label('Type')->type('enum')->wrapper([
             'class' => fn($crud, $column, $entry) => $entry->transactionCategory->type === TransactionTypeEnum::INCOME ? 'badge bg-success' : 'badge bg-danger',
