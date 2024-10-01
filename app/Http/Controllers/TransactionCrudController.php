@@ -39,6 +39,7 @@ class TransactionCrudController extends CrudController
         CRUD::setModel(\App\Models\Transaction::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/transaction');
         CRUD::setEntityNameStrings('transaction', 'transactions');
+        CRUD::addBaseClause('orderBy', 'when');
 
         if (!UserService::hasAccessTo('bookkeeping')) {
             $this->crud->denyAllAccess();
@@ -63,7 +64,16 @@ class TransactionCrudController extends CrudController
             ->wrapper(['class' => 'col-12 mt-4'])
             ->to('after_content');
 
+        CRUD::filter('account')
+            ->type('dropdown')
+            ->values([AccountEnum::BANK->value => AccountEnum::BANK->value, AccountEnum::CASH->value => AccountEnum::CASH->value])
+            ->label('By Account')
+            ->whenActive(fn (string $value) => CRUD::addBaseClause('where', 'account', $value));
+
         CRUD::column('amount')->prefix('€ ');
+        CRUD::column('account')->type('enum')->wrapper([
+            'class' => fn($crud, $column, $entry) => $entry->account === AccountEnum::BANK ? 'badge bg-warning' : 'badge bg-info',
+        ]);
         CRUD::column('transactionCategory')->label('Category');
         CRUD::column('when');
     }
