@@ -56,7 +56,7 @@ class StudentController extends Controller
 
         $start = $request->input('start');
         $end = $request->input('end');
-        $limit = 1;
+        $limit = 2;
 
         if (
             App::isProduction()
