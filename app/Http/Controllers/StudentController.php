@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\LessonStatusEnum;
 use App\Models\Lesson;
 use App\Models\Student;
 use App\Models\Subject;
