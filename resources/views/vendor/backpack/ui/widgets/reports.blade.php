@@ -1,7 +1,8 @@
 @extends(backpack_view('blank'))
 
 @section('content')
-<div class="container">
+
+<div class="container page-body animated fadeIn">
     <h1>Reports</h1>
 
     <div class="card">
@@ -17,7 +18,9 @@
             <div id="expense-chart" class="chart-lg"></div>
         </div>
     </div>
+@endsection
 
+@section('after_scripts')
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/libs/apexcharts/dist/apexcharts.min.js" defer></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
