@@ -2,86 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Transaction;
 use App\Models\TransactionCategory;
-use App\Services\UserService;
-use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
-use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use App\Enums\TransactionTypeEnum;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-/**
- * Class SubjectCategoryCrudController
- *
- * @property-read CrudPanel $crud
- */
-class ReportController extends CrudController
+class ReportController
 {
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\Pro\Http\Controllers\Operations\InlineCreateOperation;
-    
-    public function setup(): void
+    public function showReport(Request $request)
     {
-        CRUD::setModel(\App\Models\Transaction::class); // Transaction
-        CRUD::setRoute(config('backpack.base.route_prefix').'/report');
-        CRUD::setEntityNameStrings('transaction', 'transactions');
+        $month = $request->input('month', now()->format('m'));
+        $year = $request->input('year', now()->format('Y'));
 
-        if (!UserService::hasAccessTo('bookkeeping')) {
-            $this->crud->denyAllAccess();
-        }
+        $startOfMonth = Carbon::createFromFormat('Y-m', "$year-$month")->startOfMonth();
+        $endOfMonth = Carbon::createFromFormat('Y-m', "$year-$month")->endOfMonth();
+
+        $getTransactionsByType = function ($type) use ($startOfMonth, $endOfMonth) {
+            return TransactionCategory::where('type', $type)
+                ->withSum(['transactions' => function ($query) use ($startOfMonth, $endOfMonth) {
+                    $query->whereBetween('when', [$startOfMonth, $endOfMonth]);
+                }], 'amount')
+                ->get()
+                ->filter(fn($category) => $category->transactions_sum_amount > 0)
+                ->mapWithKeys(fn($category) => [$category->name => (int) $category->transactions_sum_amount])
+                ->toArray();
+        };
+
+        $incomes = $getTransactionsByType(TransactionTypeEnum::INCOME->value);
+        $expenses = $getTransactionsByType(TransactionTypeEnum::EXPENSE->value);
+
+        $incomeData = array_values($incomes);
+        $incomeLabels = array_keys($incomes);
+        $expenseData = array_values($expenses);
+        $expenseLabels = array_keys($expenses);
+
+        return view(backpack_view('widgets.reports'), [
+            'incomeData' => $incomeData,
+            'incomeLabels' => $incomeLabels,
+            'expenseData' => $expenseData,
+            'expenseLabels' => $expenseLabels,
+            'selectedMonth' => $month,
+            'selectedYear' => $year,
+        ]);
     }
-
-    protected function setupListOperation(): void
-    {
-        CRUD::column('name');
-        CRUD::column('description');
-    }
-
-    protected function setupCreateOperation(): void
-    {
-        CRUD::setValidation(\App\Http\Requests\ReportRequest::class);
-
-        CRUD::field('name');
-        CRUD::field('description');
-    }
-
-    protected function setupUpdateOperation(): void
-    {
-        $this->setupCreateOperation();
-    }
-    
-    public function showReport()
-{
-    $incomeCategories = TransactionCategory::where('type', 'INCOME')->pluck('id')->toArray();
-    $expenseCategories = TransactionCategory::where('type', 'EXPENSE')->pluck('id')->toArray();
-
-    $incomes = Transaction::whereIn('transaction_category_id', $incomeCategories)
-        ->groupBy('transaction_category_id')
-        ->selectRaw('transaction_category_id, SUM(amount) as total')
-        ->pluck('total', 'transaction_category_id')
-        ->map(fn($value) => (int) $value)
-        ->toArray();
-
-    $expenses = Transaction::whereIn('transaction_category_id', $expenseCategories)
-        ->groupBy('transaction_category_id')
-        ->selectRaw('transaction_category_id, SUM(amount) as total')
-        ->pluck('total', 'transaction_category_id')
-        ->map(fn($value) => (int) $value)
-        ->toArray();
-
-    $incomeLabels = TransactionCategory::whereIn('id', $incomeCategories)->pluck('name')->toArray();
-    $expenseLabels = TransactionCategory::whereIn('id', $expenseCategories)->pluck('name')->toArray();
-
-    return view(backpack_view('widgets.reports'), [
-        'incomeData' => array_values($incomes),
-        'incomeLabels' => $incomeLabels,
-        'expenseData' => array_values($expenses),
-        'expenseLabels' => $expenseLabels,
-    ]);
-}
-
-    
-
 }

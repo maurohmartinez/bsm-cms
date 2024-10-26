@@ -36,6 +36,11 @@ class TransactionCategory extends Model
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use \Illuminate\Database\Eloquent\SoftDeletes;
 
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'transaction_category_id');
+    }
+
     protected $fillable = [
         'name',
         'type',
