@@ -140,7 +140,7 @@ class Transaction extends Model
         return (int)str_replace(',', '', str_replace('.', '', str_replace('€', '', trim($value))));
     }
 
-    private static function clearRelatedCache(self $model): void
+    public static function clearRelatedCache(self $model): void
     {
         Cache::forget($model->getCacheKey());
         Cache::forget('statements_total_' . $model->account->value);
