@@ -77,9 +77,18 @@ class TransactionCrudController extends CrudController
             ->label('By Type')
             ->whenActive(fn (string $value) => CRUD::addBaseClause('whereHas', 'transactionCategory', fn (Builder $query) => $query->where('type', $value)));
 
+        CRUD::filter('only_tuition')
+            ->type('simple')
+            ->label('Only tuition')
+            ->whenActive(fn () => CRUD::addBaseClause(
+                'whereHas',
+                'transactionCategory',
+                fn (Builder $query) => $query->where('transaction_categories.id', TransactionCategory::query()->where('name', 'Tuition')->first()->id)
+            ));
+
         CRUD::column('amount')->prefix('€ ');
         CRUD::column('transactionCategory.type')->label('Type')->type('enum')->wrapper([
-            'class' => fn($crud, $column, $entry) => $entry->transactionCategory->type === TransactionTypeEnum::INCOME ? 'badge bg-success' : 'badge bg-danger',
+            'class' => fn ($crud, $column, $entry) => $entry->transactionCategory->type === TransactionTypeEnum::INCOME ? 'badge bg-success' : 'badge bg-danger',
         ]);
         CRUD::column('account')->type('enum');
         CRUD::column('transactionCategory')->label('Category');
@@ -210,7 +219,7 @@ class TransactionCrudController extends CrudController
         $params = collect(CRUD::getRequest()->get('form'));
         $transactionCategory = $params->firstWhere('name', 'transactionCategory')['value'] ?? null;
 
-        if ((int) $transactionCategory !== 3) {
+        if ((int)$transactionCategory !== 3) {
             return new JsonResponse();
         }
 
