@@ -36,6 +36,16 @@ class Student extends Authenticatable
 
     protected $hidden = ['password', 'remember_token'];
 
+    public static function boot(): void
+    {
+        parent::boot();
+
+        self::deleting(function (self $student) {
+            $student->transactions()->delete();
+            $student->attendance()->delete();
+        });
+    }
+
     public function year(): BelongsTo
     {
         return $this->belongsTo(Year::class);
