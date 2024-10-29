@@ -6,6 +6,7 @@ use App\Enums\LessonStatusEnum;
 use App\Models\Lesson;
 use App\Models\Subject;
 use App\Models\Year;
+use App\Services\UserService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Route;
@@ -69,17 +70,24 @@ trait CalendarOperation
             foreach ($lessons as $lesson) {
                 /** @var Subject $subject */
                 $subject = $lesson->subject()->with('teacher')->first();
-
                 $teacher = $lesson->subject?->teacher;
-                $title = $subject
-                    ? '[' . $lesson->totalOf . '] ' . Str::words($subject->name, 2)
-                    : LessonStatusEnum::translatedOption($lesson->status);
+
+                $title = match (true) {
+                    !UserService::hasAccessTo('lessons') => (empty($lesson->extras['notes']) ? '-' : $lesson->extras['notes']),
+                    default => $subject
+                        ? '[' . $lesson->totalOf . '] ' . Str::words($subject->name, 2)
+                        : LessonStatusEnum::translatedOption($lesson->status),
+                };
 
                 $returns [] = [
                     'id' => $lesson->id,
                     'title' => $title,
-                    'teacherName' => $teacher?->name,
-                    'translation' => $lesson->extras['notes'] ?? null,
+                    'teacherName' => UserService::hasAccessTo('lessons')
+                        ? $teacher?->name
+                        : Str::words($subject?->name, 2),
+                    'translation' => UserService::hasAccessTo('lessons')
+                        ? ($lesson->extras['notes'] ?? null)
+                        : null,
                     'start' => $lesson->starts_at->format('Y-m-d H:i:s'),
                     'end' => $lesson->ends_at->format('Y-m-d H:i:s'),
                     'allDay' => false,

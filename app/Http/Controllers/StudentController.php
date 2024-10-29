@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\LessonStatusEnum;
 use App\Models\Lesson;
 use App\Models\Student;
 use App\Models\Subject;
@@ -56,7 +55,7 @@ class StudentController extends Controller
 
         $start = $request->input('start');
         $end = $request->input('end');
-        $limit = 1;
+        $limit = 2;
 
         if (
             App::isProduction()

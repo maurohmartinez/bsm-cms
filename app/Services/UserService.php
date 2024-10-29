@@ -41,6 +41,8 @@ class UserService
         ],
         5 => [ // Marta
         ],
+        6 => [ // Tanja
+        ],
     ];
 
     public static function hasAccessTo(string $permission, ?User $user = null): bool
