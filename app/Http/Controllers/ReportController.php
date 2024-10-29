@@ -24,6 +24,7 @@ class ReportController extends Controller
                 ->withSum(['transactions' => function ($query) use ($startOfMonth, $endOfMonth) {
                     $query->whereBetween('when', [$startOfMonth, $endOfMonth]);
                 }], 'amount')
+                ->whereNot('name', 'Transfer between accounts')
                 ->get()
                 ->filter(fn ($category) => $category->transactions_sum_amount > 0)
                 ->mapWithKeys(fn ($category) => [$category->name => (int) $category->transactions_sum_amount])
