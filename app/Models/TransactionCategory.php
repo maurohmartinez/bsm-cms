@@ -7,6 +7,7 @@ use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -36,11 +37,6 @@ class TransactionCategory extends Model
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use \Illuminate\Database\Eloquent\SoftDeletes;
 
-    public function transactions()
-    {
-        return $this->hasMany(Transaction::class, 'transaction_category_id');
-    }
-
     protected $fillable = [
         'name',
         'type',
@@ -55,5 +51,10 @@ class TransactionCategory extends Model
         // Protect Bank and Cash
         self::updating(fn (self $model) => $model->id > 4);
         self::deleting(fn (self $model) => $model->id > 4);
+    }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class, 'transaction_category_id');
     }
 }

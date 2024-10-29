@@ -40,6 +40,26 @@
                     <p class="mt-3">No incomes available for this month.</p>
                 </div>
             </div>
+            <div class="table-responsive">
+                <table class="table table-vcenter card-table">
+                    <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($income as $type => $value)
+                    <tr>
+                        <td>{{ $type }}</td>
+                        <td class="text-secondary">
+                            € {{ \App\Models\Transaction::toCurrency($value) }}
+                        </td>
+                    </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -53,6 +73,26 @@
                     <p class="mt-3">No expenses available for this month.</p>
                 </div>
             </div>
+            <div class="table-responsive">
+                <table class="table table-vcenter card-table">
+                    <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($expenses as $type => $value)
+                        <tr>
+                            <td>{{ $type }}</td>
+                            <td class="text-secondary">
+                                € {{ \App\Models\Transaction::toCurrency($value) }}
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -60,7 +100,6 @@
 @endsection
 
 @section('after_scripts')
-<script src="https://unpkg.com/@tabler/core@latest/dist/js/tabler.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/libs/apexcharts/dist/apexcharts.min.js" defer></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -75,8 +114,8 @@
             window.location.href = `?month=${selectedMonth}&year=${selectedYear}`;
         });
 
-        const incomeData = @json($incomeData);
-        const expenseData = @json($expenseData);
+        const incomeData = @json(array_values($income));
+        const expenseData = @json(array_values($expenses));
 
         if (incomeData.length > 0) {
             new ApexCharts(document.getElementById('income-chart'), {
@@ -89,7 +128,7 @@
                 },
                 fill: { opacity: 1 },
                 series: incomeData,
-                labels: @json($incomeLabels),
+                labels: @json(array_keys($income)),
                 tooltip: { theme: 'dark' },
                 grid: { strokeDashArray: 4 },
                 colors: [
@@ -123,7 +162,7 @@
                 },
                 fill: { opacity: 1 },
                 series: expenseData,
-                labels: @json($expenseLabels),
+                labels: @json(array_keys($expenses)),
                 tooltip: { theme: 'dark' },
                 grid: { strokeDashArray: 4 },
                 colors: [
@@ -139,7 +178,7 @@
                     markers: { width: 10, height: 10, radius: 100 },
                     itemMargin: { horizontal: 8, vertical: 8 }
                 },
-                tooltip: { fillSeriesColor: false }
+                tooltip: { fillSeriesColor: true }
             }).render();
         } else {
             document.getElementById('expense-chart').style.display = 'none';
