@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TransactionCategory;
 use App\Enums\TransactionTypeEnum;
+use App\Services\UserService;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -12,6 +13,10 @@ class ReportController extends Controller
 {
     public function showReport(Request $request): View
     {
+        if (!UserService::hasAccessTo('bookkeeping')) {
+            abort(401);
+        }
+
         $month = $request->input('month', now()->format('m'));
         $year = $request->input('year', now()->format('Y'));
 

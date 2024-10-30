@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class StudentAttendance extends Model
 {
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
+
     protected $table = 'student_attendance';
 
     protected $fillable = [

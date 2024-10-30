@@ -1,24 +1,6 @@
 @extends(backpack_view('blank'))
 
-<style>
-    .grid-2 {
-        display: grid;
-        grid-template-rows: auto;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-    }
-
-</style>
-
 @section('content')
-
-<nav aria-label="breadcrumb" class="d-none d-lg-block">
-	<ol class="breadcrumb bg-transparent p-0 justify-content-end">
-	<li class="breadcrumb-item text-capitalize"><a href="http://localhost/dashboard">Admin</a></li>
-	<li class="breadcrumb-item text-capitalize"><a href="http://localhost/reports">Reports</a></li>
-	<li class="breadcrumb-item text-capitalize active" aria-current="page">List</li>
-    </ol>
-</nav>
 
 <section class="header-operation container-fluid animated fadeIn d-flex mb-3 px-0 align-items-baseline d-print-none" bp-section="page-header">
     <h1 class="text-capitalize mb-0" bp-section="page-heading">Reports</h1>
@@ -29,69 +11,72 @@
     <input id="monthPicker" type="month" name="first_period_starts_at" value="{{ $selectedYear }}-{{ str_pad($selectedMonth, 2, '0', STR_PAD_LEFT) }}" class="form-control">
 </div>
 
-<div class="grid-2 mt-3">
-    <div class="card">
-        <div class="card-body">
-            <h3>Incomes</h3>
-            <div id="income-chart-container">
-                <div id="income-chart" class="chart-lg"></div>
-                <div id="income-no-data" class="text-center" style="display: none;">
-                    <div class="spinner-border text-blue mt-6 mb-6" role="status"></div>
-                    <p class="mt-3">No incomes available for this month.</p>
+<div class="row grid-2 mt-3">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h3>Incomes</h3>
+                <div id="income-chart-container">
+                    <div id="income-chart" class="chart-lg"></div>
+                    <div id="income-no-data" class="text-center" style="display: none;">
+                        <div class="spinner-border text-blue mt-6 mb-6" role="status"></div>
+                        <p class="mt-3">No incomes available for this month.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-vcenter card-table">
-                    <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Value</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($income as $type => $value)
-                    <tr>
-                        <td>{{ $type }}</td>
-                        <td class="text-secondary">
-                            € {{ \App\Models\Transaction::toCurrency($value) }}
-                        </td>
-                    </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-body">
-            <h3>Expenses</h3>
-            <div id="expense-chart-container">
-                <div id="expense-chart" class="chart-lg"></div>
-                <div id="expense-no-data" class="text-center" style="display: none;">
-                    <div class="spinner-border text-blue mt-6 mb-6" role="status"></div>
-                    <p class="mt-3">No expenses available for this month.</p>
-                </div>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-vcenter card-table">
-                    <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Value</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($expenses as $type => $value)
+                <div class="table-responsive">
+                    <table class="table table-vcenter card-table">
+                        <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($income as $type => $value)
                         <tr>
                             <td>{{ $type }}</td>
                             <td class="text-secondary">
                                 € {{ \App\Models\Transaction::toCurrency($value) }}
                             </td>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h3>Expenses</h3>
+                <div id="expense-chart-container">
+                    <div id="expense-chart" class="chart-lg"></div>
+                    <div id="expense-no-data" class="text-center" style="display: none;">
+                        <div class="spinner-border text-blue mt-6 mb-6" role="status"></div>
+                        <p class="mt-3">No expenses available for this month.</p>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-vcenter card-table">
+                        <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($expenses as $type => $value)
+                            <tr>
+                                <td>{{ $type }}</td>
+                                <td class="text-secondary">
+                                    € {{ \App\Models\Transaction::toCurrency($value) }}
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
