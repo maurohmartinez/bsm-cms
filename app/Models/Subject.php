@@ -107,6 +107,11 @@ class Subject extends Model
         return $this->hasMany(Lesson::class);
     }
 
+    public function attendance(): HasMany
+    {
+        return $this->hasMany(StudentAttendance::class);
+    }
+
     protected function fullName(): Attribute
     {
         return Attribute::make(

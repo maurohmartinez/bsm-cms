@@ -24,7 +24,7 @@ class AttendanceCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\StudentAttendance::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/attendance');
-        CRUD::setEntityNameStrings('attendance', 'attendance');
+        CRUD::setEntityNameStrings('general attendance', 'general attendance');
     }
 
     protected function setupListOperation(): void

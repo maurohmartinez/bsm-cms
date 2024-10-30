@@ -22,12 +22,14 @@ class StudentCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \App\Http\Controllers\Operations\PasswordOperation;
+    use \App\Http\Controllers\Operations\Grades;
 
     public function setup(): void
     {
         CRUD::setModel(\App\Models\Student::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/student');
         CRUD::setEntityNameStrings('student', 'students');
+        CRUD::setEditContentClass('col-12');
 
         if (!UserService::hasAccessTo('students')) {
             $this->crud->denyAllAccess();
@@ -123,5 +125,10 @@ class StudentCrudController extends CrudController
     protected function setupUpdateOperation(): void
     {
         $this->setupCreateOperation();
+    }
+
+    protected function setupGradesOperation(): void
+    {
+        CRUD::field('grades')->type('grades');
     }
 }

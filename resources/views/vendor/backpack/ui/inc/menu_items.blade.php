@@ -20,7 +20,7 @@
 
 @if(\App\Services\UserService::hasAccessTo('students'))
 <x-backpack::menu-item title="Students" icon="la la-school" :link="route('student.index')"/>
-<x-backpack::menu-item title="Attendance" icon="la la-list" :link="route('attendance.index')"/>
+<x-backpack::menu-item title="Attendance" icon="la la-list-alt" :link="route('attendance.index')"/>
 @endif
 
 @if(\App\Services\UserService::hasAccessTo('teachers'))
