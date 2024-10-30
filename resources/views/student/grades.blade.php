@@ -12,7 +12,10 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Teacher</th>
-                                <th>Grade</th>
+                                <th>Attendance</th>
+                                <th>Participation</th>
+                                <th>Exam/Homework</th>
+                                <th>Final Grade</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -20,6 +23,15 @@
                                 <tr>
                                     <td>{{ $subject->name }}</td>
                                     <td>{{ $subject->teacher->name }}</td>
+                                    <td>{{ \Illuminate\Support\Facades\Auth::guard(\App\Models\Student::GUARD)->user()->attendance()
+                                        ->whereHas('lesson', function (\Illuminate\Database\Eloquent\Builder $query) use ($subject) {
+                                            $query->where('subject_id', $subject->id);
+                                        })->count() }}/{{ $subject->hours }} <span class="text-muted">|</span> {{ round((\Illuminate\Support\Facades\Auth::guard(\App\Models\Student::GUARD)->user()->attendance()
+                                        ->whereHas('lesson', function (\Illuminate\Database\Eloquent\Builder $query) use ($subject) {
+                                            $query->where('subject_id', $subject->id);
+                                        })->count() * 100) / $subject->hours) }}%</td>
+                                    <td>-</td>
+                                    <td>-</td>
                                     <td>-</td>
                                 </tr>
                             @endforeach

@@ -10,7 +10,9 @@
                         <th>Name</th>
                         <th>Teacher</th>
                         <th>Attendance</th>
-                        <th>Grade</th>
+                        <th>Participation</th>
+                        <th>Exam/Homework</th>
+                        <th>Final Grade</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -25,6 +27,8 @@
                                 ->whereHas('lesson', function (\Illuminate\Database\Eloquent\Builder $query) use ($subject) {
                                     $query->where('subject_id', $subject->id);
                                 })->count() * 100) / $subject->hours) }}%</td>
+                            <td>-</td>
+                            <td>-</td>
                             <td>-</td>
                         </tr>
                     @endforeach
