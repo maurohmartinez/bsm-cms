@@ -110,7 +110,7 @@ class Subject extends Model
     protected function fullName(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->name.' '.$this->year->name,
+            get: fn () => $this->name.' '.$this->year->name . ' (' . $this->lessons()->count() . ')',
         );
     }
 }

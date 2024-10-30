@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Teacher;
+use App\Models\Year;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -28,6 +30,13 @@ class AttendanceCrudController extends CrudController
 
     protected function setupListOperation(): void
     {
+        CRUD::filter('year')
+            ->type('dropdown')
+            ->values(Year::all()->pluck('name', 'id')->toArray())
+            ->whenActive(function (int $value) {
+                CRUD::addBaseClause('whereHas', 'lesson', fn (Builder $query) => $query->where('year_id', $value));
+            });
+
         CRUD::filter('subject')
             ->type('select2')
             ->values(Subject::with('year')->get()->pluck('full_name', 'id')->toArray())
@@ -36,6 +45,11 @@ class AttendanceCrudController extends CrudController
                     $query->where('lessons.subject_id', $value);
                 });
             });
+
+        CRUD::filter('student')
+            ->type('select2')
+            ->values(Student::all()->pluck('name', 'id')->toArray())
+            ->whenActive(fn (int $value) => CRUD::addBaseClause('where', 'student_id', $value));
 
         CRUD::filter('teacher')
             ->type('select2')
