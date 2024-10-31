@@ -70,7 +70,7 @@ trait CalendarOperation
             foreach ($lessons as $lesson) {
                 /** @var Subject $subject */
                 $subject = $lesson->subject()->with('teacher')->first();
-                $teacher = Str::words($lesson->subject?->teacher ?? '-', 1);
+                $teacher = $lesson->subject?->teacher;
 
                 $title = match (true) {
                     !UserService::hasAccessTo('lessons') => (empty($lesson->extras['notes']) ? '-' : $lesson->extras['notes']),
@@ -83,7 +83,7 @@ trait CalendarOperation
                     'id' => $lesson->id,
                     'title' => $title,
                     'teacherName' => UserService::hasAccessTo('lessons')
-                        ? $teacher?->name
+                        ? Str::words($teacher?->name, 1)
                         : Str::words($subject?->name, 2),
                     'translation' => UserService::hasAccessTo('lessons')
                         ? ($lesson->extras['notes'] ?? null)
