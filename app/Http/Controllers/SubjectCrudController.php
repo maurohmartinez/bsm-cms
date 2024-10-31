@@ -77,8 +77,8 @@ class SubjectCrudController extends CrudController
                 ->max_rows($students->count())
                 ->subfields([
                     ['name' => 'student.name', 'wrapper' => ['class' => 'col-md-6'], 'allows_null' => false, 'type' => 'text', 'attributes' => ['readonly' => 'readonly']],
-                    ['name' => 'participation', 'type' => 'number', 'wrapper' => ['class' => 'col-md-3'], 'suffix' => '/100'],
-                    ['name' => 'exam', 'type' => 'number', 'wrapper' => ['class' => 'col-md-3'], 'suffix' => '/100'],
+                    ['name' => 'participation', 'type' => 'number', 'wrapper' => ['class' => 'col-md-3'], 'suffix' => '/100%'],
+                    ['name' => 'exam', 'type' => 'number', 'wrapper' => ['class' => 'col-md-3'], 'suffix' => '/100%'],
                 ]);
         }
     }
