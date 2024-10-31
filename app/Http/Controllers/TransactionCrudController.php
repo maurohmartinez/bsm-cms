@@ -6,10 +6,8 @@ use App\Enums\AccountEnum;
 use App\Enums\TransactionTypeEnum;
 use App\Models\Customer;
 use App\Models\Student;
-use App\Models\Transaction;
 use App\Models\TransactionCategory;
 use App\Models\Vendor;
-use App\Models\Year;
 use App\Services\UserService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
@@ -19,7 +17,6 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Cache;
 
 /**
  * Class SubjectCategoryCrudController
@@ -48,22 +45,6 @@ class TransactionCrudController extends CrudController
     protected function setupListOperation(): void
     {
         CRUD::addBaseClause('orderByDesc', 'when');
-
-        Widget::add()
-            ->type('bookkeeping')
-            ->wrapper(['class' => 'col-12 mt-4'])
-            ->to('before_content')
-            ->content([
-                'cash' => $this->getStatement(Transaction::getInitialMonth(), AccountEnum::CASH),
-                'bank' => $this->getStatement(Transaction::getInitialMonth(), AccountEnum::BANK),
-                'tuition_to_pay' => Year::getCurrent()->tuitionLeft,
-            ]);
-
-        Widget::add()
-            ->type('chart')
-            ->controller(Charts\BookkeepingChartController::class)
-            ->wrapper(['class' => 'col-12 mt-4'])
-            ->to('after_content');
 
         CRUD::filter('account')
             ->type('dropdown')
@@ -224,31 +205,5 @@ class TransactionCrudController extends CrudController
         }
 
         return $this->fetch(Student::class);
-    }
-
-    private function getStatement(Carbon $yearStart, AccountEnum $account): string
-    {
-        $statement = Cache::remember(
-            'statements_total_' . $account->value,
-            config('cache.duration'),
-            fn () => [
-                TransactionTypeEnum::INCOME->value => Transaction::query()
-                    ->withoutTrashed()
-                    ->with(['transactionCategory'])
-                    ->where('account', $account->value)
-                    ->whereDate('when', '>=', $yearStart)
-                    ->income()
-                    ->sum('amount'),
-                TransactionTypeEnum::EXPENSE->value => Transaction::query()
-                    ->withoutTrashed()
-                    ->with(['transactionCategory'])
-                    ->where('account', $account->value)
-                    ->whereDate('when', '>=', $yearStart)
-                    ->expense()
-                    ->sum('amount'),
-            ]
-        );
-
-        return Transaction::toCurrency($statement[TransactionTypeEnum::INCOME->value] - $statement[TransactionTypeEnum::EXPENSE->value]);
     }
 }
