@@ -10,12 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        $firstPeriodStarts = Carbon::create(2023, 9, 25);
-        $firstPeriodEnds = Carbon::create(2023, 12, 15);
-        $secondPeriodStarts = Carbon::create(2024, 1, 8);
-        $secondPeriodEnds = Carbon::create(2024, 6, 7);
-
-        Year::addOne('2023/2024', 2300, $firstPeriodStarts, $firstPeriodEnds, $secondPeriodStarts, $secondPeriodEnds);
+//        $firstPeriodStarts = Carbon::create(2023, 9, 25);
+//        $firstPeriodEnds = Carbon::create(2023, 12, 15);
+//        $secondPeriodStarts = Carbon::create(2024, 1, 8);
+//        $secondPeriodEnds = Carbon::create(2024, 6, 7);
+//
+//        Year::addOne('2023/2024', 2300, $firstPeriodStarts, $firstPeriodEnds, $secondPeriodStarts, $secondPeriodEnds);
 
         $firstPeriodStarts = Carbon::create(2024, 9, 16);
         $firstPeriodEnds = Carbon::create(2024, 12, 20);

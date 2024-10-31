@@ -29,6 +29,9 @@ class SubjectRequest extends FormRequest
             'files.*' => 'sometimes|nullable|file',
             'is_official' => 'required|boolean',
             'teacher_id' => 'required|exists:teachers,id',
+//            'studentGrades.*.student' => 'required_with:id',
+            'studentGrades.*.participation' => 'required_with|numeric|min:0|max:100',
+            'studentGrades.*.exam' => 'required_with|numeric|min:0|max:100',
         ];
     }
 

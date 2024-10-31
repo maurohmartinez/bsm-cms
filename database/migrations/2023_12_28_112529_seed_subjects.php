@@ -34,7 +34,7 @@ return new class extends Migration
                     'is_official' => true,
                     'teacher_id' => 6,
                     'category_id' => 1,
-                    'year_id' => 2,
+                    'year_id' => 1,
                     'color' => '#20B2AA',
                 ], [
                     'name' => 'Introduction to the Bible',
@@ -50,7 +50,7 @@ return new class extends Migration
                     'is_official' => true,
                     'teacher_id' => 5,
                     'category_id' => 3,
-                    'year_id' => 2,
+                    'year_id' => 1,
                     'color' => '#9370DB',
                 ],
             ]);

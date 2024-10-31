@@ -58,6 +58,11 @@ class Student extends Authenticatable
         return $this->hasMany(Transaction::class, 'student_id', 'id');
     }
 
+    public function grades(): HasMany
+    {
+        return $this->hasMany(StudentGrade::class);
+    }
+
     public function attendance(): HasMany
     {
         return $this->hasMany(StudentAttendance::class);
