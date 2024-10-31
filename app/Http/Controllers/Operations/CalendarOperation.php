@@ -83,7 +83,7 @@ trait CalendarOperation
                     'id' => $lesson->id,
                     'title' => $title,
                     'teacherName' => UserService::hasAccessTo('lessons')
-                        ? Str::words($teacher?->name, 1)
+                        ? $teacher?->name
                         : Str::words($subject?->name, 2),
                     'translation' => UserService::hasAccessTo('lessons')
                         ? ($lesson->extras['notes'] ?? null)
