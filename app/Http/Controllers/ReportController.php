@@ -20,14 +20,14 @@ class ReportController extends Controller
         $month = $request->input('month', now()->format('m'));
         $year = $request->input('year', now()->format('Y'));
 
-        $startOfMonth = Carbon::createFromFormat('Y-m', "$year-$month")->startOfMonth();
-        $endOfMonth = Carbon::createFromFormat('Y-m', "$year-$month")->endOfMonth();
-
-        $getTransactionsByType = function ($type) use ($startOfMonth, $endOfMonth) {
+        $getTransactionsByType = function ($type) use ($month, $year) {
             return TransactionCategory::query()
                 ->where('type', $type)
-                ->withSum(['transactions' => function ($query) use ($startOfMonth, $endOfMonth) {
-                    $query->whereBetween('when', [$startOfMonth, $endOfMonth]);
+                ->withSum(['transactions' => function ($query) use ($month, $year) {
+                    $query->whereBetween('when', [
+                        Carbon::createFromDate($year, $month, 1)->startOfMonth()->startOfDay(),
+                        Carbon::createFromDate($year, $month, 1)->endOfMonth()->endOfDay(),
+                    ]);
                 }], 'amount')
                 ->whereNot('name', 'Transfer between accounts')
                 ->get()
