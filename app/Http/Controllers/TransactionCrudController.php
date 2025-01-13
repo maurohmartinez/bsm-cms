@@ -89,7 +89,7 @@ class TransactionCrudController extends CrudController
                 ? CRUD::getCurrentEntry()->transactionCategory->type->value
                 : null);
         CRUD::field('when')->type('date_picker')->size(4)->default(Carbon::now()->format('Y-m-d'));
-        CRUD::field('account')->type('enum')->size(4);
+        CRUD::field('account')->type('enum')->size(4)->default(AccountEnum::CASH->value);
 
         CRUD::field('transactionCategory')
             ->label('Category')
