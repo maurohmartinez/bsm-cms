@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\SubjectObserver;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 
 /**
  * App\Models\Subject
@@ -54,6 +56,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Subject withoutTrashed()
  * @mixin Eloquent
  */
+
+#[ObservedBy([SubjectObserver::class])]
 class Subject extends Model
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;

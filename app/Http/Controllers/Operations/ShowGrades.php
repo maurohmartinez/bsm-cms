@@ -6,7 +6,7 @@ use App\Models\Subject;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Route;
 
-trait Grades
+trait ShowGrades
 {
     protected function setupGradesRoutes(string $segment, string $routeName, string $controller): void
     {

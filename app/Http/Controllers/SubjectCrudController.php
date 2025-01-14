@@ -19,6 +19,7 @@ class SubjectCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \App\Http\Controllers\Operations\StudentGrades;
 
     public function setup(): void
     {
@@ -52,35 +53,32 @@ class SubjectCrudController extends CrudController
         CRUD::field('color')->tab('General')->type('color')->size(6);
         CRUD::field('files')->tab('General')->type('upload_multiple')->withFiles(true)->size(6);
         CRUD::field('is_official')->tab('General')->type('switch');
+    }
 
-        if (CRUD::getOperation() === 'update') {
-            /** @var Subject $entry */
-            $entry = CRUD::getCurrentEntry();
-            $students = $entry->students()->get();
-
-            // If a student doesn't have grades, add it
-            if ($students->count() !== $entry->studentGrades()->count()) {
-                foreach ($students as $student) {
-                    if ($entry->studentGrades()->where('student_id', $student->id)->exists()) {
-                        continue;
-                    }
-                    $entry->studentGrades()->create(['student_id' => $student->id]);
-                }
-            }
-
-            CRUD::field('studentGrades')
-                ->tab('Grades')
-                ->type('relationship')
-                ->label('Grades')
-                ->allows_null(false)
-                ->min_rows($students->count())
-                ->max_rows($students->count())
-                ->subfields([
-                    ['name' => 'student.name', 'wrapper' => ['class' => 'col-md-6'], 'allows_null' => false, 'type' => 'text', 'attributes' => ['readonly' => 'readonly']],
-                    ['name' => 'participation', 'type' => 'number', 'wrapper' => ['class' => 'col-md-3'], 'suffix' => '/100%'],
-                    ['name' => 'exam', 'type' => 'number', 'wrapper' => ['class' => 'col-md-3'], 'suffix' => '/100%'],
-                ]);
+    protected function setupStudentsGradesOperation(): void
+    {
+        if(!UserService::hasAccessTo('subjects')) {
+            CRUD::denyAccess('studentsGrades');
         }
+
+        CRUD::setValidation(\App\Http\Requests\SubjectGradesRequest::class);
+
+        /** @var Subject $entry */
+        $entry = CRUD::getCurrentEntry();
+        $students = $entry->students()->get();
+
+        CRUD::field('studentGrades')
+            ->tab('Grades')
+            ->type('relationship')
+            ->label('Grades')
+            ->allows_null(false)
+            ->min_rows($students->count())
+            ->max_rows($students->count())
+            ->subfields([
+                ['name' => 'student.name', 'wrapper' => ['class' => 'col-md-6'], 'allows_null' => false, 'type' => 'text', 'attributes' => ['readonly' => 'readonly']],
+                ['name' => 'participation', 'type' => 'number', 'wrapper' => ['class' => 'col-md-3'], 'suffix' => '/100%'],
+                ['name' => 'exam', 'type' => 'number', 'wrapper' => ['class' => 'col-md-3'], 'suffix' => '/100%'],
+            ]);
     }
 
     protected function setupUpdateOperation(): void

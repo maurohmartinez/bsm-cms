@@ -22,7 +22,7 @@ class StudentCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \App\Http\Controllers\Operations\PasswordOperation;
-    use \App\Http\Controllers\Operations\Grades;
+    use \App\Http\Controllers\Operations\ShowGrades;
 
     public function setup(): void
     {

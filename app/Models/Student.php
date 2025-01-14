@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Observers\StudentObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -9,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Cache;
 
+#[ObservedBy([StudentObserver::class])]
 class Student extends Authenticatable
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
@@ -36,17 +39,6 @@ class Student extends Authenticatable
     protected $casts = ['birth' => 'date', 'languages' => 'array', 'password' => 'hashed'];
 
     protected $hidden = ['password', 'remember_token'];
-
-    public static function boot(): void
-    {
-        parent::boot();
-
-        self::deleting(function (self $student) {
-            $student->transactions()->delete();
-            $student->attendance()->delete();
-            Cache::flush();
-        });
-    }
 
     public function year(): BelongsTo
     {
