@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subject;
+use App\Observers\SubjectObserver;
 use App\Services\UserService;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
@@ -66,6 +67,8 @@ class SubjectCrudController extends CrudController
         /** @var Subject $entry */
         $entry = CRUD::getCurrentEntry();
         $students = $entry->students()->get();
+
+        SubjectObserver::createStudentsGrades($entry);
 
         CRUD::field('studentGrades')
             ->tab('Grades')

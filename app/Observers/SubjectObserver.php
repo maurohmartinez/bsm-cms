@@ -10,15 +10,15 @@ class SubjectObserver
 {
     public function created(Subject $subject): void
     {
-        $this->createStudentsGrades($subject);
+        self::createStudentsGrades($subject);
     }
 
     public function updated(Subject $subject): void
     {
-        $this->createStudentsGrades($subject);
+        self::createStudentsGrades($subject);
     }
 
-    private function createStudentsGrades(Subject $subject): void
+    public static function createStudentsGrades(Subject $subject): void
     {
         $subject->students()
             ->whereDoesntHave(

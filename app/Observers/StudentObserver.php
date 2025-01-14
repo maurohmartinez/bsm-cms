@@ -11,12 +11,12 @@ class StudentObserver
 {
     public function created(Student $student): void
     {
-        $this->createStudentGrade($student);
+        self::createStudentGrade($student);
     }
 
     public function updated(Student $student): void
     {
-        $this->createStudentGrade($student);
+        self::createStudentGrade($student);
     }
 
     public function deleting(Student $student): void
@@ -27,7 +27,7 @@ class StudentObserver
         Cache::flush();
     }
 
-    private function createStudentGrade(Student $student): void
+    private static function createStudentGrade(Student $student): void
     {
         $student->subjects()
             ->whereDoesntHave(
