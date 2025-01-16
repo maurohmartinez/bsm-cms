@@ -19,7 +19,7 @@ class StudentGrade extends Model
 
     protected $casts = [
         'participation' => 'integer',
-        'exam' => 'boolean',
+        'exam' => 'integer',
     ];
 
     protected $with = ['student'];

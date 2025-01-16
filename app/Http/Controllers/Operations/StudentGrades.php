@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Operations;
 
-use App\Models\Subject;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
