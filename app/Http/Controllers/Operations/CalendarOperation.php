@@ -92,7 +92,8 @@ trait CalendarOperation
                     'end' => $lesson->ends_at->format('Y-m-d H:i:s'),
                     'allDay' => false,
                     'color' => match (true) {
-                        $lesson->is_chapel || in_array($lesson->status, [LessonStatusEnum::SPECIAL_ACTIVITY, LessonStatusEnum::TO_CONFIRM]) => LessonStatusEnum::getColor($lesson->status),
+                        $lesson->is_chapel,
+                        in_array($lesson->status, [LessonStatusEnum::WORSHIP_NIGHT, LessonStatusEnum::SPECIAL_ACTIVITY, LessonStatusEnum::TO_CONFIRM]) => LessonStatusEnum::getColor($lesson->status),
                         default => $subject?->color ?? 'lightgray',
                     },
                 ];
