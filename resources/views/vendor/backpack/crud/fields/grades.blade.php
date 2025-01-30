@@ -17,22 +17,21 @@
                     </thead>
                     <tbody>
                     @foreach($subjects as $subject)
+                        @php
+                            $totalAttendanceCount = $entry->attendance()
+                            ->whereHas('lesson', function (\Illuminate\Database\Eloquent\Builder $query) use ($subject) {
+                                $query->where('subject_id', $subject->id);
+                            })->count();
+                            $grade = $entry->grades()->where('subject_id', $subject->id)->first();
+                            $attendanceGrade = \App\Services\SubjectService::calculateAttendanceGrade($totalAttendanceCount, $subject->hours);
+                        @endphp
                         <tr>
                             <td>{{ $subject->name }}</td>
                             <td>{{ $subject->teacher->name }}</td>
-                            <td>{{ $entry->attendance()
-                                ->whereHas('lesson', function (\Illuminate\Database\Eloquent\Builder $query) use ($subject) {
-                                    $query->where('subject_id', $subject->id);
-                                })->count() }}<small class="text-muted">/{{ $subject->hours }}</small> <small class="text-muted">|</small> {{ round(($entry->attendance()
-                                ->whereHas('lesson', function (\Illuminate\Database\Eloquent\Builder $query) use ($subject) {
-                                    $query->where('subject_id', $subject->id);
-                                })->count() * 100) / $subject->hours) }}%</td>
-                            @php
-                                $grade = $entry->grades()->where('subject_id', $subject->id)->first();
-                            @endphp
+                            <td>{{ $totalAttendanceCount }}<small class="text-muted">/{{ $subject->hours }}</small> <small class="text-muted">|</small> {{ $attendanceGrade }}%</td>
                             <td>{{ $grade?->participation ?? '-' }}<small class="text-muted">/100</small></td>
                             <td>{{ $grade?->exam ?? '-' }}<small class="text-muted">/100</small></td>
-                            <td>?<small class="text-muted">/100</small></td>
+                            <td>{{ $grade?->exam && $grade?->participation ? \App\Services\SubjectService::calculateFinalGrade($grade->exam, $grade->participation, $attendanceGrade) : '-' }}<small class="text-muted">/100</small></td>
                         </tr>
                     @endforeach
                     </tbody>
