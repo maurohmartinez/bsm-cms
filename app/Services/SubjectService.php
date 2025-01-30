@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\User;
-
 class SubjectService
 {
     const EXAMS = 50;
