@@ -24,6 +24,12 @@
                             })->count();
                             $grade = $entry->grades()->where('subject_id', $subject->id)->first();
                             $attendanceGrade = \App\Services\SubjectService::calculateAttendanceGrade($totalAttendanceCount, $subject->hours);
+                            $finalGrade = $grade?->exam && $grade?->participation
+                                ? \App\Services\SubjectService::calculateFinalGrade($grade->exam, $grade->participation, $attendanceGrade)
+                                : null;
+                            $gradeClassText = $finalGrade
+                                ? ($finalGrade >= 60 ? 'success' : 'danger')
+                                : 'muted';
                         @endphp
                         <tr>
                             <td>{{ $subject->name }}</td>
@@ -31,7 +37,7 @@
                             <td>{{ $totalAttendanceCount }}<small class="text-muted">/{{ $subject->hours }}</small> <small class="text-muted">|</small> {{ $attendanceGrade }}%</td>
                             <td>{{ $grade?->participation ?? '-' }}<small class="text-muted">/100</small></td>
                             <td>{{ $grade?->exam ?? '-' }}<small class="text-muted">/100</small></td>
-                            <td>{{ $grade?->exam && $grade?->participation ? \App\Services\SubjectService::calculateFinalGrade($grade->exam, $grade->participation, $attendanceGrade) : '-' }}<small class="text-muted">/100</small></td>
+                            <td class="fw-bold text-{{ $gradeClassText }}">{{ $grade?->exam && $grade?->participation ? $finalGrade : '-' }}<small class="text-muted">/100</small></td>
                         </tr>
                     @endforeach
                     </tbody>
