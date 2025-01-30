@@ -12,9 +12,9 @@ class SubjectService
 
     public static function calculateFinalGrade(int $exams, int $participation, int $attendance): int
     {
-        return round(($exams * self::EXAMS) / 100)
-            + round(($participation * self::PARTICIPATION_NOTES) / 100)
-            + round(($attendance * self::ATTENDANCE) / 100);
+        return round((min(100, $exams) * self::EXAMS) / 100)
+            + round((min(100, $participation) * self::PARTICIPATION_NOTES) / 100)
+            + round((min(100, $attendance) * self::ATTENDANCE) / 100);
     }
 
     public static function calculateAttendanceGrade(int $totalAttendanceCount, int $subjectHoursCount): int
