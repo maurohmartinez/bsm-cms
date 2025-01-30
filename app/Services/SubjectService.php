@@ -19,6 +19,6 @@ class SubjectService
 
     public static function calculateAttendanceGrade(int $totalAttendanceCount, int $subjectHoursCount): int
     {
-        return round(($totalAttendanceCount * 100) / $subjectHoursCount);
+        return min(100, round(($totalAttendanceCount * 100) / $subjectHoursCount));
     }
 }
