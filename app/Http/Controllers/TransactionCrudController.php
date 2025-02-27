@@ -58,14 +58,13 @@ class TransactionCrudController extends CrudController
             ->label('By Type')
             ->whenActive(fn (string $value) => CRUD::addBaseClause('whereHas', 'transactionCategory', fn (Builder $query) => $query->where('type', $value)));
 
-        CRUD::filter('only_tuition')
-            ->type('simple')
-            ->label('Only tuition')
-            ->whenActive(fn () => CRUD::addBaseClause(
-                'whereHas',
-                'transactionCategory',
-                fn (Builder $query) => $query->where('transaction_categories.id', TransactionCategory::query()->where('name', 'Tuition')->first()->id)
-            ));
+        CRUD::filter('by_student')
+            ->type('select2_ajax')
+            ->values(backpack_url('transaction/fetch/by-student'))
+            ->method('POST')
+            ->placeholder('Find a student')
+            ->minimum_input_length(0)
+            ->whenActive(fn (int $studentId) => CRUD::addBaseClause('where', 'student_id', $studentId));
 
         CRUD::column('amount')->prefix('€ ');
         CRUD::column('transactionCategory.type')->label('Type')->type('enum')->wrapper([
@@ -193,6 +192,11 @@ class TransactionCrudController extends CrudController
                     : AccountEnum::BANK->value
                 ))),
         ]);
+    }
+
+    public function fetchByStudent(): Paginator|JsonResponse
+    {
+        return $this->fetch(Student::class);
     }
 
     public function fetchStudent(): Paginator|JsonResponse
