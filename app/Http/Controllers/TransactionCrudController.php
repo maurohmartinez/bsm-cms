@@ -58,6 +58,14 @@ class TransactionCrudController extends CrudController
             ->label('By Type')
             ->whenActive(fn (string $value) => CRUD::addBaseClause('whereHas', 'transactionCategory', fn (Builder $query) => $query->where('type', $value)));
 
+        CRUD::filter('by_category')
+            ->type('select2_ajax')
+            ->values(backpack_url('transaction/fetch/by-transaction-category'))
+            ->method('POST')
+            ->placeholder('Find a category')
+            ->minimum_input_length(0)
+            ->whenActive(fn (int $transactionCategoryId) => CRUD::addBaseClause('where', 'transaction_category_id', $transactionCategoryId));
+
         CRUD::filter('by_student')
             ->type('select2_ajax')
             ->values(backpack_url('transaction/fetch/by-student'))
@@ -134,6 +142,11 @@ class TransactionCrudController extends CrudController
     protected function setupUpdateOperation(): void
     {
         $this->setupCreateOperation();
+    }
+
+    public function fetchByTransactionCategory(): Paginator|JsonResponse
+    {
+        return $this->fetch(TransactionCategory::class);
     }
 
     public function fetchTransactionCategory(): Paginator|JsonResponse
