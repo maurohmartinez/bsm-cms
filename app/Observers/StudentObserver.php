@@ -23,6 +23,7 @@ class StudentObserver
     {
         $student->transactions()->delete();
         $student->attendance()->delete();
+        $student->grades()->delete();
 
         Cache::flush();
     }
