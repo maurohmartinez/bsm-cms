@@ -57,7 +57,7 @@ class StudentController extends Controller
         $end = $request->input('end');
         $limit = 2;
 
-        if (App::isProduction() && Carbon::make($end)->diffInWeeks(Carbon::now()) > $limit) {
+        if (App::isProduction() && Carbon::now()->addWeeks($limit)->isAfter(Carbon::make($end))) {
             return new JsonResponse([]);
         }
 
