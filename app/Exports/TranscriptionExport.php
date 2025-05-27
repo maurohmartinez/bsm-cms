@@ -38,12 +38,11 @@ class TranscriptionExport implements FromCollection, WithMapping, WithHeadings
             ? \App\Services\SubjectService::calculateFinalGrade($grade->exam, $grade->participation, $attendanceGrade)
             : 0;
 
-
         return [
             $row->name,
             $row->teacher->name,
-            $row->hours . 'h',
-            $finalGrade . '/100',
+            $row->hours,
+            $finalGrade,
         ];
     }
 
