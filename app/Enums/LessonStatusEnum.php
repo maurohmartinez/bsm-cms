@@ -12,6 +12,10 @@ enum LessonStatusEnum: string implements EnumWithTranslationInterface
     case TO_CONFIRM = 'TO_CONFIRM';
     case CONFIRMED = 'CONFIRMED';
     case SPECIAL_ACTIVITY = 'SPECIAL_ACTIVITY';
+    case HOLIDAY = 'HOLIDAY';
+    case SPRING_BREAK = 'SPRING_BREAK';
+    case CROSS_CULTURAL_EXPERIENCE = 'CROSS_CULTURAL_EXPERIENCE';
+    case CHECKPOINT = 'CHECKPOINT';
     case EVENING_AVAILABLE = 'EVENING_AVAILABLE';
     case CHAPEL = 'CHAPEL_CONFIRMED';
     case PRAYER = 'PRAYER';
@@ -42,6 +46,10 @@ enum LessonStatusEnum: string implements EnumWithTranslationInterface
             self::WORSHIP_NIGHT->value => 'Worship evening',
             self::EVENING_AVAILABLE->value => 'Evening available',
             self::SPECIAL_ACTIVITY->value => 'Special activity',
+            self::HOLIDAY->value => 'Holiday',
+            self::SPRING_BREAK->value => 'Spring Break',
+            self::CROSS_CULTURAL_EXPERIENCE->value => 'Cross Cultural Experience',
+            self::CHECKPOINT->value => 'Checkpoint',
         ];
     }
 
@@ -56,6 +64,10 @@ enum LessonStatusEnum: string implements EnumWithTranslationInterface
             self::CHAPEL => 'Chapel',
             self::PRAYER => 'Evening Prayer',
             self::WORSHIP_NIGHT => 'Worship evening',
+            self::HOLIDAY => 'Holiday',
+            self::SPRING_BREAK => 'Spring Break',
+            self::CROSS_CULTURAL_EXPERIENCE => 'Cross Cultural Experience',
+            self::CHECKPOINT => 'Checkpoint',
         };
     }
 
