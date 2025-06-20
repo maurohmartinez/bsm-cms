@@ -31,6 +31,10 @@ enum LessonStatusEnum: string implements EnumWithTranslationInterface
             self::PRAYER->value,
             self::WORSHIP_NIGHT->value => 'orange',
             self::EVENING_AVAILABLE->value => 'lightgray',
+            self::HOLIDAY->value => 'purple',
+            self::SPRING_BREAK->value => 'purple',
+            self::CROSS_CULTURAL_EXPERIENCE->value => 'orange',
+            self::CHECKPOINT->value => 'green',
             self::SPECIAL_ACTIVITY->value => 'gray',
         ][$case->value] ?? 'primary';
     }
