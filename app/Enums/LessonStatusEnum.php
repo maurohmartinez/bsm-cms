@@ -48,7 +48,7 @@ enum LessonStatusEnum: string implements EnumWithTranslationInterface
             self::SPECIAL_ACTIVITY->value => 'Special activity',
             self::HOLIDAY->value => 'Holiday',
             self::SPRING_BREAK->value => 'Spring Break',
-            self::CROSS_CULTURAL_EXPERIENCE->value => 'Cross Cultural Experience',
+            self::CROSS_CULTURAL_EXPERIENCE->value => 'Cross-cultural Experience',
             self::CHECKPOINT->value => 'Checkpoint',
         ];
     }
@@ -66,7 +66,7 @@ enum LessonStatusEnum: string implements EnumWithTranslationInterface
             self::WORSHIP_NIGHT => 'Worship evening',
             self::HOLIDAY => 'Holiday',
             self::SPRING_BREAK => 'Spring Break',
-            self::CROSS_CULTURAL_EXPERIENCE => 'Cross Cultural Experience',
+            self::CROSS_CULTURAL_EXPERIENCE => 'Cross-cultural Experience',
             self::CHECKPOINT => 'Checkpoint',
         };
     }
