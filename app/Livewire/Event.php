@@ -53,12 +53,16 @@ class Event extends WireModal
     #[NoReturn] private function updateRegularLesson(): void
     {
         $this->validate([
-            'subjectId' => in_array($this->status, [LessonStatusEnum::SPECIAL_ACTIVITY->value, LessonStatusEnum::AVAILABLE->value])
+            'subjectId' => in_array($this->status, [
+                LessonStatusEnum::SPECIAL_ACTIVITY->value,
+                LessonStatusEnum::AVAILABLE->value,
+                LessonStatusEnum::CHECKPOINT->value,
+                LessonStatusEnum::HOLIDAY->value,
+                LessonStatusEnum::SPRING_BREAK->value,
+                LessonStatusEnum::CROSS_CULTURAL_EXPERIENCE->value,
+            ])
                 ? 'prohibited'
                 : 'required|exists:subjects,id',
-//            'interpreterId' => in_array($this->status, [LessonStatusEnum::SPECIAL_ACTIVITY->value, LessonStatusEnum::AVAILABLE->value])
-//                ? 'prohibited'
-//                : 'required|exists:interpreters,id',
             'status' => 'required|in:' . implode(',', $this->subjectId
                     ? [
                         LessonStatusEnum::TO_CONFIRM->value,
@@ -66,6 +70,10 @@ class Event extends WireModal
                     ] : [
                         LessonStatusEnum::AVAILABLE->value,
                         LessonStatusEnum::SPECIAL_ACTIVITY->value,
+                        LessonStatusEnum::CHECKPOINT->value,
+                        LessonStatusEnum::HOLIDAY->value,
+                        LessonStatusEnum::SPRING_BREAK->value,
+                        LessonStatusEnum::CROSS_CULTURAL_EXPERIENCE->value,
                     ]),
             'notes' => 'sometimes|nullable|max:35',
         ]);

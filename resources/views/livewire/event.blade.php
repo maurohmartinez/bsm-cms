@@ -30,6 +30,10 @@
                             <option value="{{ \App\Enums\LessonStatusEnum::TO_CONFIRM->value }}">To confirm</option>
                             <option value="{{ \App\Enums\LessonStatusEnum::CONFIRMED->value }}">Confirmed</option>
                             <option value="{{ \App\Enums\LessonStatusEnum::SPECIAL_ACTIVITY->value }}">Special activity</option>
+                            <option value="{{ \App\Enums\LessonStatusEnum::CHECKPOINT->value }}">Checkpoint</option>
+                            <option value="{{ \App\Enums\LessonStatusEnum::HOLIDAY->value }}">Holiday</option>
+                            <option value="{{ \App\Enums\LessonStatusEnum::SPRING_BREAK->value }}">Spring Break</option>
+                            <option value="{{ \App\Enums\LessonStatusEnum::CROSS_CULTURAL_EXPERIENCE->value }}">Cross-Cultural Experience</option>
                         </select>
 {{--                        <label class="fw-bold mt-3">Interpreter</label>--}}
 {{--                        <select wire:model="interpreterId" class="form-control">--}}
