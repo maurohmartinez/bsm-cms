@@ -172,9 +172,10 @@ class Lesson extends Model
 
     public function scopeOnlyLessons(Builder $query): void
     {
-        $query->whereNotIn('status', [
-            ...array_keys(LessonStatusEnum::chapelsStatuses()),
-            LessonStatusEnum::SPECIAL_ACTIVITY->value,
+        $query->whereIn('status', [
+            LessonStatusEnum::AVAILABLE->value,
+            LessonStatusEnum::CONFIRMED->value,
+            LessonStatusEnum::TO_CONFIRM->value,
         ]);
     }
 
