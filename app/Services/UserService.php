@@ -43,33 +43,18 @@ class UserService
         ],
         6 => [ // Tanja
             'lessons',
-            'students',
-            'teachers',
-            'subjects',
         ],
         7 => [ // Laura
             'lessons',
-            'students',
-            'teachers',
-            'subjects',
         ],
         8 => [ // Manon
             'lessons',
-            'students',
-            'teachers',
-            'subjects',
         ],
         9 => [ // Vlada
             'lessons',
-            'students',
-            'teachers',
-            'subjects',
         ],
         10 => [ // Eliza D.
             'lessons',
-            'students',
-            'teachers',
-            'subjects',
         ],
     ];
 
