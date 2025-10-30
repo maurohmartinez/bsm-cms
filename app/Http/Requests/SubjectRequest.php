@@ -28,6 +28,7 @@ class SubjectRequest extends FormRequest
             'notes' => 'sometimes|nullable|max:2000',
             'files.*' => 'sometimes|nullable|file',
             'is_official' => 'required|boolean',
+            'is_pass_fail' => 'required|boolean',
             'teacher_id' => 'required|exists:teachers,id',
         ];
     }

@@ -19,9 +19,6 @@ return new class extends Migration
                 ], [
                     'name' => 'Santa Pecile',
                     'year_id' => 1,
-                ], [
-                    'name' => 'Viktoria Cheboterova',
-                    'year_id' => 1,
                 ],
             ]);
     }

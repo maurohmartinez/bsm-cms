@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
  * @property string $name
  * @property int $hours
  * @property bool $is_official
+ * @property bool $is_pass_fail
  * @property string|null $notes
  * @property array|null $files
  * @property string $color
@@ -78,19 +79,18 @@ class Subject extends Model
         'category_id',
         'color',
         'year_id',
+        'extras',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'id' => 'integer',
         'is_official' => 'boolean',
         'teacher_id' => 'integer',
         'files' => 'array',
+        'extras' => 'array',
     ];
+
+    protected array $fakeColumns = ['extras'];
 
     public function year(): BelongsTo
     {
@@ -138,6 +138,20 @@ class Subject extends Model
     {
         return Attribute::make(
             get: fn () => $this->name.' '.$this->year->name . ' (' . $this->lessons()->count() . ')',
+        );
+    }
+
+    protected function isOfficial(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->extras['is_official'] ?? false,
+        );
+    }
+
+    protected function isPassFail(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->extras['is_pass_fail'] ?? false,
         );
     }
 }

@@ -53,12 +53,13 @@ class SubjectCrudController extends CrudController
         CRUD::field('notes')->tab('General')->type('textarea');
         CRUD::field('color')->tab('General')->type('color')->size(6);
         CRUD::field('files')->tab('General')->type('upload_multiple')->withFiles(true)->size(6);
-        CRUD::field('is_official')->tab('General')->type('switch');
+        CRUD::field('is_official')->fake(true)->tab('General')->type('switch')->size(4);
+        CRUD::field('is_pass_fail')->fake(true)->tab('General')->type('switch')->size(4);
     }
 
     protected function setupStudentsGradesOperation(): void
     {
-        if(!UserService::hasAccessTo('subjects')) {
+        if (!UserService::hasAccessTo('subjects')) {
             CRUD::denyAccess('studentsGrades');
         }
 
@@ -79,8 +80,20 @@ class SubjectCrudController extends CrudController
             ->max_rows($students->count())
             ->subfields([
                 ['name' => 'student.name', 'wrapper' => ['class' => 'col-md-6'], 'allows_null' => false, 'type' => 'text', 'attributes' => ['readonly' => 'readonly']],
-                ['name' => 'participation', 'type' => 'number', 'wrapper' => ['class' => 'col-md-3'], 'suffix' => '/100%'],
-                ['name' => 'exam', 'type' => 'number', 'wrapper' => ['class' => 'col-md-3'], 'suffix' => '/100%'],
+                [
+                    'name' => 'participation',
+                    'type' => ($entry->is_pass_fail ? 'select_from_array' : 'number'),
+                    'wrapper' => ['class' => 'col-md-3'],
+                    'options' => $entry->is_pass_fail ? [0 => 'Failed', 100 => 'Passed'] : null,
+                    'suffix' => ($entry->is_pass_fail ? '' : '/100%'),
+                ],
+                [
+                    'name' => 'exam',
+                    'type' => ($entry->is_pass_fail ? 'select_from_array' : 'number'),
+                    'wrapper' => ['class' => 'col-md-3'],
+                    'options' => $entry->is_pass_fail ? [0 => 'Failed', 100 => 'Passed'] : null,
+                    'suffix' => '/100%',
+                ],
             ]);
     }
 
