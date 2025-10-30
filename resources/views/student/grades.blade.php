@@ -39,15 +39,15 @@
                                     <td>{{ $subject->teacher->name }}</td>
                                     <td>{{ $totalAttendanceCount }}/{{ $subject->hours }} <small class="text-muted">|</small> {{ $attendanceGrade }}%</td>
                                     <td>
-                                        @if($subject->is_pass_fail && $grade)
-                                            {{ $grade->participation === 100 ? 'Passed' : 'Failed' }}
+                                        @if($subject->is_pass_fail)
+                                            {{ $grade?->participation === 100 ? 'Passed' : 'Failed' }}
                                         @else
                                             {{ $grade?->participation ?? '-' }}<small class="text-muted">/100</small>
                                         @endif
                                     </td>
                                     <td>
-                                        @if($subject->is_pass_fail && $grade)
-                                            {{ $grade->exam === 100 ? 'Passed' : 'Failed' }}
+                                        @if($subject->is_pass_fail)
+                                            {{ $grade?->exam === 100 ? 'Passed' : 'Failed' }}
                                         @else
                                             {{ $grade?->exam ?? '-' }}<small class="text-muted">/100</small>
                                         @endif
