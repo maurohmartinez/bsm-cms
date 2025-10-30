@@ -32,25 +32,25 @@
                                 : 'muted';
                         @endphp
                         <tr>
-                            <td>{{ $subject->name }} {{ json_encode($entry->toArray()) }}</td>
+                            <td>{{ $subject->name }}</td>
                             <td>{{ $subject->teacher->name }}</td>
                             <td>{{ $totalAttendanceCount }}<small class="text-muted">/{{ $subject->hours }}</small> <small class="text-muted">|</small> {{ $attendanceGrade }}%</td>
                             <td>
-                                @if($entry->is_pass_fail)
+                                @if($subject->is_pass_fail)
                                     {{ $grade->participation === 100 ? 'Passed' : 'Failed' }}
                                 @else
                                     {{ $grade?->participation ?? '-' }}<small class="text-muted">/100</small>
                                 @endif
                             </td>
                             <td>
-                                @if($entry->is_pass_fail)
+                                @if($subject->is_pass_fail)
                                     {{ $grade->exam === 100 ? 'Passed' : 'Failed' }}
                                 @else
                                     {{ $grade?->exam ?? '-' }}<small class="text-muted">/100</small>
                                 @endif
                             </td>
                             <td class="fw-bold text-{{ $gradeClassText }}">
-                                @if($entry->is_pass_fail)
+                                @if($subject->is_pass_fail)
                                     {{ $finalGrade >= 60 ? 'Passed' : 'Failed' }}
                                 @else
                                     {{ $grade?->exam && $grade?->participation ? $finalGrade : '-' }}<small class="text-muted">/100</small>
