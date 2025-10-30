@@ -142,14 +142,14 @@ class Subject extends Model
     protected function isOfficial(): Attribute
     {
         return Attribute::make(
-            get: fn () => (bool) $this->extras['is_official'] ?? false,
+            get: fn () => (bool) $this->extras && $this->extras['is_official'] ?? false,
         );
     }
 
     protected function isPassFail(): Attribute
     {
         return Attribute::make(
-            get: fn () => (bool) $this->extras['is_pass_fail'] ?? false,
+            get: fn () => (bool) $this->extras && $this->extras['is_pass_fail'] ?? false,
         );
     }
 }
