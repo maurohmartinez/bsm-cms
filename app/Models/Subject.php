@@ -72,7 +72,6 @@ class Subject extends Model
     protected $fillable = [
         'name',
         'hours',
-        'is_official',
         'notes',
         'files',
         'teacher_id',
@@ -84,7 +83,6 @@ class Subject extends Model
 
     protected $casts = [
         'id' => 'integer',
-        'is_official' => 'boolean',
         'teacher_id' => 'integer',
         'files' => 'array',
         'extras' => 'array',
@@ -144,14 +142,14 @@ class Subject extends Model
     protected function isOfficial(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->extras['is_official'] ?? false,
+            get: fn () => (bool) $this->extras['is_official'] ?? false,
         );
     }
 
     protected function isPassFail(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->extras['is_pass_fail'] ?? false,
+            get: fn () => (bool) $this->extras['is_pass_fail'] ?? false,
         );
     }
 }

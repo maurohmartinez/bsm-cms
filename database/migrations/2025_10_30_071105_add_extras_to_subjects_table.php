@@ -9,7 +9,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('subjects', function (Blueprint $table) {
-            $table->json('extras')->nullable()->default(null);
+            $table->json('extras')->nullable()->default(null)->after('year_id');
+            $table->dropColumn('is_official');
         });
     }
 

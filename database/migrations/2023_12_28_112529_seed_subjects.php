@@ -31,7 +31,6 @@ return new class extends Migration
                 [
                     'name' => 'God',
                     'hours' => 16,
-                    'is_official' => true,
                     'teacher_id' => 6,
                     'category_id' => 1,
                     'year_id' => 1,
@@ -39,7 +38,6 @@ return new class extends Migration
                 ], [
                     'name' => 'Introduction to the Bible',
                     'hours' => 16,
-                    'is_official' => true,
                     'teacher_id' => 1,
                     'category_id' => 1,
                     'year_id' => 1,
@@ -47,7 +45,6 @@ return new class extends Migration
                 ], [
                     'name' => 'Discipleship',
                     'hours' => 16,
-                    'is_official' => true,
                     'teacher_id' => 5,
                     'category_id' => 3,
                     'year_id' => 1,
