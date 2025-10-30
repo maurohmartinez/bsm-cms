@@ -27,7 +27,7 @@
                             $finalGrade = $grade?->exam && $grade?->participation
                                 ? \App\Services\SubjectService::calculateFinalGrade($grade->exam, $grade->participation, $attendanceGrade)
                                 : null;
-                            $gradeClassText = is_null($finalGrade)
+                            $gradeClassText = !is_null($finalGrade)
                                 ? ($finalGrade >= 60 ? 'success' : 'danger')
                                 : 'muted';
                         @endphp
