@@ -32,7 +32,7 @@
                                 : 'muted';
                         @endphp
                         <tr>
-                            <td>{{ $subject->name }}</td>
+                            <td>{{ $subject->name }} {{ $entry->is_pass_fail }}</td>
                             <td>{{ $subject->teacher->name }}</td>
                             <td>{{ $totalAttendanceCount }}<small class="text-muted">/{{ $subject->hours }}</small> <small class="text-muted">|</small> {{ $attendanceGrade }}%</td>
                             <td>
