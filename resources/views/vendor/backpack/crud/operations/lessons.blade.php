@@ -34,19 +34,14 @@
                 multiMonthMaxColumns: 1,
                 businessHours: [
                     {
-                        daysOfWeek: [1],
-                        startTime: '09:30',
-                        endTime: '14:00',
-                    },
-                    {
-                        daysOfWeek: [2, 3, 4],
-                        startTime: '08:30',
-                        endTime: '14:00',
+                        daysOfWeek: [1, 2, 3, 4],
+                        startTime: '10:00',
+                        endTime: '14:50',
                     },
                     {
                         daysOfWeek: [5],
-                        startTime: '08:30',
-                        endTime: '13:00',
+                        startTime: '10:00',
+                        endTime: '12:20',
                     },
                     {
                         daysOfWeek: [1, 2, 3, 4],
