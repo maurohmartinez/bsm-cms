@@ -20,6 +20,7 @@ enum LessonStatusEnum: string implements EnumWithTranslationInterface
     case CHAPEL = 'CHAPEL_CONFIRMED';
     case PRAYER = 'PRAYER';
     case WORSHIP_NIGHT = 'WORSHIP_NIGHT';
+    case SEMINAR = 'SEMINAR';
 
     public static function getColor(self $case): string
     {
@@ -30,6 +31,7 @@ enum LessonStatusEnum: string implements EnumWithTranslationInterface
             self::CHAPEL->value => 'darkcyan',
             self::PRAYER->value,
             self::WORSHIP_NIGHT->value => 'orange',
+            self::SEMINAR->value => 'indigo',
             self::EVENING_AVAILABLE->value => 'lightgray',
             self::HOLIDAY->value => 'purple',
             self::SPRING_BREAK->value => 'purple',
@@ -54,6 +56,7 @@ enum LessonStatusEnum: string implements EnumWithTranslationInterface
             self::SPRING_BREAK->value => 'Spring Break',
             self::CROSS_CULTURAL_EXPERIENCE->value => 'Cross-cultural Experience',
             self::CHECKPOINT->value => 'Checkpoint',
+            self::SEMINAR->value => 'Seminar',
         ];
     }
 
@@ -72,6 +75,7 @@ enum LessonStatusEnum: string implements EnumWithTranslationInterface
             self::SPRING_BREAK => 'Spring Break',
             self::CROSS_CULTURAL_EXPERIENCE => 'Cross-cultural Experience',
             self::CHECKPOINT => 'Checkpoint',
+            self::SEMINAR => 'Seminar',
         };
     }
 
@@ -82,6 +86,7 @@ enum LessonStatusEnum: string implements EnumWithTranslationInterface
             self::CHAPEL->value => 'Chapel',
             self::PRAYER->value => 'Evening Prayer',
             self::WORSHIP_NIGHT->value => 'Worship evening',
+            self::SEMINAR->value => 'Seminar',
         ];
     }
 }

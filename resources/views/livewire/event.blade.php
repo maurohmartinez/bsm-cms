@@ -34,6 +34,7 @@
                             <option value="{{ \App\Enums\LessonStatusEnum::HOLIDAY->value }}">Holiday</option>
                             <option value="{{ \App\Enums\LessonStatusEnum::SPRING_BREAK->value }}">Spring Break</option>
                             <option value="{{ \App\Enums\LessonStatusEnum::CROSS_CULTURAL_EXPERIENCE->value }}">Cross-Cultural Experience</option>
+                            <option value="{{ \App\Enums\LessonStatusEnum::SEMINAR->value }}">Seminar</option>
                         </select>
 {{--                        <label class="fw-bold mt-3">Interpreter</label>--}}
 {{--                        <select wire:model="interpreterId" class="form-control">--}}

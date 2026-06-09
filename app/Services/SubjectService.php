@@ -4,11 +4,11 @@ namespace App\Services;
 
 class SubjectService
 {
-    const EXAMS = 50;
+    const int EXAMS = 50;
 
-    const PARTICIPATION_NOTES = 20;
+    const int PARTICIPATION_NOTES = 20;
 
-    const ATTENDANCE = 30;
+    const int ATTENDANCE = 30;
 
     public static function calculateFinalGrade(int $exams, int $participation, int $attendance): int
     {

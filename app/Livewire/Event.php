@@ -33,7 +33,7 @@ class Event extends WireModal
         return 'event';
     }
 
-    #[NoReturn] public function submit(): void
+    public function submit(): void
     {
         match ($this->isLesson) {
             true => $this->updateRegularLesson(),
@@ -50,7 +50,7 @@ class Event extends WireModal
         }
     }
 
-    #[NoReturn] private function updateRegularLesson(): void
+    private function updateRegularLesson(): void
     {
         $this->validate([
             'subjectId' => in_array($this->status, [
@@ -60,6 +60,7 @@ class Event extends WireModal
                 LessonStatusEnum::HOLIDAY->value,
                 LessonStatusEnum::SPRING_BREAK->value,
                 LessonStatusEnum::CROSS_CULTURAL_EXPERIENCE->value,
+                LessonStatusEnum::SEMINAR->value,
             ])
                 ? 'prohibited'
                 : 'required|exists:subjects,id',
@@ -74,6 +75,7 @@ class Event extends WireModal
                         LessonStatusEnum::HOLIDAY->value,
                         LessonStatusEnum::SPRING_BREAK->value,
                         LessonStatusEnum::CROSS_CULTURAL_EXPERIENCE->value,
+                        LessonStatusEnum::SEMINAR->value,
                     ]),
             'notes' => 'sometimes|nullable|max:35',
         ]);
@@ -99,7 +101,7 @@ class Event extends WireModal
         $this->hide();
     }
 
-    #[NoReturn] private function updateChapel(): void
+    private function updateChapel(): void
     {
         $this->validate([
             'status' => 'required|in:' . implode(',', array_keys(LessonStatusEnum::chapelsStatuses())),

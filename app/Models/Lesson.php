@@ -73,43 +73,29 @@ class Lesson extends Model
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use \Illuminate\Database\Eloquent\SoftDeletes;
 
-    public const MONDAY_SCHEDULE = [
-        ['09:30', '10:20'],
-        ['10:30', '11:20'],
-        ['12:00', '12:50'],
-        ['13:00', '13:50'],
+    public const array REGULAR_SCHEDULE = [
+        ['10:00', '10:40'],
+        ['10:50', '11:30'],
+        ['11:40', '12:20'],
+        ['13:20', '14:00'],
+        ['14:10', '14:50'],
         ['19:00', '21:00'],
     ];
 
-    public const REGULAR_SCHEDULE = [
-        ['08:30', '09:20'],
-        ['09:30', '10:20'],
-        ['10:30', '11:20'],
-        ['12:00', '12:50'],
-        ['13:00', '13:50'],
-        ['19:00', '21:00'],
+    public const array FRIDAY_SCHEDULE = [
+        ['10:00', '10:40'],
+        ['10:50', '11:30'],
+        ['11:40', '12:20'],
     ];
 
-    public const FRIDAY_SCHEDULE = [
-        ['08:30', '09:20'],
-        ['09:30', '10:20'],
-        ['11:00', '11:50'],
-        ['12:00', '12:50'],
-    ];
-
-    public const SCHEDULE = [
-        1 => self::MONDAY_SCHEDULE,
+    public const array SCHEDULE = [
+        1 => self::REGULAR_SCHEDULE,
         2 => self::REGULAR_SCHEDULE,
         3 => self::REGULAR_SCHEDULE,
         4 => self::REGULAR_SCHEDULE,
         5 => self::FRIDAY_SCHEDULE,
     ];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'starts_at',
         'ends_at',
@@ -122,11 +108,6 @@ class Lesson extends Model
         'notify_teacher',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'starts_at' => 'datetime',
         'ends_at' => 'datetime',
