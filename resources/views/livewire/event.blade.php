@@ -32,7 +32,7 @@
                             <option value="{{ \App\Enums\LessonStatusEnum::SPECIAL_ACTIVITY->value }}">Special activity</option>
                             <option value="{{ \App\Enums\LessonStatusEnum::CHECKPOINT->value }}">Checkpoint</option>
                             <option value="{{ \App\Enums\LessonStatusEnum::HOLIDAY->value }}">Holiday</option>
-                            <option value="{{ \App\Enums\LessonStatusEnum::SPRING_BREAK->value }}">Spring Break</option>
+                            <option value="{{ \App\Enums\LessonStatusEnum::SPRING_BREAK->value }}">Break</option>
                             <option value="{{ \App\Enums\LessonStatusEnum::CROSS_CULTURAL_EXPERIENCE->value }}">Cross-Cultural Experience</option>
                             <option value="{{ \App\Enums\LessonStatusEnum::SEMINAR->value }}">Seminar</option>
                         </select>
