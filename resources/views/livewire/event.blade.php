@@ -56,8 +56,10 @@
                     <input type="text" wire:model="notes" class="form-control">
 
                 </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <button class="btn btn-primary" type="submit">Update</button>
+                <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                    <button class="btn btn-primary" type="submit">Update</button>
+                </div>
             @endif
         </form>
     </div>
