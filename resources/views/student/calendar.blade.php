@@ -51,7 +51,7 @@
                 editable: false,
                 initialView: 'timeGridWeek',
                 slotMinTime: '08:30',
-                slotMaxTime: '14:00',
+                slotMaxTime: '14:50',
                 displayEventTime: false,
                 eventSources: [
                     {
